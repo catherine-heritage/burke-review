@@ -20,7 +20,7 @@ The 36 finished mockup PNGs and four blank PNGs remain unchanged; `assets/mockup
 
 SVG applications preserve supplied geometry. The updated coloured artboards and light-favicon backgrounds use shared Neutral 1 `#E6E4E0`; Neutral 2 is `#FAFAF8`. Palette display order is Accent, Primary, Secondary, Neutral 1, Neutral 2. Gold is labelled Black and gold. All three supplied Blue logo artboards use primary `#1B2E46`, which takes precedence over the palette-only reference listing `#1D3348`.
 
-Child companies retain the supplied symbols and BURKE outlines, with Montserrat Semi Bold descriptors and fixed secondary colours: Realty `#BD6C5A`, Development `#648EAB`, Property Management `#4C968E`. Group of companies uses the supplied SureBuilt and Slimlines PNGs unchanged. Montserrat and its licence are self-hosted.
+Child companies retain the supplied symbols and BURKE outlines, with Montserrat Semi Bold descriptors and fixed secondary colours: Realty `#BD6C5A`, Development `#648EAB`, Property Management `#4C968E`. Property Management website headers use the three supplied outlined horizontal SVGs; original files are retained in assets/companies/property-management. Group of companies uses the supplied SureBuilt and Slimlines PNGs unchanged. Montserrat and its licence are self-hosted.
 
 ## Previous round
 

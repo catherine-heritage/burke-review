@@ -1,5 +1,6 @@
 import './colour-lab/logo-data.js';
 import {COMPANY_TEMPLATES} from './company-data.js';
+import {PROPERTY_MANAGEMENT_HORIZONTAL} from './property-management-data.js';
 import {LOGOS,PALETTES,APPLICATIONS,VARIATIONS,logoAsset,mockupAsset,availableVariations} from './data.js';
 const $=id=>document.getElementById(id);
 const label=logo=>`Logo ${logo}`;
@@ -192,13 +193,16 @@ function childArtwork(logo,company,colors){
  const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name);svg.querySelector('text').setAttribute('font-size',company.name.length>15?'38':'55');return holder;
 }
 function childHorizontalArtwork(logo,company,colors){
+ if(company.name==='Property Management'){
+  const holder=document.createElement('div');holder.className='child-horizontal';holder.innerHTML=PROPERTY_MANAGEMENT_HORIZONTAL[logo];const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke Property Management horizontal logo');svg.querySelectorAll('[data-colour]').forEach(el=>el.setAttribute('fill',colors[el.dataset.colour]));return holder;
+ }
  const art=window.BURKE_DATA.logos[logo].blue.horizontal,ns='http://www.w3.org/2000/svg';
  const holder=document.createElement('div');holder.className='child-horizontal';const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox',art.vb);svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name+' horizontal logo');
  const word=document.createElementNS(ns,'g'),descriptor=document.createElementNS(ns,'g');svg.append(word,descriptor);
  for(const [tag,attrs,role,original] of art.els){const el=document.createElementNS(ns,tag);for(const [key,value] of Object.entries(attrs))el.setAttribute(key,value);el.setAttribute('fill',['symSec','group'].includes(role)?colors.secondary:['symMain','burke'].includes(role)?colors.primary:original);(role==='burke'?word:role==='group'?descriptor:svg).append(el);}
  // Measure the supplied wordmark and descriptor to retain their alignment.
  svg.style.cssText='position:absolute;left:-10000px;visibility:hidden;width:1000px;height:300px';document.body.append(svg);const w=word.getBBox(),d=descriptor.getBBox();svg.remove();svg.removeAttribute('style');descriptor.remove();
- const lines=logo===1&&company.name==='Property Management'?['PROPERTY','MANAGEMENT']:[company.name.toUpperCase()];
+ const lines=[company.name.toUpperCase()];
  const fontSize=Math.min(d.height*1.35,w.width/(Math.max(...lines.map(line=>line.length))*.8)),spacing=d.height*.1;
  const text=document.createElementNS(ns,'text');text.setAttribute('font-family','Montserrat, sans-serif');text.setAttribute('font-weight','600');text.setAttribute('font-size',fontSize);text.setAttribute('letter-spacing',spacing);text.setAttribute('fill',colors.secondary);
  lines.forEach((line,i)=>{const span=document.createElementNS(ns,'tspan');span.textContent=line+(i<lines.length-1?' ':'');span.setAttribute('x',w.x);span.setAttribute('y',d.y+d.height+i*fontSize*1.2);span.setAttribute('textLength',Math.min(w.width*.97,line.length*(fontSize*.7+spacing)));span.setAttribute('lengthAdjust','spacingAndGlyphs');text.append(span);});
