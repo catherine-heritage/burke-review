@@ -8,6 +8,8 @@ assert len(photos)==40
 assert len({p['path'] for p in photos})==40
 for item in photos:
     assert hashlib.sha256((ROOT/item['path']).read_bytes()).hexdigest()==item['sha256'],item['path']
+assert next(p for p in photos if p['source']=='Green Cap 2.png')['path']=='assets/mockups/green/3/cap.png'
+assert next(p for p in photos if p['source']=='Green Cap 3.png')['path']=='assets/mockups/green/2/cap.png'
 def shapes(p):
     return [(e.tag.split('}')[-1],tuple(sorted(e.attrib.items()))) for e in ET.parse(p).getroot().iter() if e.tag.split('}')[-1] in ['path','rect','polygon','circle','ellipse']]
 count=0

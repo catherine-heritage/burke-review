@@ -26,6 +26,8 @@ The original root page remains available in Git at the baseline commit. An addit
 
 ### Supplied artwork limitation
 
+The supplied `Green Cap 2.png` contains Logo 03, and `Green Cap 3.png` contains Logo 02. Visual inspection confirmed their filenames are reversed. The gallery maps them to their actual logos; the PNGs remain unchanged and their source filenames/checksums are recorded.
+
 All nine colour artboards have five complete applications: primary stacked, horizontal, dark favicon, light favicon and standalone symbol. The black artboards have four complete applications. Logo 01's fifth symbol contains only two vertical rectangles; Logos 02 and 03 omit the fifth symbol. Incomplete black symbols are intentionally omitted. No substitute artwork is created. Complete corrected black symbol artwork can be added later.
 
 The Gold SVGs use their supplied black fill in some components; they are displayed exactly as supplied, while the palette selector shows the requested `#1E1F1F` / `#B08A56` swatches. No prepared SVG fills have been substituted.
