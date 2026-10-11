@@ -1,0 +1,202 @@
+[
+  {
+    "source": "Blue Business card 1.png",
+    "path": "assets/mockups/blue/1/card.png",
+    "sha256": "1064106c26dc5e451c5d5c27895646af139fcb5b7ffb4b1591a54bac50676ca2"
+  },
+  {
+    "source": "Blue Business card 2.png",
+    "path": "assets/mockups/blue/2/card.png",
+    "sha256": "2d11daaded8352d79e06bf11571599bdb58e14e797842b997626375c6fc59518"
+  },
+  {
+    "source": "Blue Business card 3.png",
+    "path": "assets/mockups/blue/3/card.png",
+    "sha256": "eef5fbb1b4ddcb93a8de1d812c24c50d61151d29e8090caa119dcd554dfb4aac"
+  },
+  {
+    "source": "Blue Cap 1.png",
+    "path": "assets/mockups/blue/1/cap.png",
+    "sha256": "d1ec65bf33da058ba9a5762193276d02507f515a6e20e4cac13ae18540596cb4"
+  },
+  {
+    "source": "Blue Cap 2.png",
+    "path": "assets/mockups/blue/2/cap.png",
+    "sha256": "bb16c0cce8664739b56a3cdd2cb12cacaa5de4f02c7354b642824c42727c57ba"
+  },
+  {
+    "source": "Blue Cap 3.png",
+    "path": "assets/mockups/blue/3/cap.png",
+    "sha256": "b67cf46bd5950002ad71a239d7e0241307d6be7a84c63c738f0e63f44439770a"
+  },
+  {
+    "source": "Blue Polo 1.png",
+    "path": "assets/mockups/blue/1/polo.png",
+    "sha256": "5b29489410a80e8670da7f6abe29299a2a7c4a1c187c7c956de0f53d045224c4"
+  },
+  {
+    "source": "Blue Polo 2.png",
+    "path": "assets/mockups/blue/2/polo.png",
+    "sha256": "7b4cda793505e62d6dd8a85d37f958d79630f70501b051fb578de5bed3fee8d7"
+  },
+  {
+    "source": "Blue Polo 3.png",
+    "path": "assets/mockups/blue/3/polo.png",
+    "sha256": "3db970807f007d6a248eb0cf72217191caf34c793be690d7b027e7f1ff105aad"
+  },
+  {
+    "source": "Blue Sign 1.png",
+    "path": "assets/mockups/blue/1/sign.png",
+    "sha256": "c16ceec7b291762e2544ecb365158413d514b05b559a13d95de93c817cffb698"
+  },
+  {
+    "source": "Blue Sign 2.png",
+    "path": "assets/mockups/blue/2/sign.png",
+    "sha256": "033866eeb23a9ce25ac2e1530e6c99fd47355374eba07d5a39859b408de18400"
+  },
+  {
+    "source": "Blue Sign 3.png",
+    "path": "assets/mockups/blue/3/sign.png",
+    "sha256": "fc2082386c4258892d2054f76cdbcd429c5306360a42fc61f33555017907a8bb"
+  },
+  {
+    "source": "Burke Group forest green bronze business card-1.png",
+    "path": "assets/mockups/green/1/card.png",
+    "sha256": "0cb185ea8e843cd6f46480b255d19131a5e3c60950b6f66d89171858e63a59be"
+  },
+  {
+    "source": "Burke Group Green Card Mockup-2.png",
+    "path": "assets/mockups/green/2/card.png",
+    "sha256": "32d50278a805694851287543312cd6c4bc3a2cae8cfd478a5db10e008e5899a3"
+  },
+  {
+    "source": "Gold Business Card 1.png",
+    "path": "assets/mockups/gold/1/card.png",
+    "sha256": "fa35bf1ed6b73fc38c411865159ede68a717316183d0bf86851747c1d33272a9"
+  },
+  {
+    "source": "Gold Business Card 2.png",
+    "path": "assets/mockups/gold/2/card.png",
+    "sha256": "0112357e1b1c3ced2a1aed69ae1af944f4c515276357ba2343c2f7c8e34ec51f"
+  },
+  {
+    "source": "Gold Business Card 3.png",
+    "path": "assets/mockups/gold/3/card.png",
+    "sha256": "ab676dd939d263c16eaac1712b9633984c0297c8d982c5f1ff7effbff352981c"
+  },
+  {
+    "source": "Gold Cap 1.png",
+    "path": "assets/mockups/gold/1/cap.png",
+    "sha256": "5e67f7bd58532989027541c68c38f9949bd34e92eefc8828addab90e3c2d5289"
+  },
+  {
+    "source": "Gold Cap 2.png",
+    "path": "assets/mockups/gold/2/cap.png",
+    "sha256": "7bbccf1bb50488c82b6fb9475ae4d22ba7689a8528ece12c27db4958aa8962d1"
+  },
+  {
+    "source": "Gold Cap 3.png",
+    "path": "assets/mockups/gold/3/cap.png",
+    "sha256": "420dc3e0904e4eb0ee683b180e1eec7501ccd5548a9a8dbd38b03e34b81dd7c0"
+  },
+  {
+    "source": "Gold Polo 1.png",
+    "path": "assets/mockups/gold/1/polo.png",
+    "sha256": "4cbd7b92d79f8583278b7af175f48974cdb37c5462333447cf0c68872a71fffd"
+  },
+  {
+    "source": "Gold Polo 2.png",
+    "path": "assets/mockups/gold/2/polo.png",
+    "sha256": "759fb27aacac0658e9343e7a791a176682d047b4340ed6d59ff87bfc98345fd1"
+  },
+  {
+    "source": "Gold Polo 3.png",
+    "path": "assets/mockups/gold/3/polo.png",
+    "sha256": "1dbfcb837514caa94549cf4742df610ec03344a45d9e7d380a86df006e9ccb49"
+  },
+  {
+    "source": "Gold Sign 1.png",
+    "path": "assets/mockups/gold/1/sign.png",
+    "sha256": "282b5bf82a7435eafc76c239e9991a89f0d8611659054843933396aa52401883"
+  },
+  {
+    "source": "Gold Sign 2.png",
+    "path": "assets/mockups/gold/2/sign.png",
+    "sha256": "d96680219bb5c4c794d308ba43923720e3a909dd20c16524789a1fd599424786"
+  },
+  {
+    "source": "Gold Sign 3.png",
+    "path": "assets/mockups/gold/3/sign.png",
+    "sha256": "98f44d2af26d9446adf385bc473779dd87a17f0eafb9f5a1f53f85fe4a7d3165"
+  },
+  {
+    "source": "Green Cap 1.png",
+    "path": "assets/mockups/green/1/cap.png",
+    "sha256": "9c838ce786f7c2620a3603d158e6062ccff4493da09e7bc99ca58629b2d37584"
+  },
+  {
+    "source": "Green Cap 2.png",
+    "path": "assets/mockups/green/2/cap.png",
+    "sha256": "b2b19d7c9f27e71fe9caafd6b585230011825893b066fad06042da7d21e2522a"
+  },
+  {
+    "source": "Green Cap 3.png",
+    "path": "assets/mockups/green/3/cap.png",
+    "sha256": "d63d3fc6965b4b1aea0abb4a723c6efb48136b32407b1623cf50343a85b223b7"
+  },
+  {
+    "source": "Green Polo 1.png",
+    "path": "assets/mockups/green/1/polo.png",
+    "sha256": "e95452941aecd9f253a92271aa7344e798fddf1a56cfbeaa2220283619be8170"
+  },
+  {
+    "source": "Green Polo 2.png",
+    "path": "assets/mockups/green/2/polo.png",
+    "sha256": "b34ce7fb85b41c97d81a80e9e22486841acfd06a6ecdb5b952ec25c2b3c56a22"
+  },
+  {
+    "source": "Green Polo 3.png",
+    "path": "assets/mockups/green/3/polo.png",
+    "sha256": "38c6157c4163cf8f55d988e7d2aee7e67b46653ef8de743898414ad9a51187c8"
+  },
+  {
+    "source": "Green Sign 1.png",
+    "path": "assets/mockups/green/1/sign.png",
+    "sha256": "29d987bc15d455b7a0ee86579b2b9b1c00c92336962098f1e72243ca8ba739b7"
+  },
+  {
+    "source": "Green Sign 2.png",
+    "path": "assets/mockups/green/2/sign.png",
+    "sha256": "9c1461c90b587ee8ce410b4004aa8b477d863bbb7e734d0ac106eb2903881880"
+  },
+  {
+    "source": "Green Sign 3.png",
+    "path": "assets/mockups/green/3/sign.png",
+    "sha256": "af35808313991cf6cb1b055c1391bf7d632b974e7dc1deba3bb7b9760f36b1b7"
+  },
+  {
+    "source": "Premium Forest Green Burke Card Mockup-3.png",
+    "path": "assets/mockups/green/3/card.png",
+    "sha256": "66c91de9cce16304f4eaaa4e8c87a8fa0c1e9a57ba06c99f0cc97b3a87b8634f"
+  },
+  {
+    "source": "Baseball cap.png",
+    "path": "assets/mockups/blank/cap.png",
+    "sha256": "1e511d6b0c8522879c818093a00a99d59a9086df5f9d2674b337b9d8815dfcf8"
+  },
+  {
+    "source": "Business card.png",
+    "path": "assets/mockups/blank/card.png",
+    "sha256": "9a7b465d86ccfa00ff68d6586ebff248d819f230eae019481cb8c4ec54ab48c6"
+  },
+  {
+    "source": "Limestone wall.png",
+    "path": "assets/mockups/blank/sign.png",
+    "sha256": "64373352de92e19b94a7c9371cb26ed3bcea72893f065bc319dc6149f7c342fe"
+  },
+  {
+    "source": "Polo shirt.png",
+    "path": "assets/mockups/blank/polo.png",
+    "sha256": "f344af2d666c494abde1882e1390bbe6ac213f47c6079c6c9b24fc3907ad5fca"
+  }
+]
