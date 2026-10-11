@@ -124,7 +124,7 @@ function renderComparison(){
  [...$('combination-headings').children].forEach((cell,i)=>{const c=choices[i];cell.querySelector('h2').textContent=state.compare==='combinations'?'Option '+String.fromCharCode(65+i):logos?label(c.logo):PALETTES[c.palette].name;cell.querySelector('p').textContent=label(c.logo)+' · '+(state.customMode||c.colors?'Custom colours':PALETTES[c.palette].name);});
  for(const key of ['identity','horizontal','icons','sign','polo','card','cap','website','children']){
   [...$('compare-row-'+key).querySelector('.compare-row-grid').children].forEach((cell,i)=>{const c=choices[i],desc=label(c.logo)+' · '+PALETTES[c.palette].name;
-   if(key==='children')renderChildren(cell,c.logo,c.palette);
+   if(key==='children')renderChildren(cell,c.logo,c.palette,false);
    else if(key==='group')renderGroup(cell,c.logo,c.palette);
    else if(key==='icons'){['favDark','favLight','symbol'].forEach((v,j)=>{const img=cell.querySelectorAll('img')[j];img.src=reviewLogoAsset(c.logo,c.palette,v,c.colors);img.alt=desc+' · '+VARIATIONS[v];});}
    else if(key==='website')renderColourStudy(cell,c);
@@ -206,9 +206,9 @@ function addCompanyApplications(card,logo,pal,colors,company=null){
  const applications=document.createElement('div');applications.className='company-applications';const title=document.createElement('p');title.textContent='Horizontal logo';applications.append(title);const horizontal=document.createElement('div');horizontal.className='company-horizontal';horizontal.append(company?childHorizontalArtwork(logo,company,colors):image(reviewLogoAsset(logo,pal,'horizontal',colors),'Burke Group horizontal logo'));applications.append(horizontal);
  const icons=document.createElement('div');icons.className='company-icons';for(const [key,name] of [['favDark','Dark favicon'],['favLight','Light favicon'],['symbol','Standalone symbol']]){const item=document.createElement('figure');item.append(image(reviewLogoAsset(logo,pal,key,colors),(company?'Burke '+company.name:'Burke Group')+' '+name));const caption=document.createElement('figcaption');caption.textContent=name;item.append(caption);icons.append(item);}applications.append(icons);card.querySelector('.company-art').after(applications);
 }
-function renderChildren(container,logo,pal){
+function renderChildren(container,logo,pal,includeParent=true){
  const colors=state.customMode?state.customColors:PALETTES[pal];
- container.replaceChildren();const parent=companyCard('Burke Group',image(reviewLogoAsset(logo,pal),'Burke Group'),colors.secondary);addCompanyApplications(parent,logo,pal,colors);container.append(parent);
+ container.replaceChildren();if(includeParent){const parent=companyCard('Burke Group',image(reviewLogoAsset(logo,pal),'Burke Group'),colors.secondary);addCompanyApplications(parent,logo,pal,colors);container.append(parent);}
  for(const company of CHILDREN){const c={...colors,secondary:childColour(company)},card=companyCard('Burke '+company.name,childArtwork(logo,company,c),c.secondary);addCompanyApplications(card,logo,pal,c,company);container.append(card);}
 }
 function renderWebsiteCompanyControls(container){
