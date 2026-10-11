@@ -1,43 +1,33 @@
 # Burke Group identity review
 
-A buildless, single-page review website compatible with the `/burke-review/` GitHub Pages base path.
+A buildless static website for GitHub Pages at `/burke-review/`. All website assets and development files are self-contained on the laptop. Catherine approved publication after the final child-company spacing adjustment.
 
-## Publication
+## Review flow
 
-The existing Pages site is deployed by GitHub's `pages build and deployment` workflow from `main` (latest inspected live commit: `a7a6654d12a46bb3d0e931aff6a7ac70e598676d`). The website was stored in the root `index.html`; it contains its own bundled images and review logic. No repository-authored workflow was present.
+The opening Shortlist shows three black logos and one Next button. The guided journey proceeds through Logo 1, Logo 2 and Logo 3 in order, then comparison. Each logo has The logo, In real life, On a website, Child companies and Group of companies sections. Changing tabs preserves scroll; guided next/back actions align the relevant content. Logo applications are expanded by default.
 
-Development is on `identity-review-round-2`. Do not merge or deploy until Catherine approves the preview. `.nojekyll` permits these static files to be served directly after approval; no changes to the Pages source configuration are needed.
+The compact toolbar keeps logo and palette controls, Compare mode and its adjacent on/off switch, Jump to, Customise colours, Help and Provide Feedback. Toggling Compare preserves the scroll position and toolbar layout. Comparison always shows all three logos in one palette or all three palettes with one logo. It contains aligned primary and secondary logos, favicons/symbols, four supplied mockups, condensed website colour studies and child-company studies. Group of companies is only in individual views.
 
-## Preserved previous round
+Customise colours opens one global five-colour editor directly. Custom colours update logo applications and website presentations together. Supplied mockups and child-company studies are excluded from custom mode; returning to supplied palettes restores them. The original standalone Colour Lab remains at `colour-lab/`, and full website previews remain in individual exploration.
 
-`round-1/index.html` retains the original complete manifest, scripts, artwork, review controls and browser storage keys. The only change inside its page template is an additive fixed return link. `round-1/round-1-selected/` preserves the existing selected-logo reference page with its relative return navigation. The original `round-1-selected/` also remains at its existing address.
+## Feedback
 
-The original root page remains available in Git at the baseline commit. An additional byte-for-byte local backup was made before edits. The original Pages homepage remains live until this branch is approved and merged.
+Provide Feedback opens a dialog with separate 1st/2nd/3rd rankings for the black logos and the three supplied palettes, plus a required name. Duplicate places swap rather than allowing conflicting ranks. Users can copy the plain-text answers or open an email draft addressed to `catherine@heritageholdings.ky` with the answers included. The user sends that email. No feedback is automatically submitted or stored in a shared database. Hearts, shortlists and selection controls have been removed from the current review.
 
-## Assets
+## Assets and palettes
 
-- `data.js`: central logo, palette, application and asset mapping.
-- `assets/logos/source/`: all 15 untouched supplied SVG artboards.
-- `assets/logos/{black,gold,blue,green}/{1,2,3}/`: isolated SVG applications, preserving the supplied nodes, groups, geometry and fills. View boxes enclose each application; separator lines are omitted.
-- `assets/mockups/`: the 36 finished PNGs and four blank PNGs, copied without re-encoding. `source-map.json` records source filenames and SHA-256 checksums.
-- `assets/fonts/`: supplied Montserrat variable TTF (weights 100–900) and its OFL licence. The supplied set contains no WOFF2 files, so the licensed TTF is self-hosted.
-- `colour-lab/`: the original HTML template, logic, logo data and bundled React/runtime files unpacked into local assets. The original controls and storage key are retained. Font references use the shared Montserrat file; a small height bridge allows embedding on the homepage. Comparison frame sources are encoded as template attributes to prevent premature placeholder requests before the runtime mounts.
-- `assets/colour-lab-preview.png`: an actual screenshot of the working supplied interface.
+The 36 finished mockup PNGs and four blank PNGs remain unchanged; `assets/mockups/source-map.json` records their SHA-256 checksums. Green Cap 2 and Green Cap 3 were supplied under reversed filenames and are mapped to the correct depicted logos.
 
-### Supplied artwork limitation
+SVG applications preserve supplied geometry. The updated coloured artboards and light-favicon backgrounds use shared Neutral 1 `#E6E4E0`; Neutral 2 is `#FAFAF8`. Palette display order is Accent, Primary, Secondary, Neutral 1, Neutral 2. Gold is labelled Black and gold. All three supplied Blue logo artboards use primary `#1B2E46`, which takes precedence over the palette-only reference listing `#1D3348`.
 
-The supplied `Green Cap 2.png` contains Logo 03, and `Green Cap 3.png` contains Logo 02. Visual inspection confirmed their filenames are reversed. The gallery maps them to their actual logos; the PNGs remain unchanged and their source filenames/checksums are recorded.
+Child companies retain the supplied symbols and BURKE outlines, with Montserrat Semi Bold descriptors and fixed secondary colours: Realty `#BD6C5A`, Development `#648EAB`, Property Management `#4C968E`. Group of companies uses the supplied SureBuilt and Slimlines PNGs unchanged. Montserrat and its licence are self-hosted.
 
-All nine colour artboards have five complete applications: primary stacked, horizontal, dark favicon, light favicon and standalone symbol. The black artboards have four complete applications. Logo 01's fifth symbol contains only two vertical rectangles; Logos 02 and 03 omit the fifth symbol. Incomplete black symbols are intentionally omitted. No substitute artwork is created. Complete corrected black symbol artwork can be added later.
+## Previous round
 
-The Gold SVGs use their supplied black fill in some components; they are displayed exactly as supplied, while the palette selector shows the requested `#1E1F1F` / `#B08A56` swatches. No prepared SVG fills have been substituted.
+`round-1/` preserves the complete original review. Its only template addition is a return link. Both `round-1/round-1-selected/` and the original `round-1-selected/` retain the selected-logo page. Original review and Colour Lab storage keys are preserved. The original root homepage remains recoverable at commit `a7a6654d12a46bb3d0e931aff6a7ac70e598676d`.
 
-## Preview and verification
+## Hosting and verification
 
-Serve the repository using any static HTTP server. To check under the production base path, serve its parent and open `/burke-review/`. Browser JavaScript modules require HTTP rather than opening the HTML as a local file.
+GitHub Pages deploys the repository root from `main`; `.nojekyll` enables direct static serving. No build step or package installation is needed. Serve the repository parent and open `/burke-review/` for local verification.
 
-Run `python scripts/check-assets.py` to verify image checksums, mapping completeness and exact SVG geometry/fills using only the standard library.
-
-Browser checks cover initial black state and no finished-image preloading; all logo/palette selections and application counts; missing-selection instructions; gallery/comparison sources; keyboard image navigation; embedded Colour Lab selection handoff, HEX editing, saved palettes and comparisons; 390px and 768px responsive layouts; and Round 1 return navigation.
-
-Saved Colour Lab palettes and original Round 1 reviews use browser-local storage. Local preview data belongs to the local preview origin; existing production data will remain associated with the GitHub Pages origin when deployed.
+Run `python scripts/check-assets.py` for PNG checksums, complete mapping and SVG geometry/fill checks. Browser checks cover desktop/mobile layout, the guided journey, stable comparison toggle, global colour editing, ranking validation, clipboard output and the addressed email draft. Local preview helpers and backups are kept outside the published repository.

@@ -7,7 +7,7 @@
 <body>
 <x-dc>
 <helmet>
-<title>Burke Group — Round 3 Palette Test</title>
+<title>Burke Group — Colour Lab</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Variable.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap;}
@@ -17,6 +17,9 @@ body{font-family:"Montserrat",system-ui,sans-serif;-webkit-font-smoothing:antial
 a{color:inherit;}
 a:hover{color:inherit;}
 *{box-sizing:border-box;}
+.lab-tools summary{cursor:pointer;padding:6px 0;font-size:12px;}
+.lab-tools[open]{flex-basis:100%;}
+
 input,select,button{font-family:inherit;}
 </style>
 <script src="logo-data.js"></script>
@@ -29,7 +32,7 @@ input,select,button{font-family:inherit;}
   <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 22px;padding:10px 18px;">
     <div style="display:flex;flex-direction:column;gap:1px;padding-right:6px;">
       <span style="font-weight:600;letter-spacing:0.12em;text-transform:uppercase;font-size:11px;">Burke Group</span>
-      <span style="color:#6B6A64;font-size:11px;">Round 3 · Palette test</span>
+      <span style="color:#6B6A64;font-size:11px;">Colour Lab</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
       <span style="color:#6B6A64;font-weight:500;">Logo</span>
@@ -44,7 +47,7 @@ input,select,button{font-family:inherit;}
       <div role="radiogroup" aria-label="Palette" style="display:flex;gap:4px;flex-wrap:wrap;">
         <sc-for list="{{ palOpts }}" as="o" hint-placeholder-count="3">
           <button role="radio" aria-checked="{{ o.checked }}" sc-camel-on-click="{{ o.onClick }}" style="height:30px;white-space:nowrap;padding:0 12px 0 8px;border:1px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;">
-            <span style="display:flex;"><span style="width:10px;height:14px;background:{{ o.c1 }};"></span><span style="width:6px;height:14px;background:{{ o.c2 }};"></span></span>{{ o.label }}
+            <span style="display:flex;" aria-hidden="true"><sc-for list="{{ o.sw }}" as="sw"><span style="width:7px;height:14px;background:{{ sw }};"></span></sc-for></span>{{ o.label }}
           </button>
         </sc-for>
         <button aria-pressed="{{ bwPressed }}" sc-camel-on-click="{{ toggleBW }}" style="height:30px;white-space:nowrap;padding:0 12px;border:1px solid {{ bwBtn.bd }};background:{{ bwBtn.bg }};color:{{ bwBtn.fg }};border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;">Black &amp; White</button>
@@ -58,6 +61,7 @@ input,select,button{font-family:inherit;}
       <sc-if value="{{ modified }}" hint-placeholder-val="{{ false }}"><span style="color:#6B6A64;font-style:italic;">modified</span></sc-if>
     </div>
     <div style="flex:1;"></div>
+    <details class="lab-tools"><summary>More options</summary>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
       <sc-if value="{{ hasWarnings }}" hint-placeholder-val="{{ false }}">
         <button sc-camel-on-click="{{ openPanel }}" style="height:30px;white-space:nowrap;padding:0 10px;border:1px solid #E7C9A0;background:#FBF3E6;color:#7A4A0E;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">{{ warnLabel }}</button>
@@ -66,146 +70,41 @@ input,select,button{font-family:inherit;}
       <button aria-expanded="{{ panelExpanded }}" sc-camel-on-click="{{ togglePanel }}" style="height:30px;white-space:nowrap;padding:0 12px;border:1px solid {{ panBtn.bd }};background:{{ panBtn.bg }};color:{{ panBtn.fg }};border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;">Customise Colours</button>
       <button sc-camel-on-click="{{ copyLink }}" style="height:30px;white-space:nowrap;padding:0 12px;border:1px solid #DAD9D4;background:#FFFFFF;color:#1C1C1C;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;" style-hover="border-color:#1C1C1C;">Copy Combination Link</button>
     </div>
+    </details>
   </div>
 </div>
 </sc-if>
 
 <sc-if value="{{ showSite }}" hint-placeholder-val="{{ true }}">
-<div ref="{{ siteRefCb }}" style="--p: {{ c.primary }}; --s: {{ c.secondary }}; --a: {{ c.accent }}; --n1: {{ c.neutral1 }}; --n2: {{ c.neutral2 }}; container-type:inline-size; background:var(--n2, #F6F1E9); color:var(--p, #1B2E46); font-family:'Montserrat',sans-serif; font-weight:400;">
-
-  <header style="border-bottom:1px solid var(--n1);">
-    <div style="max-width:1200px;margin:0 auto;padding:22px clamp(20px,5cqi,56px);display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;">
-      <a href="#top" sc-camel-on-click="{{ goTop }}" aria-label="Burke Group home" style="display:block;">{{ logoHorizontal }}</a>
-      <nav aria-label="Main" style="display:flex;gap:clamp(18px,3cqi,40px);flex-wrap:wrap;">
-        <a href="#about" sc-camel-on-click="{{ goAbout }}" style="font-size:14px;font-weight:500;color:var(--p);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;" style-hover="border-bottom-color:var(--s);">About</a>
-        <a href="#businesses" sc-camel-on-click="{{ goBusinesses }}" style="font-size:14px;font-weight:500;color:var(--p);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;" style-hover="border-bottom-color:var(--s);">Our Businesses</a>
-        <a href="#story" sc-camel-on-click="{{ goStory }}" style="font-size:14px;font-weight:500;color:var(--p);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;" style-hover="border-bottom-color:var(--s);">Our Story</a>
-        <a href="#contact" sc-camel-on-click="{{ goContact }}" style="font-size:14px;font-weight:500;color:var(--p);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;" style-hover="border-bottom-color:var(--s);">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <section id="about" style="max-width:1200px;margin:0 auto;padding:clamp(48px,7cqi,96px) clamp(20px,5cqi,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(40px,6cqi,96px);align-items:center;">
-    <div style="display:flex;justify-content:center;">{{ logoStacked }}</div>
-    <div style="display:flex;flex-direction:column;gap:26px;max-width:540px;">
-      <div style="display:flex;align-items:center;gap:14px;">
-        <span style="width:28px;height:2px;background:var(--s);"></span>
-        <span style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">A Cayman Islands family company</span>
-      </div>
-      <h1 style="margin:0;font-size:clamp(32px,4.4cqi,54px);line-height:1.12;font-weight:500;letter-spacing:-0.01em;text-wrap:balance;">Built for permanence. Held for generations.</h1>
-      <p style="margin:0;font-size:17px;line-height:1.65;max-width:46ch;text-wrap:pretty;">Burke Group is a family-owned parent company in the Cayman Islands. We build and hold businesses for the long term, guided by the principles that have shaped the family's work for decades.</p>
-      <div style="display:flex;">
-        <a href="#businesses" sc-camel-on-click="{{ goBusinesses }}" style="display:inline-flex;align-items:center;gap:12px;background:var(--p);color:var(--n2);border:1px solid var(--p);padding:15px 26px;white-space:nowrap;font-size:14px;font-weight:600;letter-spacing:0.02em;text-decoration:none;" style-hover="background:transparent;color:var(--p);">Our Businesses</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="businesses" style="border-top:1px solid var(--n1);">
-    <div style="max-width:1200px;margin:0 auto;padding:clamp(48px,6cqi,88px) clamp(20px,5cqi,56px);display:flex;flex-direction:column;gap:clamp(36px,4cqi,56px);">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));align-items:end;gap:20px 48px;">
-        <div style="display:flex;flex-direction:column;gap:18px;">
-          <div style="display:flex;align-items:center;gap:14px;">
-            <span style="width:28px;height:2px;background:var(--s);"></span>
-            <span style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Our Businesses</span>
-          </div>
-          <h2 style="margin:0;font-size:clamp(26px,3cqi,36px);line-height:1.2;font-weight:500;text-wrap:balance;">Three businesses. One family standard.</h2>
-        </div>
-        <p style="margin:0;font-size:16px;line-height:1.65;max-width:42ch;">Each Burke business operates independently, with the same commitment to service, discretion and care.</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(28px,3cqi,44px);">
-        <article style="border-top:2px solid var(--s);padding-top:26px;display:flex;flex-direction:column;gap:14px;">
-          <span style="font-size:26px;font-weight:500;color:var(--a);">01</span>
-          <h3 style="margin:0;font-size:22px;font-weight:500;line-height:1.25;"><span style="display:block;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;">Burke</span>Realty</h3>
-          <p style="margin:0;font-size:15px;line-height:1.65;flex:1;">Residential and commercial property sales and leasing across the Cayman Islands.</p>
-          <a href="#businesses" sc-camel-on-click="{{ noop }}" style="display:inline-flex;align-items:center;gap:10px;width:fit-content;font-size:14px;font-weight:600;color:var(--p);text-decoration:none;border-bottom:1px solid var(--a);padding-bottom:4px;" style-hover="border-bottom-color:var(--p);gap:14px;">Visit Burke Realty <span aria-hidden="true" style="color:var(--a);">→</span></a>
-        </article>
-        <article style="border-top:2px solid var(--s);padding-top:26px;display:flex;flex-direction:column;gap:14px;">
-          <span style="font-size:26px;font-weight:500;color:var(--a);">02</span>
-          <h3 style="margin:0;font-size:22px;font-weight:500;line-height:1.25;"><span style="display:block;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;">Burke</span>Property Management</h3>
-          <p style="margin:0;font-size:15px;line-height:1.65;flex:1;">Care, maintenance and administration for owners who expect their property to be properly looked after.</p>
-          <a href="#businesses" sc-camel-on-click="{{ noop }}" style="display:inline-flex;align-items:center;gap:10px;width:fit-content;font-size:14px;font-weight:600;color:var(--p);text-decoration:none;border-bottom:1px solid var(--a);padding-bottom:4px;" style-hover="border-bottom-color:var(--p);gap:14px;">Visit Burke Property Management <span aria-hidden="true" style="color:var(--a);">→</span></a>
-        </article>
-        <article style="border-top:2px solid var(--s);padding-top:26px;display:flex;flex-direction:column;gap:14px;">
-          <span style="font-size:26px;font-weight:500;color:var(--a);">03</span>
-          <h3 style="margin:0;font-size:22px;font-weight:500;line-height:1.25;"><span style="display:block;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;">Burke</span>Development</h3>
-          <p style="margin:0;font-size:15px;line-height:1.65;flex:1;">Considered residential and commercial projects, planned and delivered for the long term.</p>
-          <a href="#businesses" sc-camel-on-click="{{ noop }}" style="display:inline-flex;align-items:center;gap:10px;width:fit-content;font-size:14px;font-weight:600;color:var(--p);text-decoration:none;border-bottom:1px solid var(--a);padding-bottom:4px;" style-hover="border-bottom-color:var(--p);gap:14px;">Visit Burke Development <span aria-hidden="true" style="color:var(--a);">→</span></a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="story" style="background:var(--p);color:var(--n2);">
-    <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7cqi,96px) clamp(20px,5cqi,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(40px,6cqi,96px);">
-      <div style="display:flex;flex-direction:column;gap:22px;">
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span style="width:28px;height:2px;background:var(--s);"></span>
-          <span style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--n1);">Our Story</span>
-        </div>
-        <h2 style="margin:0;font-size:clamp(28px,3.4cqi,42px);line-height:1.18;font-weight:500;text-wrap:balance;">A family company, built to last.</h2>
-        <p style="margin:0;font-size:16px;line-height:1.7;max-width:46ch;">For generations, the Burke family has invested in the Cayman Islands with patience and care. Our businesses have changed over time. Our approach has not: we hold for the long term, and we put our name only to work we are proud of.</p>
-      </div>
-      <div style="display:flex;flex-direction:column;">
-        <div style="display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:8px 24px;padding:22px 0;border-top:1px solid color-mix(in srgb, var(--n2) 22%, transparent);">
-          <span style="font-size:15px;font-weight:600;">Permanence</span>
-          <span style="font-size:15px;line-height:1.6;color:var(--n1);">We measure decisions in decades, not quarters.</span>
-        </div>
-        <div style="display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:8px 24px;padding:22px 0;border-top:1px solid color-mix(in srgb, var(--n2) 22%, transparent);">
-          <span style="font-size:15px;font-weight:600;">Integrity</span>
-          <span style="font-size:15px;line-height:1.6;color:var(--n1);">Our name is on every business we own. We protect it.</span>
-        </div>
-        <div style="display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:8px 24px;padding:22px 0;border-top:1px solid color-mix(in srgb, var(--n2) 22%, transparent);border-bottom:1px solid color-mix(in srgb, var(--n2) 22%, transparent);">
-          <span style="font-size:15px;font-weight:600;">Community</span>
-          <span style="font-size:15px;line-height:1.6;color:var(--n1);">The Cayman Islands are our home, and we invest accordingly.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" style="background:var(--n1);">
-    <div style="max-width:1200px;margin:0 auto;padding:clamp(32px,4cqi,48px) clamp(20px,5cqi,56px);display:flex;align-items:center;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:24px;">
-        {{ logoSymbol }}
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <h2 style="margin:0;font-size:24px;font-weight:500;line-height:1.25;">Speak with Burke Group</h2>
-          <p style="margin:0;font-size:15px;line-height:1.6;">For enquiries about the group or any of our businesses.</p>
-        </div>
-      </div>
-      <a href="#contact" sc-camel-on-click="{{ noop }}" style="display:inline-flex;align-items:center;gap:12px;background:var(--p);color:var(--n2);border:1px solid var(--p);padding:15px 26px;white-space:nowrap;font-size:14px;font-weight:600;letter-spacing:0.02em;text-decoration:none;" style-hover="background:transparent;color:var(--p);">Contact Us</a>
-    </div>
-  </section>
-
-  <footer style="background:var(--p);color:var(--n1);">
-    <div style="max-width:1200px;margin:0 auto;padding:clamp(44px,5cqi,64px) clamp(20px,5cqi,56px) 28px;display:flex;flex-direction:column;gap:28px;">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:36px;padding-bottom:36px;border-bottom:1px solid color-mix(in srgb, var(--n2) 22%, transparent);">
-        <div style="display:flex;flex-direction:column;gap:18px;">
-          {{ logoFavicon }}
-          <p style="margin:0;font-size:14px;line-height:1.7;">Burke Group<br>George Town, Grand Cayman<br>Cayman Islands</p>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <span style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--n2);">Group</span>
-          <a href="#about" sc-camel-on-click="{{ goAbout }}" style="font-size:14px;color:var(--n1);text-decoration:none;width:fit-content;" style-hover="color:var(--n2);">About</a>
-          <a href="#story" sc-camel-on-click="{{ goStory }}" style="font-size:14px;color:var(--n1);text-decoration:none;width:fit-content;" style-hover="color:var(--n2);">Our Story</a>
-          <a href="#contact" sc-camel-on-click="{{ goContact }}" style="font-size:14px;color:var(--n1);text-decoration:none;width:fit-content;" style-hover="color:var(--n2);">Contact</a>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <span style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--n2);">Businesses</span>
-          <a href="#businesses" sc-camel-on-click="{{ goBusinesses }}" style="font-size:14px;color:var(--n1);text-decoration:none;width:fit-content;" style-hover="color:var(--n2);">Burke Realty</a>
-          <a href="#businesses" sc-camel-on-click="{{ goBusinesses }}" style="font-size:14px;color:var(--n1);text-decoration:none;width:fit-content;" style-hover="color:var(--n2);">Burke Property Management</a>
-          <a href="#businesses" sc-camel-on-click="{{ goBusinesses }}" style="font-size:14px;color:var(--n1);text-decoration:none;width:fit-content;" style-hover="color:var(--n2);">Burke Development</a>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;font-size:13px;">
-        <span>© 2026 Burke Group. All rights reserved.</span>
-        <div style="display:flex;gap:20px;">
-          <a href="#top" sc-camel-on-click="{{ noop }}" style="color:var(--n1);text-decoration:none;" style-hover="color:var(--n2);">Privacy</a>
-          <a href="#top" sc-camel-on-click="{{ noop }}" style="color:var(--n1);text-decoration:none;" style-hover="color:var(--n2);">Terms</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-</div>
-</sc-if>
+<div ref="{{ siteRefCb }}" style="--p: {{ c.primary }}; --s: {{ c.secondary }}; --a: {{ c.accent }}; --n1: {{ c.neutral1 }}; --n2: {{ c.neutral2 }};container-type:inline-size;background:var(--n2);color:var(--p);font-family:'Montserrat',sans-serif;">
+<header style="border-bottom:1px solid var(--n1);padding:20px clamp(18px,4cqi,48px);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+<a href="#top" sc-camel-on-click="{{ goTop }}" aria-label="Burke Group home">{{ logoHorizontal }}</a>
+<nav aria-label="Colour roles" style="display:flex;gap:24px;font-size:12px;"><a href="#about" sc-camel-on-click="{{ goAbout }}">Primary</a><a href="#businesses" sc-camel-on-click="{{ goBusinesses }}">Colours</a><a href="#story" sc-camel-on-click="{{ goStory }}">Contrast</a></nav>
+</header>
+<section id="about" style="padding:clamp(28px,4cqi,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:32px;align-items:center;">
+<div style="display:flex;justify-content:center;">{{ logoStacked }}</div>
+<div style="display:flex;flex-direction:column;gap:18px;max-width:500px;">
+<span style="font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--a);">PRIMARY + NEUTRAL 2</span>
+<h1 style="font-size:clamp(30px,4cqi,46px);font-weight:500;line-height:1.15;margin:0;color:var(--p);">Colour sets the tone.</h1>
+<p style="color:#1E1F1F;font-size:15px;line-height:1.7;margin:0;">See your palette in a website: Primary gives the headline and button their colour, while Neutral 2 creates a light background. Body text stays charcoal for readability.</p>
+<a href="#businesses" sc-camel-on-click="{{ goBusinesses }}" style="align-self:flex-start;background:var(--p);color:var(--n2);padding:13px 22px;text-decoration:none;font-size:12px;font-weight:600;">Explore the palette ↓</a>
+</div></section>
+<section id="businesses" style="border-top:1px solid var(--n1);padding:24px clamp(18px,4cqi,48px);">
+<h2 style="font-size:18px;font-weight:500;margin:0 0 18px;">Five colours, distinct roles</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:12px;font-size:11px;color:#1E1F1F;">
+<div><div style="height:48px;background:var(--a);"></div><p>Accent · Highlights</p></div>
+<div><div style="height:48px;background:var(--p);"></div><p>Primary · Headline &amp; button</p></div>
+<div><div style="height:48px;background:var(--s);"></div><p>Secondary · Details</p></div>
+<div><div style="height:48px;background:var(--n1);"></div><p>Neutral 1 · Surfaces</p></div>
+<div><div style="height:48px;background:var(--n2);border:1px solid var(--n1);"></div><p>Neutral 2 · Background</p></div>
+</div></section>
+<section id="story" style="padding:26px clamp(18px,4cqi,48px);background:var(--p);color:var(--n2);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+<div><h2 style="font-size:22px;font-weight:500;margin:0 0 8px;">Light on Primary</h2><p style="font-size:13px;line-height:1.6;margin:0;">Neutral 2 text against your primary colour.</p></div><span style="width:68px;height:4px;background:var(--s);"></span>
+</section>
+<section id="contact" style="padding:24px clamp(18px,4cqi,48px);background:var(--n1);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+{{ logoSymbol }}<div><h2 style="font-size:18px;font-weight:500;margin:0 0 8px;">Neutral 1 surface</h2><p style="font-size:13px;color:#1E1F1F;margin:0;">A supporting background for the identity.</p><span style="display:block;margin-top:12px;height:2px;width:70px;background:var(--a);"></span></div>
+</section>
+</div></sc-if>
 
 <sc-if value="{{ showCompare }}" hint-placeholder-val="{{ false }}">
 <div style="padding:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px;align-items:start;">
@@ -344,9 +243,11 @@ input,select,button{font-family:inherit;}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
-const PAL={gold:{name:'Gold 06',primary:'#1E1F1F',secondary:'#B08A56',accent:'#8F7B69',neutral1:'#D8D0C4',neutral2:'#F8F5EC'},blue:{name:'Blue 03',primary:'#1B2E46',secondary:'#B78352',accent:'#244A78',neutral1:'#D6CBBE',neutral2:'#F6F1E9'},green:{name:'Green 04',primary:'#143629',secondary:'#A67C52',accent:'#1F4D3A',neutral1:'#D9D0C2',neutral2:'#F5F1EA'}};
+const PAL={gold:{name:'Black and gold',primary:'#1E1F1F',secondary:'#B08A56',accent:'#8F7B69',neutral1:'#E6E4E0',neutral2:'#FAFAF8'},blue:{name:'Blue',primary:'#1B2E46',secondary:'#B78352',accent:'#244A78',neutral1:'#E6E4E0',neutral2:'#FAFAF8'},green:{name:'Green',primary:'#143629',secondary:'#A67C52',accent:'#1F4D3A',neutral1:'#E6E4E0',neutral2:'#FAFAF8'}};
 const PRESETS=['gold','blue','green'];
 const KEYS=['primary','secondary','accent','neutral1','neutral2'];
+// Display order is independent of the existing share-link colour encoding.
+const DISPLAY_KEYS=['accent','primary','secondary','neutral1','neutral2'];
 const LABELS={primary:'Primary',secondary:'Secondary',accent:'Accent',neutral1:'Neutral 1',neutral2:'Neutral 2'};
 const NOTES={primary:'Logo, headings, dark sections',secondary:'GROUP, symbol detail, rules',accent:'Links, numerals',neutral1:'Dividers, bands, muted text',neutral2:'Page background'};
 const LKEYS=['symMain','symSec','burke','group'];
@@ -419,12 +320,12 @@ class Component extends DCLogic {
     const P=PAL[s.base];const sv=s.activeSaved&&s.saved.find(x=>x.id===s.activeSaved);const modified=this.isModified();
     const cmpOptions=[...PRESETS.map(v=>({v,label:PAL[v].name})),{v:'current',label:'Current working palette'},...s.saved.map(x=>({v:'saved:'+x.id,label:x.name}))];
     const baseUrl=window.location.href.split('#')[0];const k=s.colW?s.colW/1280:0.3;
-    const cmpCols=[0,1,2].map(i=>{const v=s.cmp[i];const cfg=this.cfgFor(v);const h=s.frameH[i]||2200;const opt=cmpOptions.find(o=>o.v===v);return {v,aria:'Comparison '+(i+1)+': '+(opt?opt.label:''),options:cmpOptions.map(o=>({...o,sel:o.v===v})),sw:KEYS.map(kk=>cfg.colors[kk]),src:baseUrl+'#embed=1&f='+i+'&'+buildHash({...cfg,logo:s.logo,bw:false}),h,k,wh:Math.ceil(h*k),ref:i===0?this.colRefCb:null,onChange:e=>{const a=s.cmp.slice();a[i]=e.target.value;this.setState({cmp:a})}}});
+    const cmpCols=[0,1,2].map(i=>{const v=s.cmp[i];const cfg=this.cfgFor(v);const h=s.frameH[i]||2200;const opt=cmpOptions.find(o=>o.v===v);return {v,aria:'Comparison '+(i+1)+': '+(opt?opt.label:''),options:cmpOptions.map(o=>({...o,sel:o.v===v})),sw:DISPLAY_KEYS.map(kk=>cfg.colors[kk]),src:baseUrl+'#embed=1&f='+i+'&'+buildHash({...cfg,logo:s.logo,bw:false}),h,k,wh:Math.ceil(h*k),ref:i===0?this.colRefCb:null,onChange:e=>{const a=s.cmp.slice();a[i]=e.target.value;this.setState({cmp:a})}}});
     const eff=s.linked?derive(s.colors):s.logoColors;
     return {
       chrome:!s.embed, showSite:s.embed||!s.compare, showCompare:!s.embed&&s.compare, c,
-      logoOpts:[1,2,3].map(n=>({label:'Logo 0'+n,checked:String(s.logo===n),onClick:()=>this.setState({logo:n}),...seg(s.logo===n)})),
-      palOpts:PRESETS.map(id=>{const on=!s.bw&&s.base===id&&!s.activeSaved;return {label:PAL[id].name,checked:String(on),c1:PAL[id].primary,c2:PAL[id].secondary,onClick:()=>this.setPreset(id),...seg(on)}}),
+      logoOpts:[1,2,3].map(n=>({label:'Logo '+n,checked:String(s.logo===n),onClick:()=>this.setState({logo:n}),...seg(s.logo===n)})),
+      palOpts:PRESETS.map(id=>{const on=!s.bw&&s.base===id&&!s.activeSaved;return {label:PAL[id].name,checked:String(on),sw:DISPLAY_KEYS.map(key=>PAL[id][key]),onClick:()=>this.setPreset(id),...seg(on)}}),
       bwBtn:seg(s.bw),bwPressed:String(s.bw),toggleBW:()=>this.setState({bw:!s.bw}),
       hasSaved:s.saved.length>0,savedOpts:s.saved.map(x=>({id:x.id,name:x.name,sel:x.id===s.activeSaved})),noActiveSaved:!s.activeSaved,activeSavedVal:s.activeSaved||'',onSavedSelect:e=>{if(e.target.value)this.openSaved(e.target.value)},
       modified,hasWarnings:warns.length>0,warnLabel:warns.length+' contrast '+(warns.length===1?'warning':'warnings'),
@@ -433,14 +334,14 @@ class Component extends DCLogic {
       copyLink:()=>{const url=window.location.href.split('#')[0]+'#'+buildHash(s);this.copy(url,'Combination link copied')},
       siteRefCb:this.siteRefCb,
       logoHorizontal:this.mk('horizontal',{height:40,width:'auto'}),
-      logoStacked:this.mk('stacked',{height:'clamp(200px, 26cqi, 320px)',width:'auto',maxWidth:'100%'}),
+      logoStacked:this.mk('stacked',{height:'clamp(150px, 20cqi, 210px)',width:'auto',maxWidth:'100%'}),
       logoSymbol:this.mk('symbol',{height:76,width:'auto'})||this.mk('favLight',{height:64,width:'auto'}),
       logoFavicon:this.mk('favLight',{height:52,width:'auto'}),
       goTop:go('top'),goAbout:go('about'),goBusinesses:go('businesses'),goStory:go('story'),goContact:go('contact'),noop:e=>e.preventDefault(),
       cmpCols,cmpOptions,
       bw:s.bw,editable:!s.bw,
       editingLabel:s.bw?'Black & White (original artwork)':(sv?sv.name+' · based on '+P.name:P.name)+(modified?' · modified':''),
-      colorRows:KEYS.map(kk=>this.row(kk,s.colors[kk],'c_'+kk,h=>this.setColor(kk,h),false,LABELS[kk],NOTES[kk])),
+      colorRows:DISPLAY_KEYS.map(kk=>this.row(kk,s.colors[kk],'c_'+kk,h=>this.setColor(kk,h),false,LABELS[kk],NOTES[kk])),
       contrastRows:checks.map(x=>({label:x.label,value:x.value,bg:x.ok?'#F5F4F0':'#FBF3E6',fg:x.ok?'#1C1C1C':'#7A4A0E'})),
       advOpen:s.advOpen,advExpanded:String(s.advOpen),advArrow:s.advOpen?'−':'+',toggleAdv:()=>this.setState({advOpen:!s.advOpen}),
       linkedStr:String(s.linked),sw:{track:s.linked?'#1C1C1C':'#C9C8C2',knob:s.linked?16:2},
@@ -454,7 +355,7 @@ class Component extends DCLogic {
       saveNew:()=>{const name=s.saveName.trim()||(P.name+' custom '+(s.saved.length+1));const id=Date.now().toString(36);this.persist([...s.saved,this.entry(id,name)]);this.setState({activeSaved:id,saveName:name,name});this.toastMsg('Saved “'+name+'”')},
       saveUpdate:()=>{if(!sv)return;const name=s.saveName.trim()||sv.name;this.persist(s.saved.map(x=>x.id===sv.id?this.entry(sv.id,name):x));this.setState({name});this.toastMsg('Resaved “'+name+'”')},
       noSaved:s.saved.length===0,
-      savedRows:s.saved.map(x=>({name:x.name,sw:KEYS.map(kk=>x.colors[kk]),bd:x.id===s.activeSaved?'#1C1C1C':'#E2E1DC',open:()=>this.openSaved(x.id),
+      savedRows:s.saved.map(x=>({name:x.name,sw:DISPLAY_KEYS.map(kk=>x.colors[kk]),bd:x.id===s.activeSaved?'#1C1C1C':'#E2E1DC',open:()=>this.openSaved(x.id),
         dup:()=>{const id=Date.now().toString(36);this.persist([...s.saved,{...x,id,name:x.name+' copy',colors:{...x.colors},logoColors:{...x.logoColors},updated:Date.now()}]);this.toastMsg('Duplicated')},
         del:()=>{if(s.pendingDel!==x.id){this.setState({pendingDel:x.id});return}this.persist(s.saved.filter(y=>y.id!==x.id));this.setState({pendingDel:null,activeSaved:s.activeSaved===x.id?null:s.activeSaved});this.toastMsg('Deleted')},
         delLabel:s.pendingDel===x.id?'Confirm delete':'Delete',delBd:s.pendingDel===x.id?'#B42318':'#DAD9D4',delFg:s.pendingDel===x.id?'#B42318':'#1C1C1C'})),
@@ -466,6 +367,9 @@ class Component extends DCLogic {
 
 
 <script>
+if(window.parent!==window){
+ addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='burke-selection'&&[1,2,3].includes(e.data.logo)&&['gold','blue','green'].includes(e.data.palette)){const embedded=location.hash.includes('embed=1');location.hash='l='+e.data.logo+'&p='+e.data.palette+(e.data.bw?'&bw=1':'')+(embedded?'&embed=1':'')+(e.data.colors?'&c='+['primary','secondary','accent','neutral1','neutral2'].map(k=>e.data.colors[k].replace('#','')).join(','):'');}});
+}
 if(window.parent!==window && !location.hash.includes('embed=1')){
  document.documentElement.setAttribute('data-burke-embedded','');
  const report=()=>{const top=document.getElementById('top');if(top)parent.postMessage({type:'burke-lab-height',height:Math.ceil(top.getBoundingClientRect().height)},location.origin)};
