@@ -4,7 +4,7 @@ A buildless static website for GitHub Pages at `/burke-review/`. All website ass
 
 ## Review flow
 
-The opening Shortlist shows three black logos and one Next button. The guided journey proceeds through Logo 1, Logo 2 and Logo 3 in order, then comparison. Each logo has The logo, In real life, Child companies, On a website and Group of companies sections. Each logo is one continuous scrolling page; section tabs and Jump to scroll to its content. Mockups form a two-by-two desktop grid, and Next advances to the next logo. Logo applications are expanded by default.
+The opening Shortlist shows three black logos and one Next button. The guided journey proceeds through Logo 1, Logo 2 and Logo 3 in order, then comparison. Each logo has The logo, In real life, Child companies, On a website and Group of companies sections. Each logo is one continuous scrolling page; Jump to scrolls to its content, and All logos sits beside the identity title. Mockups form a two-by-two desktop grid, and Next advances to the next logo. Logo applications are expanded by default.
 
 The compact toolbar keeps logo and palette controls, Compare mode and its adjacent on/off switch, Jump to, Customise colours, Help and Provide Feedback. Toggling Compare preserves the scroll position and toolbar layout. Comparison always shows all three logos in one palette or all three palettes with one logo. It contains aligned primary and secondary logos, favicons/symbols, four supplied mockups, condensed website colour studies and child-company studies. Group of companies is only in individual views.
 
