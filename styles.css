@@ -176,3 +176,7 @@ body:has(#control-rail:not([hidden])) main{padding-right:36px;padding-bottom:0}
 #group-gallery .company-card:nth-child(n+2) .company-art>img{width:80%;height:80%}
 
 @media(max-width:800px){#children-gallery>.company-card:first-child{display:none}}
+
+@media(max-width:520px){#group-gallery{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}#group-gallery .company-card{padding:12px 8px}#group-gallery .company-art{height:95px}#group-gallery .company-card figcaption{margin-top:10px;padding-top:10px}#group-gallery .company-card h3{font-size:9px;text-align:center;line-height:1.4}}
+
+@media(max-width:520px){.focus-heading>div{min-width:0;flex-shrink:1}.focus-heading #all-logos{flex-shrink:0}}
