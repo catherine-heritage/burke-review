@@ -144,3 +144,13 @@ body:has(#control-rail:not([hidden])) main{padding-right:36px;padding-bottom:0}
 @media(max-width:520px){.shortlist-logos figure{padding:12px 7px 9px}.shortlist-logos img{height:120px;padding:7px 3px 14px}.shortlist-logos figcaption{font-size:10px;text-align:center}}
 
 #children-gallery .company-art>img,#children-gallery .company-art>.child-logo,#compare-row-children .company-art>img,#compare-row-children .company-art>.child-logo{width:82%;height:82%}
+
+/* Each identity is a continuous review; section controls scroll to its content. */
+#exploration .stage-panel{padding-top:42px;padding-bottom:20px;scroll-margin-top:calc(var(--controls-height,100px) + 20px)}
+#exploration #identity-stage{padding-top:20px}
+#website-mount .colour-study{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:1000px;margin-inline:auto;font-size:14px}
+#website-mount .study-nav,#website-mount .study-swatches{grid-column:1/-1}
+#website-mount .study-hero{grid-row:span 2;padding:35px}
+#website-mount .study-hero h3{font-size:34px}
+#website-mount .study-band,#website-mount .study-dark{padding:28px}
+@media(max-width:520px){#website-mount .colour-study{grid-template-columns:1fr}#website-mount .study-hero{grid-row:auto;padding:25px}#website-mount .study-hero h3{font-size:28px}}
