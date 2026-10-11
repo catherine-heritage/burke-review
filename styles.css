@@ -172,3 +172,5 @@ body:has(#control-rail:not([hidden])) main{padding-right:36px;padding-bottom:0}
 
 /* Keep the website layout fixed when a company switches between an image and inline SVG. */
 .study-nav{height:83px;display:flex;align-items:center}.study-nav img{display:block}.study-nav .child-horizontal{flex-shrink:1}
+
+#group-gallery .company-card:nth-child(n+2) .company-art>img{width:80%;height:80%}
