@@ -174,3 +174,5 @@ body:has(#control-rail:not([hidden])) main{padding-right:36px;padding-bottom:0}
 .study-nav{height:83px;display:flex;align-items:center}.study-nav img{display:block}.study-nav .child-horizontal{flex-shrink:1}
 
 #group-gallery .company-card:nth-child(n+2) .company-art>img{width:80%;height:80%}
+
+@media(max-width:800px){#children-gallery>.company-card:first-child{display:none}}
