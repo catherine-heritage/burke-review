@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="react.js"></script><script src="react-dom.js"></script><script src="runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Burke Group — Colour Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Variable.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap;}
+[data-burke-embedded] #top{min-height:0!important;}
+html,body{margin:0;padding:0;background:#EFEEEA;}
+body{font-family:"Montserrat",system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+a{color:inherit;}
+a:hover{color:inherit;}
+*{box-sizing:border-box;}
+.lab-tools summary{cursor:pointer;padding:6px 0;font-size:12px;}
+.lab-tools[open]{flex-basis:100%;}
+
+input,select,button{font-family:inherit;}
+</style>
+<script src="logo-data.js"></script>
+
+</helmet>
+<div id="top" style="min-height:100vh;display:flex;flex-direction:column;">
+
+<sc-if value="{{ chrome }}" hint-placeholder-val="{{ true }}">
+<div role="toolbar" aria-label="Identity controls" style="position:sticky;top:0;z-index:50;background:#FFFFFF;border-bottom:1px solid #E2E1DC;color:#1C1C1C;font-size:12px;">
+  <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 22px;padding:10px 18px;">
+    <div style="display:flex;flex-direction:column;gap:1px;padding-right:6px;">
+      <span style="font-weight:600;letter-spacing:0.12em;text-transform:uppercase;font-size:11px;">Burke Group</span>
+      <span style="color:#6B6A64;font-size:11px;">Colour Lab</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="color:#6B6A64;font-weight:500;">Logo</span>
+      <div role="radiogroup" aria-label="Logo" style="display:flex;gap:4px;">
+        <sc-for list="{{ logoOpts }}" as="o" hint-placeholder-count="3">
+          <button role="radio" aria-checked="{{ o.checked }}" sc-camel-on-click="{{ o.onClick }}" style="height:30px;white-space:nowrap;padding:0 12px;border:1px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;">{{ o.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="color:#6B6A64;font-weight:500;">Palette</span>
+      <div role="radiogroup" aria-label="Palette" style="display:flex;gap:4px;flex-wrap:wrap;">
+        <sc-for list="{{ palOpts }}" as="o" hint-placeholder-count="3">
+          <button role="radio" aria-checked="{{ o.checked }}" sc-camel-on-click="{{ o.onClick }}" style="height:30px;white-space:nowrap;padding:0 12px 0 8px;border:1px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;">
+            <span style="display:flex;" aria-hidden="true"><sc-for list="{{ o.sw }}" as="sw"><span style="width:7px;height:14px;background:{{ sw }};"></span></sc-for></span>{{ o.label }}
+          </button>
+        </sc-for>
+        <button aria-pressed="{{ bwPressed }}" sc-camel-on-click="{{ toggleBW }}" style="height:30px;white-space:nowrap;padding:0 12px;border:1px solid {{ bwBtn.bd }};background:{{ bwBtn.bg }};color:{{ bwBtn.fg }};border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;">Black &amp; White</button>
+      </div>
+      <sc-if value="{{ hasSaved }}" hint-placeholder-val="{{ false }}">
+        <sc-raw-select aria-label="Saved palettes" value="{{ activeSavedVal }}" sc-camel-on-change="{{ onSavedSelect }}" style="height:30px;border:1px solid #DAD9D4;border-radius:4px;background:#FFFFFF;color:#1C1C1C;font-size:12px;font-weight:500;padding:0 8px;max-width:190px;">
+          <option value="" selected="{{ noActiveSaved }}">Saved palettes…</option>
+          <sc-for list="{{ savedOpts }}" as="s"><option value="{{ s.id }}" selected="{{ s.sel }}">{{ s.name }}</option></sc-for>
+        </sc-raw-select>
+      </sc-if>
+      <sc-if value="{{ modified }}" hint-placeholder-val="{{ false }}"><span style="color:#6B6A64;font-style:italic;">modified</span></sc-if>
+    </div>
+    <div style="flex:1;"></div>
+    <details class="lab-tools"><summary>More options</summary>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+      <sc-if value="{{ hasWarnings }}" hint-placeholder-val="{{ false }}">
+        <button sc-camel-on-click="{{ openPanel }}" style="height:30px;white-space:nowrap;padding:0 10px;border:1px solid #E7C9A0;background:#FBF3E6;color:#7A4A0E;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">{{ warnLabel }}</button>
+      </sc-if>
+      <button aria-pressed="{{ comparePressed }}" sc-camel-on-click="{{ toggleCompare }}" style="height:30px;white-space:nowrap;padding:0 12px;border:1px solid {{ cmpBtn.bd }};background:{{ cmpBtn.bg }};color:{{ cmpBtn.fg }};border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;">{{ compareLabel }}</button>
+      <button aria-expanded="{{ panelExpanded }}" sc-camel-on-click="{{ togglePanel }}" style="height:30px;white-space:nowrap;padding:0 12px;border:1px solid {{ panBtn.bd }};background:{{ panBtn.bg }};color:{{ panBtn.fg }};border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;">Customise Colours</button>
+      <button sc-camel-on-click="{{ copyLink }}" style="height:30px;white-space:nowrap;padding:0 12px;border:1px solid #DAD9D4;background:#FFFFFF;color:#1C1C1C;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;" style-hover="border-color:#1C1C1C;">Copy Combination Link</button>
+    </div>
+    </details>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showSite }}" hint-placeholder-val="{{ true }}">
+<div ref="{{ siteRefCb }}" style="--p: {{ c.primary }}; --s: {{ c.secondary }}; --a: {{ c.accent }}; --n1: {{ c.neutral1 }}; --n2: {{ c.neutral2 }};container-type:inline-size;background:var(--n2);color:var(--p);font-family:'Montserrat',sans-serif;">
+<header style="border-bottom:1px solid var(--n1);padding:20px clamp(18px,4cqi,48px);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+<a href="#top" sc-camel-on-click="{{ goTop }}" aria-label="Burke Group home">{{ logoHorizontal }}</a>
+<nav aria-label="Colour roles" style="display:flex;gap:24px;font-size:12px;"><a href="#about" sc-camel-on-click="{{ goAbout }}">Primary</a><a href="#businesses" sc-camel-on-click="{{ goBusinesses }}">Colours</a><a href="#story" sc-camel-on-click="{{ goStory }}">Contrast</a></nav>
+</header>
+<section id="about" style="padding:clamp(28px,4cqi,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:32px;align-items:center;">
+<div style="display:flex;justify-content:center;">{{ logoStacked }}</div>
+<div style="display:flex;flex-direction:column;gap:18px;max-width:500px;">
+<span style="font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--a);">PRIMARY + NEUTRAL 2</span>
+<h1 style="font-size:clamp(30px,4cqi,46px);font-weight:500;line-height:1.15;margin:0;color:var(--p);">Colour sets the tone.</h1>
+<p style="color:#1E1F1F;font-size:15px;line-height:1.7;margin:0;">See your palette in a website: Primary gives the headline and button their colour, while Neutral 2 creates a light background. Body text stays charcoal for readability.</p>
+<a href="#businesses" sc-camel-on-click="{{ goBusinesses }}" style="align-self:flex-start;background:var(--p);color:var(--n2);padding:13px 22px;text-decoration:none;font-size:12px;font-weight:600;">Explore the palette ↓</a>
+</div></section>
+<section id="businesses" style="border-top:1px solid var(--n1);padding:24px clamp(18px,4cqi,48px);">
+<h2 style="font-size:18px;font-weight:500;margin:0 0 18px;">Five colours, distinct roles</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:12px;font-size:11px;color:#1E1F1F;">
+<div><div style="height:48px;background:var(--a);"></div><p>Accent · Highlights</p></div>
+<div><div style="height:48px;background:var(--p);"></div><p>Primary · Headline &amp; button</p></div>
+<div><div style="height:48px;background:var(--s);"></div><p>Secondary · Details</p></div>
+<div><div style="height:48px;background:var(--n1);"></div><p>Neutral 1 · Surfaces</p></div>
+<div><div style="height:48px;background:var(--n2);border:1px solid var(--n1);"></div><p>Neutral 2 · Background</p></div>
+</div></section>
+<section id="story" style="padding:26px clamp(18px,4cqi,48px);background:var(--p);color:var(--n2);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+<div><h2 style="font-size:22px;font-weight:500;margin:0 0 8px;">Light on Primary</h2><p style="font-size:13px;line-height:1.6;margin:0;">Neutral 2 text against your primary colour.</p></div><span style="width:68px;height:4px;background:var(--s);"></span>
+</section>
+<section id="contact" style="padding:24px clamp(18px,4cqi,48px);background:var(--n1);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+{{ logoSymbol }}<div><h2 style="font-size:18px;font-weight:500;margin:0 0 8px;">Neutral 1 surface</h2><p style="font-size:13px;color:#1E1F1F;margin:0;">A supporting background for the identity.</p><span style="display:block;margin-top:12px;height:2px;width:70px;background:var(--a);"></span></div>
+</section>
+</div></sc-if>
+
+<sc-if value="{{ showCompare }}" hint-placeholder-val="{{ false }}">
+<div style="padding:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px;align-items:start;">
+  <sc-for list="{{ cmpCols }}" as="col" hint-placeholder-count="3">
+    <div style="display:flex;flex-direction:column;gap:10px;min-width:0;">
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#1C1C1C;">
+        <span style="display:flex;"><sc-for list="{{ col.sw }}" as="sw"><span style="width:14px;height:14px;background:{{ sw }};"></span></sc-for></span>
+        <sc-raw-select aria-label="{{ col.aria }}" value="{{ col.v }}" sc-camel-on-change="{{ col.onChange }}" style="flex:1;min-width:0;height:30px;border:1px solid #DAD9D4;border-radius:4px;background:#FFFFFF;color:#1C1C1C;font-size:12px;font-weight:500;padding:0 8px;">
+          <sc-for list="{{ col.options }}" as="o"><option value="{{ o.v }}" selected="{{ o.sel }}">{{ o.label }}</option></sc-for>
+        </sc-raw-select>
+      </div>
+      <div ref="{{ col.ref }}" style="width:100%;height:{{ col.wh }}px;overflow:hidden;background:#FFFFFF;border:1px solid #E2E1DC;">
+        <iframe title="{{ col.aria }}" sc-camel-src="{{ col.src }}" style="width:1280px;height:{{ col.h }}px;border:0;display:block;transform:scale({{ col.k }});transform-origin:0 0;"></iframe>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ false }}">
+<aside aria-label="Customise Colours" style="position:fixed;top:0;right:0;bottom:0;width:min(380px,100vw);z-index:60;background:#FFFFFF;border-left:1px solid #E2E1DC;box-shadow:-12px 0 32px rgba(20,20,18,0.08);color:#1C1C1C;font-size:12px;display:flex;flex-direction:column;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #ECEBE6;">
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <span style="font-size:13px;font-weight:600;">Customise Colours</span>
+      <span style="color:#6B6A64;">{{ editingLabel }}</span>
+    </div>
+    <button sc-camel-on-click="{{ togglePanel }}" aria-label="Close" style="width:30px;height:30px;border:1px solid #DAD9D4;background:#FFFFFF;border-radius:4px;cursor:pointer;font-size:16px;line-height:1;color:#1C1C1C;">×</button>
+  </div>
+  <div style="flex:1;overflow:auto;padding:16px 18px 28px;display:flex;flex-direction:column;gap:22px;">
+
+    <sc-if value="{{ bw }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0;padding:12px;background:#F5F4F0;line-height:1.5;">Black &amp; White mode shows the original monochrome artwork. Choose a palette to edit colours.</p>
+    </sc-if>
+
+    <sc-if value="{{ editable }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <span style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6B6A64;">Palette</span>
+        <sc-for list="{{ colorRows }}" as="r" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:34px minmax(0,1fr) 96px;align-items:center;gap:10px;">
+            <label style="position:relative;width:34px;height:34px;border:1px solid #DAD9D4;border-radius:4px;overflow:hidden;cursor:pointer;background:{{ r.hex }};">
+              <input type="color" aria-label="{{ r.pickAria }}" value="{{ r.lower }}" sc-camel-on-change="{{ r.onPick }}" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0;">
+            </label>
+            <div style="display:flex;flex-direction:column;gap:1px;">
+              <span style="font-weight:600;">{{ r.label }}</span>
+              <span style="color:#6B6A64;">{{ r.note }}</span>
+            </div>
+            <input type="text" aria-label="{{ r.hexAria }}" aria-invalid="{{ r.invalid }}" value="{{ r.text }}" sc-camel-on-change="{{ r.onText }}" sc-camel-on-blur="{{ r.onBlur }}" spellcheck="false" maxlength="7" style="height:32px;width:96px;border:1px solid {{ r.bd }};border-radius:4px;padding:0 8px;font-size:12px;font-family:Montserrat,Arial,sans-serif;text-transform:uppercase;color:#1C1C1C;">
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6B6A64;">Contrast</span>
+        <sc-for list="{{ contrastRows }}" as="k" hint-placeholder-count="5">
+          <div style="display:flex;justify-content:space-between;gap:10px;padding:6px 8px;background:{{ k.bg }};color:{{ k.fg }};border-radius:3px;">
+            <span>{{ k.label }}</span><span style="font-weight:600;font-variant-numeric:tabular-nums;">{{ k.value }}</span>
+          </div>
+        </sc-for>
+        <span style="color:#6B6A64;line-height:1.5;">Warnings never change your colours. Thresholds: WCAG AA, 4.5:1 for text and 3:1 for large display numerals.</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid #ECEBE6;padding-top:18px;">
+        <button sc-camel-on-click="{{ toggleAdv }}" aria-expanded="{{ advExpanded }}" style="display:flex;justify-content:space-between;align-items:center;background:none;border:0;padding:0;cursor:pointer;color:#1C1C1C;">
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6B6A64;">Logo colours (advanced)</span><span style="font-size:14px;">{{ advArrow }}</span>
+        </button>
+        <sc-if value="{{ advOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <button role="switch" aria-checked="{{ linkedStr }}" sc-camel-on-click="{{ toggleLink }}" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer;color:#1C1C1C;font-size:12px;font-weight:500;">
+              <span style="width:32px;height:18px;border-radius:9px;background:{{ sw.track }};position:relative;flex:none;"><span style="position:absolute;top:2px;left:{{ sw.knob }}px;width:14px;height:14px;border-radius:7px;background:#FFFFFF;"></span></span>
+              Link Logo Colours to Palette
+            </button>
+            <sc-for list="{{ logoRows }}" as="r" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:34px minmax(0,1fr) 96px;align-items:center;gap:10px;opacity:{{ r.op }};">
+                <label style="position:relative;width:34px;height:34px;border:1px solid #DAD9D4;border-radius:4px;overflow:hidden;background:{{ r.hex }};">
+                  <input type="color" aria-label="{{ r.pickAria }}" value="{{ r.lower }}" sc-camel-on-change="{{ r.onPick }}" disabled="{{ r.disabled }}" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;padding:0;">
+                </label>
+                <div style="display:flex;flex-direction:column;gap:1px;">
+                  <span style="font-weight:600;">{{ r.label }}</span>
+                  <span style="color:#6B6A64;">{{ r.note }}</span>
+                </div>
+                <input type="text" aria-label="{{ r.hexAria }}" aria-invalid="{{ r.invalid }}" value="{{ r.text }}" sc-camel-on-change="{{ r.onText }}" sc-camel-on-blur="{{ r.onBlur }}" disabled="{{ r.disabled }}" spellcheck="false" maxlength="7" style="height:32px;width:96px;border:1px solid {{ r.bd }};border-radius:4px;padding:0 8px;font-size:12px;font-family:Montserrat,Arial,sans-serif;text-transform:uppercase;color:#1C1C1C;background:#FFFFFF;">
+              </div>
+            </sc-for>
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px;background:{{ c.neutral2 }};border:1px solid #ECEBE6;">
+              {{ appStrip }}
+            </div>
+            <span style="color:#6B6A64;line-height:1.5;">Only fill values change. Path geometry is untouched.</span>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #ECEBE6;padding-top:18px;">
+        <button sc-camel-on-click="{{ reset }}" style="height:34px;border:1px solid #1C1C1C;background:#FFFFFF;color:#1C1C1C;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">Reset to Original Palette</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <button sc-camel-on-click="{{ copyHex }}" style="height:32px;border:1px solid #DAD9D4;background:#FFFFFF;color:#1C1C1C;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;">Copy HEX Values</button>
+          <button sc-camel-on-click="{{ copyLink }}" style="height:32px;border:1px solid #DAD9D4;background:#FFFFFF;color:#1C1C1C;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;">Copy Combination Link</button>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #ECEBE6;padding-top:18px;">
+        <span style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6B6A64;">Save Custom Palette</span>
+        <input type="text" aria-label="Palette name" placeholder="Name this palette" value="{{ saveName }}" sc-camel-on-change="{{ onSaveName }}" style="height:34px;border:1px solid #DAD9D4;border-radius:4px;padding:0 10px;font-size:12px;color:#1C1C1C;">
+        <div style="display:flex;gap:8px;">
+          <button sc-camel-on-click="{{ saveNew }}" style="flex:1;height:34px;border:1px solid #1C1C1C;background:#1C1C1C;color:#FFFFFF;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">{{ saveNewLabel }}</button>
+          <sc-if value="{{ canUpdate }}" hint-placeholder-val="{{ false }}">
+            <button sc-camel-on-click="{{ saveUpdate }}" style="flex:1;height:34px;border:1px solid #1C1C1C;background:#FFFFFF;color:#1C1C1C;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">Resave</button>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <span style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6B6A64;">Saved palettes</span>
+      <sc-if value="{{ noSaved }}" hint-placeholder-val="{{ true }}"><span style="color:#6B6A64;">None yet. Saved palettes stay in this browser.</span></sc-if>
+      <sc-for list="{{ savedRows }}" as="s" hint-placeholder-count="0">
+        <div style="display:flex;flex-direction:column;gap:8px;padding:10px;border:1px solid {{ s.bd }};border-radius:4px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <span style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ s.name }}</span>
+            <span style="display:flex;flex:none;"><sc-for list="{{ s.sw }}" as="x"><span style="width:12px;height:12px;background:{{ x }};"></span></sc-for></span>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button sc-camel-on-click="{{ s.open }}" style="height:26px;padding:0 10px;border:1px solid #DAD9D4;background:#FFFFFF;border-radius:4px;font-size:11px;font-weight:500;cursor:pointer;color:#1C1C1C;">Open</button>
+            <button sc-camel-on-click="{{ s.dup }}" style="height:26px;padding:0 10px;border:1px solid #DAD9D4;background:#FFFFFF;border-radius:4px;font-size:11px;font-weight:500;cursor:pointer;color:#1C1C1C;">Duplicate</button>
+            <button sc-camel-on-click="{{ s.del }}" style="height:26px;padding:0 10px;border:1px solid {{ s.delBd }};background:#FFFFFF;border-radius:4px;font-size:11px;font-weight:500;cursor:pointer;color:{{ s.delFg }};">{{ s.delLabel }}</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</aside>
+</sc-if>
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;background:#1C1C1C;color:#FFFFFF;padding:10px 16px;border-radius:4px;font-size:12px;font-weight:500;">{{ toast }}</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="">
+const PAL={gold:{name:'Black and gold',primary:'#1E1F1F',secondary:'#B08A56',accent:'#8F7B69',neutral1:'#E6E4E0',neutral2:'#FAFAF8'},blue:{name:'Blue',primary:'#1B2E46',secondary:'#B78352',accent:'#244A78',neutral1:'#E6E4E0',neutral2:'#FAFAF8'},green:{name:'Green',primary:'#143629',secondary:'#A67C52',accent:'#1F4D3A',neutral1:'#E6E4E0',neutral2:'#FAFAF8'}};
+const PRESETS=['gold','blue','green'];
+const KEYS=['primary','secondary','accent','neutral1','neutral2'];
+// Display order is independent of the existing share-link colour encoding.
+const DISPLAY_KEYS=['accent','primary','secondary','neutral1','neutral2'];
+const LABELS={primary:'Primary',secondary:'Secondary',accent:'Accent',neutral1:'Neutral 1',neutral2:'Neutral 2'};
+const NOTES={primary:'Logo, headings, dark sections',secondary:'GROUP, symbol detail, rules',accent:'Links, numerals',neutral1:'Dividers, bands, muted text',neutral2:'Page background'};
+const LKEYS=['symMain','symSec','burke','group'];
+const LLABELS={symMain:'Main symbol',symSec:'Symbol secondary',burke:'BURKE lettering',group:'GROUP lettering'};
+const LNOTES={symMain:'Inherits Primary',symSec:'Inherits Secondary',burke:'Inherits Primary',group:'Inherits Secondary'};
+const BW={primary:'#1E1F1F',secondary:'#1E1F1F',accent:'#1E1F1F',neutral1:'#E4E3DF',neutral2:'#FFFFFF'};
+const LS='burke-r3-saved-palettes';
+const CHECKS=[['Body text on Neutral 2','primary','neutral2',4.5],['Text on Neutral 1 band','primary','neutral1',4.5],['Neutral 2 text on Primary','neutral2','primary',4.5],['Neutral 1 text on Primary','neutral1','primary',4.5],['Accent numerals on Neutral 2','accent','neutral2',3]];
+const norm=h=>{if(typeof h!=='string')return null;h=h.trim().replace(/^#/,'');if(/^[0-9a-f]{3}$/i.test(h))h=h.split('').map(c=>c+c).join('');return /^[0-9a-f]{6}$/i.test(h)?'#'+h.toUpperCase():null};
+const eq=(a,b)=>String(a).toLowerCase()===String(b).toLowerCase();
+const lum=h=>{const n=parseInt(h.slice(1),16);return [n>>16&255,n>>8&255,n&255].map(v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)}).reduce((s,v,i)=>s+v*[0.2126,0.7152,0.0722][i],0)};
+const ratio=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05)};
+const derive=c=>({symMain:c.primary,symSec:c.secondary,burke:c.primary,group:c.secondary});
+const pick=o=>KEYS.reduce((r,k)=>(r[k]=o[k],r),{});
+function parseHash(hash){const q=new URLSearchParams((hash||'').replace(/^#/,''));const logo=[1,2,3].includes(+q.get('l'))?+q.get('l'):1;const base=PAL[q.get('p')]?q.get('p'):'gold';const colors=pick(PAL[base]);const c=(q.get('c')||'').split(',').map(norm);if(c.length===5&&c.every(Boolean))KEYS.forEach((k,i)=>colors[k]=c[i]);const linked=q.get('lk')!=='0';const logoColors=derive(colors);const lc=(q.get('lc')||'').split(',').map(norm);if(!linked&&lc.length===4&&lc.every(Boolean))LKEYS.forEach((k,i)=>logoColors[k]=lc[i]);return {embed:q.get('embed')==='1',frame:+(q.get('f')||0),logo,base,bw:q.get('bw')==='1',colors,linked,logoColors,name:q.get('n')||''}}
+function buildHash(o){let s='l='+o.logo+'&p='+o.base;if(o.bw)s+='&bw=1';const P=PAL[o.base];if(KEYS.some(k=>!eq(o.colors[k],P[k])))s+='&c='+KEYS.map(k=>o.colors[k].slice(1)).join(',');if(!o.linked)s+='&lk=0&lc='+LKEYS.map(k=>o.logoColors[k].slice(1)).join(',');if(o.name)s+='&n='+encodeURIComponent(o.name);return s}
+function computeOv(colors,linked,logoColors,base){const eff=linked?derive(colors):logoColors;const P=PAL[base];const pe=derive(P);const ov={};LKEYS.forEach(k=>ov[k]=eq(eff[k],pe[k])?null:eff[k]);ov.primary=eq(colors.primary,P.primary)?null:colors.primary;ov.neutral1=eq(colors.neutral1,P.neutral1)?null:colors.neutral1;return ov}
+function resolveFill(e,ov){const m={symMain:ov.symMain,symSec:ov.symSec,burke:ov.burke,group:ov.group,favDarkBg:ov.primary,favLightBg:ov.neutral1};return m[e[2]]||e[3]}
+
+class Component extends DCLogic {
+  state=(()=>{const h=parseHash(window.location.hash);return {...h,activeSaved:null,panelOpen:false,advOpen:false,compare:false,cmp:['gold','blue','green'],saved:[],drafts:{},saveName:h.name,toast:'',ready:!!window.BURKE_DATA,colW:0,frameH:[0,0,0],pendingDel:null}})();
+
+  componentDidMount(){
+    try{const s=JSON.parse(localStorage.getItem(LS)||'[]');if(Array.isArray(s))this.setState({saved:s})}catch(e){}
+    if(!window.BURKE_DATA){this._poll=setInterval(()=>{if(window.BURKE_DATA){clearInterval(this._poll);this.setState({ready:true})}},50)}
+    this._onHash=()=>{const cur=window.location.hash.replace(/^#/,'');if(cur===this._lastHash)return;const h=parseHash(cur);this.setState({logo:h.logo,base:h.base,bw:h.bw,colors:h.colors,linked:h.linked,logoColors:h.logoColors})};
+    window.addEventListener('hashchange',this._onHash);
+    this._onMsg=e=>{const d=e.data;if(d&&typeof d.burkeH==='number'){const f=d.f|0;this.setState(s=>{if(s.frameH[f]===d.burkeH)return null;const a=s.frameH.slice();a[f]=d.burkeH;return {frameH:a}})}};
+    window.addEventListener('message',this._onMsg);
+    this.sync();
+  }
+  componentWillUnmount(){window.removeEventListener('hashchange',this._onHash);window.removeEventListener('message',this._onMsg);clearInterval(this._poll);if(this._sro)this._sro.disconnect();if(this._cro)this._cro.disconnect()}
+  componentDidUpdate(){this.sync()}
+  sync(){
+    const s=this.state;if(s.embed)return;
+    const h=buildHash(s);if(h!==this._lastHash){this._lastHash=h;try{history.replaceState(null,'','#'+h)}catch(e){}}
+    if(!s.ready)return;const fav=this.svgString('favLight');if(fav&&fav!==this._fav){this._fav=fav;let l=document.querySelector('link[rel="icon"]');if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l)}l.type='image/svg+xml';l.href='data:image/svg+xml,'+encodeURIComponent(fav)}
+  }
+  siteRefCb=el=>{if(this._sro){this._sro.disconnect();this._sro=null}if(el&&this.state.embed){const post=()=>window.parent.postMessage({burkeH:el.offsetHeight,f:this.state.frame},'*');this._sro=new ResizeObserver(post);this._sro.observe(el);post();if(document.fonts)document.fonts.ready.then(post);[600,1500,3000].forEach(ms=>setTimeout(post,ms))}};
+  colRefCb=el=>{if(this._cro){this._cro.disconnect();this._cro=null}if(el){this._cro=new ResizeObserver(en=>{const w=Math.round(en[0].contentRect.width);if(w&&w!==this.state.colW)this.setState({colW:w})});this._cro.observe(el)}};
+
+  theme(){const s=this.state;return s.bw?{c:BW,variant:'black',ov:{}}:{c:s.colors,variant:s.base,ov:computeOv(s.colors,s.linked,s.logoColors,s.base)}}
+  app(name){const D=window.BURKE_DATA;if(!D)return null;const t=this.theme();const L=D.logos[this.state.logo]&&D.logos[this.state.logo][t.variant];return L&&L[name]?{A:L[name],ov:t.ov}:null}
+  mk(name,style){const r=this.app(name);if(!r)return null;const {A,ov}=r;const p=A.vb.split(' ').map(Number);return React.createElement('svg',{viewBox:A.vb,role:'img','aria-label':'Burke Group',style:Object.assign({display:'block',aspectRatio:p[2]+' / '+p[3],flex:'none'},style)},A.els.map((e,i)=>React.createElement(e[0],Object.assign({key:i},e[1],{fill:resolveFill(e,ov)}))))}
+  svgString(name){const r=this.app(name);if(!r)return null;const {A,ov}=r;return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="'+A.vb+'">'+A.els.map(e=>'<'+e[0]+' '+Object.entries(e[1]).map(([k,v])=>k+'="'+v+'"').join(' ')+' fill="'+resolveFill(e,ov)+'"/>').join('')+'</svg>'}
+
+  toastMsg(t){clearTimeout(this._tt);this.setState({toast:t});this._tt=setTimeout(()=>this.setState({toast:''}),1800)}
+  copy(text,msg){const done=()=>this.toastMsg(msg);const fb=()=>{const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(e){this.toastMsg('Copy failed — select manually')}ta.remove()};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(done,fb);else fb()}
+  persist(saved){try{localStorage.setItem(LS,JSON.stringify(saved))}catch(e){}this.setState({saved})}
+  source(){const s=this.state;const sv=s.activeSaved&&s.saved.find(x=>x.id===s.activeSaved);return sv?{colors:sv.colors,linked:sv.linked,logoColors:sv.logoColors}:{colors:pick(PAL[s.base]),linked:true,logoColors:derive(PAL[s.base])}}
+  isModified(){const s=this.state;if(s.bw)return false;const src=this.source();if(KEYS.some(k=>!eq(s.colors[k],src.colors[k])))return true;if(s.linked!==src.linked)return true;if(!s.linked&&LKEYS.some(k=>!eq(s.logoColors[k],src.logoColors[k])))return true;return false}
+  setPreset(id){this.setState({base:id,colors:pick(PAL[id]),linked:true,logoColors:derive(PAL[id]),activeSaved:null,bw:false,drafts:{},name:'',saveName:''})}
+  openSaved(id){const sv=this.state.saved.find(x=>x.id===id);if(!sv)return;this.setState({base:sv.base,colors:{...sv.colors},linked:sv.linked,logoColors:{...sv.logoColors},activeSaved:id,saveName:sv.name,name:sv.name,bw:false,drafts:{}})}
+  setColor(k,h){this.setState(s=>{const colors={...s.colors,[k]:h};return {colors,logoColors:s.linked?derive(colors):s.logoColors}})}
+  setLogoColor(k,h){this.setState(s=>({logoColors:{...s.logoColors,[k]:h}}))}
+  entry(id,name){const s=this.state;return {id,name,base:s.base,colors:{...s.colors},linked:s.linked,logoColors:{...s.logoColors},updated:Date.now()}}
+  cfgFor(v){const s=this.state;if(PAL[v])return {base:v,colors:pick(PAL[v]),linked:true,logoColors:derive(PAL[v]),name:''};if(v==='current')return {base:s.base,colors:s.colors,linked:s.linked,logoColors:s.logoColors,name:''};const sv=s.saved.find(x=>'saved:'+x.id===v);return sv?{base:sv.base,colors:sv.colors,linked:sv.linked,logoColors:sv.logoColors,name:''}:this.cfgFor('gold')}
+
+  row(k,hex,draftKey,onApply,disabled,label,note){const s=this.state;const d=s.drafts[draftKey];const invalid=d!=null&&!norm(d);return {key:k,label,note,hex,lower:hex.toLowerCase(),text:d!=null?d:hex,invalid:invalid?'true':'false',bd:invalid?'#B42318':'#DAD9D4',disabled,op:disabled?0.55:1,pickAria:label+' colour picker',hexAria:label+' HEX value',
+    onPick:e=>{const n=norm(e.target.value);if(n){onApply(n);this.setState(st=>{const dr={...st.drafts};delete dr[draftKey];return {drafts:dr}})}},
+    onText:e=>{const v=e.target.value;this.setState(st=>({drafts:{...st.drafts,[draftKey]:v}}));const n=norm(v);if(n&&v.replace('#','').length===6)onApply(n)},
+    onBlur:()=>this.setState(st=>{const dr={...st.drafts};delete dr[draftKey];return {drafts:dr}})}}
+
+  renderVals(){
+    const s=this.state;const t=this.theme();const c=t.c;
+    const seg=on=>({bg:on?'#1C1C1C':'#FFFFFF',fg:on?'#FFFFFF':'#1C1C1C',bd:on?'#1C1C1C':'#DAD9D4'});
+    const go=id=>e=>{e.preventDefault();const el=document.getElementById(id);if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-(s.embed?0:56),behavior:'smooth'})};
+    const checks=CHECKS.map(([label,f,b,min])=>{const r=ratio(c[f],c[b]);return {label,ok:r>=min,value:r.toFixed(2)+':1'+(r>=min?'':' — below '+min+':1')}});
+    const warns=s.bw?[]:checks.filter(x=>!x.ok);
+    const P=PAL[s.base];const sv=s.activeSaved&&s.saved.find(x=>x.id===s.activeSaved);const modified=this.isModified();
+    const cmpOptions=[...PRESETS.map(v=>({v,label:PAL[v].name})),{v:'current',label:'Current working palette'},...s.saved.map(x=>({v:'saved:'+x.id,label:x.name}))];
+    const baseUrl=window.location.href.split('#')[0];const k=s.colW?s.colW/1280:0.3;
+    const cmpCols=[0,1,2].map(i=>{const v=s.cmp[i];const cfg=this.cfgFor(v);const h=s.frameH[i]||2200;const opt=cmpOptions.find(o=>o.v===v);return {v,aria:'Comparison '+(i+1)+': '+(opt?opt.label:''),options:cmpOptions.map(o=>({...o,sel:o.v===v})),sw:DISPLAY_KEYS.map(kk=>cfg.colors[kk]),src:baseUrl+'#embed=1&f='+i+'&'+buildHash({...cfg,logo:s.logo,bw:false}),h,k,wh:Math.ceil(h*k),ref:i===0?this.colRefCb:null,onChange:e=>{const a=s.cmp.slice();a[i]=e.target.value;this.setState({cmp:a})}}});
+    const eff=s.linked?derive(s.colors):s.logoColors;
+    return {
+      chrome:!s.embed, showSite:s.embed||!s.compare, showCompare:!s.embed&&s.compare, c,
+      logoOpts:[1,2,3].map(n=>({label:'Logo '+n,checked:String(s.logo===n),onClick:()=>this.setState({logo:n}),...seg(s.logo===n)})),
+      palOpts:PRESETS.map(id=>{const on=!s.bw&&s.base===id&&!s.activeSaved;return {label:PAL[id].name,checked:String(on),sw:DISPLAY_KEYS.map(key=>PAL[id][key]),onClick:()=>this.setPreset(id),...seg(on)}}),
+      bwBtn:seg(s.bw),bwPressed:String(s.bw),toggleBW:()=>this.setState({bw:!s.bw}),
+      hasSaved:s.saved.length>0,savedOpts:s.saved.map(x=>({id:x.id,name:x.name,sel:x.id===s.activeSaved})),noActiveSaved:!s.activeSaved,activeSavedVal:s.activeSaved||'',onSavedSelect:e=>{if(e.target.value)this.openSaved(e.target.value)},
+      modified,hasWarnings:warns.length>0,warnLabel:warns.length+' contrast '+(warns.length===1?'warning':'warnings'),
+      cmpBtn:seg(s.compare),comparePressed:String(s.compare),compareLabel:s.compare?'Exit Compare':'Compare Palettes',toggleCompare:()=>this.setState({compare:!s.compare}),
+      panBtn:seg(s.panelOpen),panelExpanded:String(s.panelOpen),panelOpen:s.panelOpen,togglePanel:()=>this.setState({panelOpen:!s.panelOpen}),openPanel:()=>this.setState({panelOpen:true}),
+      copyLink:()=>{const url=window.location.href.split('#')[0]+'#'+buildHash(s);this.copy(url,'Combination link copied')},
+      siteRefCb:this.siteRefCb,
+      logoHorizontal:this.mk('horizontal',{height:40,width:'auto'}),
+      logoStacked:this.mk('stacked',{height:'clamp(150px, 20cqi, 210px)',width:'auto',maxWidth:'100%'}),
+      logoSymbol:this.mk('symbol',{height:76,width:'auto'})||this.mk('favLight',{height:64,width:'auto'}),
+      logoFavicon:this.mk('favLight',{height:52,width:'auto'}),
+      goTop:go('top'),goAbout:go('about'),goBusinesses:go('businesses'),goStory:go('story'),goContact:go('contact'),noop:e=>e.preventDefault(),
+      cmpCols,cmpOptions,
+      bw:s.bw,editable:!s.bw,
+      editingLabel:s.bw?'Black & White (original artwork)':(sv?sv.name+' · based on '+P.name:P.name)+(modified?' · modified':''),
+      colorRows:DISPLAY_KEYS.map(kk=>this.row(kk,s.colors[kk],'c_'+kk,h=>this.setColor(kk,h),false,LABELS[kk],NOTES[kk])),
+      contrastRows:checks.map(x=>({label:x.label,value:x.value,bg:x.ok?'#F5F4F0':'#FBF3E6',fg:x.ok?'#1C1C1C':'#7A4A0E'})),
+      advOpen:s.advOpen,advExpanded:String(s.advOpen),advArrow:s.advOpen?'−':'+',toggleAdv:()=>this.setState({advOpen:!s.advOpen}),
+      linkedStr:String(s.linked),sw:{track:s.linked?'#1C1C1C':'#C9C8C2',knob:s.linked?16:2},
+      toggleLink:()=>this.setState(st=>st.linked?{linked:false,logoColors:derive(st.colors)}:{linked:true,logoColors:derive(st.colors)}),
+      logoRows:LKEYS.map(kk=>this.row(kk,eff[kk],'l_'+kk,h=>this.setLogoColor(kk,h),s.linked,LLABELS[kk],s.linked?LNOTES[kk]:'Independent')),
+      appStrip:s.ready?React.createElement(React.Fragment,null,this.mk('stacked',{height:64,width:'auto'}),this.mk('horizontal',{height:26,width:'auto'}),this.mk('favDark',{height:36,width:'auto'}),this.mk('favLight',{height:36,width:'auto'}),this.mk('symbol',{height:36,width:'auto'})):null,
+      reset:()=>{this.setState({colors:pick(PAL[s.base]),linked:true,logoColors:derive(PAL[s.base]),activeSaved:null,drafts:{},name:''});this.toastMsg('Reset to '+P.name)},
+      copyHex:()=>{const lines=['Burke Group — '+(sv?sv.name+' (based on '+P.name+')':P.name)+(modified?' — customised':''),...KEYS.map(kk=>LABELS[kk]+': '+s.colors[kk])];if(!s.linked){lines.push('','Logo colours (independent)',...LKEYS.map(kk=>LLABELS[kk]+': '+s.logoColors[kk]))}this.copy(lines.join('\n'),'HEX values copied')},
+      saveName:s.saveName,onSaveName:e=>this.setState({saveName:e.target.value}),
+      saveNewLabel:sv?'Save as New':'Save Custom Palette',canUpdate:!!sv,
+      saveNew:()=>{const name=s.saveName.trim()||(P.name+' custom '+(s.saved.length+1));const id=Date.now().toString(36);this.persist([...s.saved,this.entry(id,name)]);this.setState({activeSaved:id,saveName:name,name});this.toastMsg('Saved “'+name+'”')},
+      saveUpdate:()=>{if(!sv)return;const name=s.saveName.trim()||sv.name;this.persist(s.saved.map(x=>x.id===sv.id?this.entry(sv.id,name):x));this.setState({name});this.toastMsg('Resaved “'+name+'”')},
+      noSaved:s.saved.length===0,
+      savedRows:s.saved.map(x=>({name:x.name,sw:DISPLAY_KEYS.map(kk=>x.colors[kk]),bd:x.id===s.activeSaved?'#1C1C1C':'#E2E1DC',open:()=>this.openSaved(x.id),
+        dup:()=>{const id=Date.now().toString(36);this.persist([...s.saved,{...x,id,name:x.name+' copy',colors:{...x.colors},logoColors:{...x.logoColors},updated:Date.now()}]);this.toastMsg('Duplicated')},
+        del:()=>{if(s.pendingDel!==x.id){this.setState({pendingDel:x.id});return}this.persist(s.saved.filter(y=>y.id!==x.id));this.setState({pendingDel:null,activeSaved:s.activeSaved===x.id?null:s.activeSaved});this.toastMsg('Deleted')},
+        delLabel:s.pendingDel===x.id?'Confirm delete':'Delete',delBd:s.pendingDel===x.id?'#B42318':'#DAD9D4',delFg:s.pendingDel===x.id?'#B42318':'#1C1C1C'})),
+      hasToast:!!s.toast,toast:s.toast
+    };
+  }
+}
+</script>
+
+
+<script>
+if(window.parent!==window){
+ addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='burke-selection'&&[1,2,3].includes(e.data.logo)&&['gold','blue','green'].includes(e.data.palette)){const embedded=location.hash.includes('embed=1');location.hash='l='+e.data.logo+'&p='+e.data.palette+(e.data.bw?'&bw=1':'')+(embedded?'&embed=1':'')+(e.data.colors?'&c='+['primary','secondary','accent','neutral1','neutral2'].map(k=>e.data.colors[k].replace('#','')).join(','):'');}});
+}
+if(window.parent!==window && !location.hash.includes('embed=1')){
+ document.documentElement.setAttribute('data-burke-embedded','');
+ const report=()=>{const top=document.getElementById('top');if(top)parent.postMessage({type:'burke-lab-height',height:Math.ceil(top.getBoundingClientRect().height)},location.origin)};
+ addEventListener('load',()=>{new ResizeObserver(report).observe(document.body);report()});
+}
+</script></body></html>
