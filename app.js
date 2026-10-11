@@ -4,10 +4,10 @@ import {LOGOS,PALETTES,APPLICATIONS,VARIATIONS,logoAsset,mockupAsset,availableVa
 const $=id=>document.getElementById(id);
 const label=logo=>`Logo ${logo}`;
 const roles=['accent','primary','secondary','neutral1','neutral2'];
-const allStages=['identity','mockups','website','children','group'];
+const allStages=['identity','mockups','children','website','group'];
 let stages=[...allStages];
 const stageNames={identity:'The logo',mockups:'In real life',website:'On a website',children:'Child companies',group:'Group of companies'};
-const state={customMode:false,customColors:null,customBase:'gold',combinations:[{logo:1,palette:'blue'},{logo:3,palette:'green'}],railColumn:0,page:'intro',logo:1,stage:'identity',palettes:{1:'gold',2:'gold',3:'gold'},reviewed:new Set(),black:false,compare:'logos',comparisonView:'identity',compareLogo:1,comparePalette:'gold',viewerIndex:0,photos:[]};
+const state={websiteCompany:'group',customChildColors:{},customMode:false,customColors:null,customBase:'gold',combinations:[{logo:1,palette:'blue'},{logo:3,palette:'green'}],railColumn:0,page:'intro',logo:1,stage:'identity',palettes:{1:'gold',2:'gold',3:'gold'},reviewed:new Set(),black:false,compare:'logos',comparisonView:'identity',compareLogo:1,comparePalette:'gold',viewerIndex:0,photos:[]};
 try{const saved=JSON.parse(sessionStorage.getItem('burke-guided-review')||'null');if(saved){for(const l of LOGOS)if(PALETTES[saved.palettes?.[l]])state.palettes[l]=saved.palettes[l];state.reviewed=new Set((saved.reviewed||[]).filter(l=>LOGOS.includes(l)));}}catch{}
 const palette=()=>state.palettes[state.logo];
 function save(){try{sessionStorage.setItem('burke-guided-review',JSON.stringify({palettes:state.palettes,reviewed:[...state.reviewed]}));}catch{}}
@@ -25,10 +25,10 @@ function navigate(page,logo=state.logo,stage=state.stage,keepScroll=false){
  const previousScroll=window.scrollY;
  const hash=page==='intro'?'#main':page==='compare'?'#compare':`#logo=${logo}&view=${stage}`;
  if(location.hash!==hash)history.pushState(null,'',hash);
- applyRoute();if(keepScroll==='content'){requestAnimationFrame(()=>{const el=state.page==='explore'?$(state.stage+'-stage'):$(state.comparisonView==='identity'?'combination-headings':'compare-row-'+state.comparisonView);const offset=stickyHeight();window.scrollTo({top:el.getBoundingClientRect().top+scrollY-offset-12,behavior:'instant'});});return;}if(keepScroll){window.scrollTo({top:previousScroll,behavior:'instant'});return;}window.scrollTo({top:0,behavior:'instant'});const heading=page==='explore'?$('focus-title'):page==='compare'?$('comparison-title'):$('intro-title');heading.focus({preventScroll:true});
+ applyRoute();if(keepScroll==='content'){requestAnimationFrame(()=>{const el=state.page==='explore'?$(state.stage+'-stage'):$(state.comparisonView==='identity'?'compare-row-identity':'compare-row-'+state.comparisonView);const offset=stickyHeight();window.scrollTo({top:el.getBoundingClientRect().top+scrollY-offset-12,behavior:'instant'});});return;}if(keepScroll){window.scrollTo({top:previousScroll,behavior:'instant'});return;}window.scrollTo({top:0,behavior:'instant'});const heading=page==='explore'?$('focus-title'):page==='compare'?$('comparison-title'):$('intro-title');heading.focus({preventScroll:true});
 }
 function applyRoute(){
- const q=new URLSearchParams(location.hash.slice(1));const custom=(q.get('colours')||'').split(',');if(custom.length===5&&custom.every(c=>/^[0-9a-f]{6}$/i.test(c))){state.customMode=true;state.customColors=Object.fromEntries(roles.map((r,i)=>[r,'#'+custom[i].toUpperCase()]));stages=['identity','website'];}
+ const q=new URLSearchParams(location.hash.slice(1));const custom=(q.get('colours')||'').split(',');if(custom.length===5&&custom.every(c=>/^[0-9a-f]{6}$/i.test(c))){state.customMode=true;state.customColors=Object.fromEntries(roles.map((r,i)=>[r,'#'+custom[i].toUpperCase()]));stages=['identity','children','website'];}
  const logo=+q.get('logo'),stage=q.get('view');
  if(q.has('compare')){state.page='compare';const shared=parseChoices(q.get('set')).slice(0,3);if(shared.length){state.compare='logos';state.comparePalette=shared[0].palette;state.compareLogo=shared[0].logo;}if(state.compare==='combinations')state.compare='logos';}
  else if(LOGOS.includes(logo)){state.page='explore';state.logo=logo;state.stage=stages.includes(stage)?stage:'identity';state.black=false;}
@@ -57,10 +57,12 @@ function renderFocus(){
  }
  if(!state.customMode){
  state.photos=Object.keys(APPLICATIONS).map(application=>({logo:state.logo,palette:palette(),application,caption:APPLICATIONS[application]}));renderPhotos($('finished-gallery'),state.photos);
-  renderChildren($('children-gallery'),state.logo,palette());
+
  renderGroup($('group-gallery'),state.logo,palette());
  }
+ renderChildren($('children-gallery'),state.logo,palette());
  {
+ renderWebsiteCompanyControls($('website-companies'));
  renderColourStudy($('website-mount'),{logo:state.logo,palette:palette()});
  }
  $('journey-back').textContent=state.logo>1?'← '+label(state.logo-1):'← All logos';
@@ -97,8 +99,8 @@ function renderComparison(){
   gallery.replaceChildren();gallery.dataset.count=choices.length;
   const heads=document.createElement('div');heads.id='combination-headings';heads.className='compare-row-grid';gallery.append(heads);
   choices.forEach((_,i)=>{const cell=document.createElement('div');cell.className='combination-heading';const name=document.createElement('h2');const caption=document.createElement('p');caption.className='muted';cell.append(name,caption);if(state.compare==='combinations'&&choices.length>2){const remove=button('×','remove-combination');remove.setAttribute('aria-label','Remove option '+String.fromCharCode(65+i));remove.addEventListener('click',()=>{if(state.combinations.length>2){state.combinations.splice(i,1);state.railColumn=0;gallery.dataset.count='';renderComparison();}});cell.append(remove);}heads.append(cell);});
-  for(const [key,title] of [['identity','Primary logo'],['horizontal','Secondary logo'],['icons','Favicons & symbol'],['sign','Signage'],['polo','Polo shirt'],['card','Business card'],['cap','Baseball cap'],['website','Website colour study'],['children','Child companies']]){
-   const row=document.createElement('section');row.id='compare-row-'+key;row.className='comparison-row';const heading=document.createElement('h2');heading.textContent=title;row.append(heading);const grid=document.createElement('div');grid.className='compare-row-grid';row.append(grid);gallery.append(row);
+  for(const [key,title] of [['identity','Primary logo'],['horizontal','Secondary logo'],['icons','Favicons & symbol'],['sign','Signage'],['polo','Polo shirt'],['card','Business card'],['cap','Baseball cap'],['children','Child companies'],['website','On a website']]){
+   const row=document.createElement('section');row.id='compare-row-'+key;row.className='comparison-row';const heading=document.createElement('h2');heading.textContent=title;if(key==='website'){const line=document.createElement('div');line.className='section-line';line.append(heading);const controls=document.createElement('div');controls.id='compare-website-companies';line.append(controls);row.append(line);}else row.append(heading);const grid=document.createElement('div');grid.className='compare-row-grid';row.append(grid);gallery.append(row);
    choices.forEach((c,i)=>{const cell=document.createElement('div');cell.className='compare-cell';
     if(key==='children'||key==='group'){}
     else if(key==='icons'){cell.classList.add('icon-applications');for(const [variation,name] of [['favDark','Dark favicon'],['favLight','Light favicon'],['symbol','Symbol']]){const fig=document.createElement('figure');fig.append(image(reviewLogoAsset(c.logo,c.palette,variation),name));const caption=document.createElement('figcaption');caption.textContent=name;fig.append(caption);cell.append(fig);}}
@@ -109,6 +111,8 @@ function renderComparison(){
    });
   }
  }
+ $('combination-headings').hidden=logos;
+ renderWebsiteCompanyControls($('compare-website-companies'));
  state.photos=[];
  [...$('combination-headings').children].forEach((cell,i)=>{const c=choices[i];cell.querySelector('h2').textContent=state.compare==='combinations'?'Option '+String.fromCharCode(65+i):logos?label(c.logo):PALETTES[c.palette].name;cell.querySelector('p').textContent=label(c.logo)+' · '+(state.customMode||c.colors?'Custom colours':PALETTES[c.palette].name);});
  for(const key of ['identity','horizontal','icons','sign','polo','card','cap','website','children']){
@@ -164,14 +168,14 @@ function renderSticky(){
  const c=railChoice();document.querySelectorAll('#sticky-logos button').forEach(e=>{e.setAttribute('aria-pressed',String(+e.dataset.logo===c.logo));e.querySelector('img').src=reviewLogoAsset(+e.dataset.logo,c.palette,'symbol');});
  document.querySelectorAll('#sticky-palettes button').forEach(e=>e.setAttribute('aria-pressed',String(e.dataset.palette===c.palette)));
  $('sticky-column').hidden=true;$('sticky-column').replaceChildren();if(state.page==='compare'){comparisonChoices().forEach((_,i)=>{const o=document.createElement('option');o.value=i;o.textContent='Option '+String.fromCharCode(65+i);$('sticky-column').append(o);});$('sticky-column').value=state.railColumn;}
- const section=$('sticky-section');section.replaceChildren();const opts=state.page==='compare'?[['identity','Logos'],['horizontal','Secondary logos'],['icons','Favicons'],['sign','Signage'],['polo','Polo shirts'],['card','Business cards'],['cap','Caps'],['website','Website colour studies'],['children','Child companies']]:[['identity','The logo'],['mockups','In real life'],['website','On a website'],['children','Child companies'],['group','Group of companies']];
- for(const [key,name] of opts.filter(([key])=>!customReview()||!['mockups','children','group','sign','polo','card','cap'].includes(key))){const o=document.createElement('option');o.value=key;o.textContent=name;section.append(o);}section.value=state.page==='compare'?state.comparisonView:state.stage;
+ const section=$('sticky-section');section.replaceChildren();const opts=state.page==='compare'?[['identity','Logos'],['horizontal','Secondary logos'],['icons','Favicons'],['sign','Signage'],['polo','Polo shirts'],['card','Business cards'],['cap','Caps'],['children','Child companies'],['website','Website colour studies']]:[['identity','The logo'],['mockups','In real life'],['children','Child companies'],['website','On a website'],['group','Group of companies']];
+ for(const [key,name] of opts.filter(([key])=>!customReview()||!['mockups','group','sign','polo','card','cap'].includes(key))){const o=document.createElement('option');o.value=key;o.textContent=name;section.append(o);}section.value=state.page==='compare'?state.comparisonView:state.stage;
  $('sticky-compare').setAttribute('aria-checked',String(state.page==='compare'));$('sticky-compare').setAttribute('aria-label',state.page==='compare'?'Turn comparison off':'Turn comparison on');$('compare-link').setAttribute('aria-pressed',String(state.page==='compare'));updateSticky();
 }
 $('sticky-mode').addEventListener('change',e=>{state.compare=e.target.value;$('comparison-gallery').dataset.count='';renderComparison();});
 $('sticky-column').addEventListener('change',e=>{state.railColumn=+e.target.value;renderRail();});
 $('sticky-compare').addEventListener('click',openCompare);
-function scrollToComparison(key){state.comparisonView=key;$('comparison-view').value=['horizontal','icons'].includes(key)?'identity':key;const row=$(key==='identity'?'combination-headings':'compare-row-'+key);window.scrollTo({top:row.getBoundingClientRect().top+scrollY-stickyHeight()-12,behavior:'instant'});$('sticky-section').value=key;updateSticky();}
+function scrollToComparison(key){state.comparisonView=key;$('comparison-view').value=['horizontal','icons'].includes(key)?'identity':key;const row=$(key==='identity'?'compare-row-identity':'compare-row-'+key);window.scrollTo({top:row.getBoundingClientRect().top+scrollY-stickyHeight()-12,behavior:'instant'});$('sticky-section').value=key;updateSticky();}
 $('sticky-section').addEventListener('change',e=>{if(state.page==='compare')scrollToComparison(e.target.value);else navigate('explore',state.logo,e.target.value,'content');});
 let stickyTick=false;window.addEventListener('scroll',()=>{if(!stickyTick){stickyTick=true;requestAnimationFrame(()=>{stickyTick=false;updateSticky();});}},{passive:true});window.addEventListener('resize',()=>{positionSticky();updateSticky();});
 
@@ -182,9 +186,22 @@ const CHILDREN=[{name:'Realty',colour:'#BD6C5A'},{name:'Development',colour:'#64
 function companyCard(name,art,caption=''){
  const fig=document.createElement('figure');fig.className='company-card';const box=document.createElement('div');box.className='company-art';box.append(art);const cap=document.createElement('figcaption');const title=document.createElement('h3');title.textContent=name;cap.append(title);if(caption){const p=document.createElement('p');p.className='muted';p.textContent=caption;cap.append(p);}fig.append(box,cap);return fig;
 }
+function childColour(company){return state.customMode?(state.customChildColors[company.name]||company.colour):company.colour;}
+function childArtwork(logo,company,colors){
+ const holder=document.createElement('div');holder.className='child-logo';holder.innerHTML=COMPANY_TEMPLATES[logo].replaceAll('#1b2e46',colors.primary).replaceAll('#b78352',colors.secondary).replace('COMPANY_NAME',company.name.toUpperCase());
+ const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name);svg.querySelector('text').setAttribute('font-size',company.name.length>15?'38':'55');return holder;
+}
 function renderChildren(container,logo,pal){
- container.replaceChildren();container.append(companyCard('Burke Group',image(reviewLogoAsset(logo,pal),'Burke Group'),PALETTES[pal].secondary));
- for(const company of CHILDREN){const holder=document.createElement('div');holder.className='child-logo';holder.innerHTML=COMPANY_TEMPLATES[logo].replaceAll('#1b2e46',PALETTES[pal].primary).replaceAll('#b78352',company.colour).replace('COMPANY_NAME',company.name.toUpperCase());const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name);svg.querySelector('text').setAttribute('font-size',company.name.length>15?'38':'55');container.append(companyCard('Burke '+company.name,holder,company.colour));}
+ const colors=state.customMode?state.customColors:PALETTES[pal];
+ container.replaceChildren();container.append(companyCard('Burke Group',image(reviewLogoAsset(logo,pal),'Burke Group'),colors.secondary));
+ for(const company of CHILDREN)container.append(companyCard('Burke '+company.name,childArtwork(logo,company,{...colors,secondary:childColour(company)}),childColour(company)));
+}
+function renderWebsiteCompanyControls(container){
+ if(!container)return;container.className='website-companies';container.setAttribute('role','group');container.setAttribute('aria-label','Website company');container.replaceChildren();
+ const current=railChoice(),base=state.customMode?state.customColors:PALETTES[current.palette];
+ for(const company of [{name:'Burke Group',key:'group',colour:base.secondary},...CHILDREN.map(c=>({...c,key:c.name,colour:childColour(c)}))]){
+  const e=button('','website-company');e.dataset.company=company.key;e.setAttribute('aria-pressed',String(state.websiteCompany===company.key));const square=document.createElement('i');square.style.background=company.colour;square.setAttribute('aria-hidden','true');const text=document.createElement('span');text.textContent=company.name;e.append(square,text);e.addEventListener('click',()=>{state.websiteCompany=company.key;const y=scrollY;if(state.page==='compare')renderComparison();else renderFocus();window.scrollTo({top:y,behavior:'instant'});});container.append(e);
+ }
 }
 function renderGroup(container,logo,pal){container.replaceChildren();for(const [name,src] of [['Burke Group',reviewLogoAsset(logo,pal)],['SureBuilt','assets/companies/surebuilt.png'],['Slimlines','assets/companies/slimlines.png']])container.append(companyCard(name,image(src,name)));}
 
@@ -194,13 +211,14 @@ $('close-guide').addEventListener('click',()=>$('control-guide').close());
 
 
 function renderColourStudy(container,choice){
- const c=state.customMode?state.customColors:choice.colors||PALETTES[choice.palette];
- container.replaceChildren();const study=document.createElement('article');study.className='colour-study';study.setAttribute('aria-label',label(choice.logo)+' colour palette in a condensed website');
+ const company=CHILDREN.find(c=>c.name===state.websiteCompany),base=state.customMode?state.customColors:choice.colors||PALETTES[choice.palette];
+ const c=company?{...base,secondary:childColour(company)}:base;
+ container.replaceChildren();const study=document.createElement('article');study.className='colour-study';study.dataset.company=state.websiteCompany;study.setAttribute('aria-label',(company?'Burke '+company.name:'Burke Group')+' website colour study, '+label(choice.logo));
  for(const role of roles)study.style.setProperty('--'+role,c[role]);
- const nav=document.createElement('div');nav.className='study-nav';nav.append(image(reviewLogoAsset(choice.logo,choice.palette,'horizontal',choice.colors),'Burke Group'));
- const hero=document.createElement('div');hero.className='study-hero';hero.innerHTML='<p class="study-note">PRIMARY + NEUTRAL 2</p><h3>Built for what’s next.</h3><p>Confident spaces. Lasting value.</p><span class="study-button">Explore our work ↗</span><span class="study-link">Discover Burke →</span>';
- const band=document.createElement('div');band.className='study-band';band.innerHTML='<span class="study-note">NEUTRAL 1 + ACCENT</span><div><strong>01</strong><span>Property. Development.<br>Possibility.</span></div>';
- const dark=document.createElement('div');dark.className='study-dark';dark.innerHTML='<span class="study-note">PRIMARY + SECONDARY</span><h3>A shared ambition.</h3><p>A strong foundation for the future.</p><i aria-hidden="true"></i>';
+ const nav=document.createElement('div');nav.className='study-nav';nav.append(company?childArtwork(choice.logo,company,c):image(reviewLogoAsset(choice.logo,choice.palette,'horizontal',choice.colors),'Burke Group'));
+ const hero=document.createElement('div');hero.className='study-hero';hero.innerHTML='<p class="study-note">PRIMARY + NEUTRAL 2</p><h3>Primary sets the tone.</h3><p>Primary colours the logo, heading and button. Neutral 2 keeps the background light.</p><span class="study-button">Primary button ↗</span><span class="study-link">Accent colour link →</span>';
+ const band=document.createElement('div');band.className='study-band';band.innerHTML='<span class="study-note">NEUTRAL 1 + ACCENT</span><div><strong>01</strong><span>Neutral 1 adds contrast.<br>Accent highlights the details.</span></div>';
+ const dark=document.createElement('div');dark.className='study-dark';dark.innerHTML='<span class="study-note">PRIMARY + SECONDARY</span><h3>A distinct secondary colour.</h3><p>Primary anchors this dark section. Secondary colours the logo detail and the line below.</p><i aria-hidden="true"></i>';
  const swatches=document.createElement('div');swatches.className='study-swatches';for(const role of roles){const sw=document.createElement('span');sw.style.background=c[role];sw.title=role+': '+c[role];swatches.append(sw);}
  study.append(nav,hero,band,dark,swatches);container.append(study);
 }
@@ -216,24 +234,28 @@ function reviewLogoAsset(logo,pal,variation='stacked',colors=null){
 function customReview(){return state.customMode||(state.page==='compare'&&comparisonChoices().some(c=>c.colors));}
 function applyCustomView(){
  document.querySelectorAll('.focus-heading [data-stage]').forEach(e=>e.hidden=state.customMode&&!stages.includes(e.dataset.stage));
- for(const key of ['sign','polo','card','cap','children']){const row=$('compare-row-'+key);if(row)row.hidden=customReview();}
- document.querySelectorAll('#sticky-section option').forEach(e=>e.hidden=customReview()&&['sign','polo','card','cap','children','group','mockups'].includes(e.value));
+ for(const key of ['sign','polo','card','cap']){const row=$('compare-row-'+key);if(row)row.hidden=customReview();}
+ document.querySelectorAll('#sticky-section option').forEach(e=>e.hidden=customReview()&&['sign','polo','card','cap','group','mockups'].includes(e.value));
  if(customReview()){$('comparison-description').textContent='Custom colours applied across every logo and website preview.';}
  updateEditorFields();
 }
 function repaintCustom(){if(state.page==='compare')renderComparison();else renderFocus();applyCustomView();}
 function openCustomEditor(){
  if(state.page==='compare')state.compare='logos';
- if(!state.customMode){state.customBase=railChoice().palette;state.customColors={...PALETTES[state.customBase]};state.customMode=true;stages=['identity','website'];}
- $('colour-editor').hidden=false;if(state.page==='explore'&&!stages.includes(state.stage))navigate('explore',state.logo,'identity','content');else if(state.page==='compare'&&!['identity','horizontal','icons','website'].includes(state.comparisonView))state.comparisonView='identity';
+ if(!state.customMode){state.customBase=railChoice().palette;state.customColors={...PALETTES[state.customBase]};state.customMode=true;stages=['identity','children','website'];}
+ $('colour-editor').hidden=false;if(state.page==='explore'&&!stages.includes(state.stage))navigate('explore',state.logo,'identity','content');else if(state.page==='compare'&&!['identity','horizontal','icons','children','website'].includes(state.comparisonView))state.comparisonView='identity';
  repaintCustom();if(state.page==='compare')scrollToComparison('identity');$('sticky-custom').setAttribute('aria-expanded','true');$('open-lab').setAttribute('aria-expanded','true');document.querySelector('#colour-fields input').focus({preventScroll:true});
 }
 for(const role of roles){const row=document.createElement('label');row.className='colour-field';const name=document.createElement('span');name.textContent=({neutral1:'Neutral 1',neutral2:'Neutral 2'}[role]||role[0].toUpperCase()+role.slice(1));const picker=document.createElement('input');picker.type='color';picker.dataset.role=role;picker.setAttribute('aria-label',name.textContent+' colour picker');const hex=document.createElement('input');hex.type='text';hex.dataset.hex=role;hex.setAttribute('aria-label',name.textContent+' HEX value');hex.maxLength=7;
  const apply=value=>{if(/^#[0-9a-f]{6}$/i.test(value)){state.customColors[role]=value.toUpperCase();hex.setAttribute('aria-invalid','false');repaintCustom();}else hex.setAttribute('aria-invalid','true');};picker.addEventListener('input',()=>apply(picker.value));hex.addEventListener('input',()=>apply(hex.value));row.append(name,picker,hex);$('colour-fields').append(row);}
-function updateEditorFields(){if(!state.customColors)return;for(const role of roles){document.querySelector('[data-role='+role+']').value=state.customColors[role];const hex=document.querySelector('[data-hex='+role+']');if(document.activeElement!==hex)hex.value=state.customColors[role];}}
+for(const company of CHILDREN){
+ const row=document.createElement('label');row.className='colour-field';const name=document.createElement('span');name.textContent=company.name;const picker=document.createElement('input');picker.type='color';picker.dataset.childPicker=company.name;picker.setAttribute('aria-label',company.name+' secondary colour');const hex=document.createElement('input');hex.type='text';hex.maxLength=7;hex.dataset.childHex=company.name;hex.setAttribute('aria-label',company.name+' secondary HEX value');
+ const apply=value=>{if(/^#[0-9a-f]{6}$/i.test(value)){state.customChildColors[company.name]=value.toUpperCase();hex.setAttribute('aria-invalid','false');repaintCustom();}else hex.setAttribute('aria-invalid','true');};picker.addEventListener('input',()=>apply(picker.value));hex.addEventListener('input',()=>apply(hex.value));row.append(name,picker,hex);$('child-colour-fields').append(row);
+}
+function updateEditorFields(){if(!state.customColors)return;for(const company of CHILDREN){document.querySelector('[data-child-picker="'+company.name+'"]').value=childColour(company);const hex=document.querySelector('[data-child-hex="'+company.name+'"]');if(document.activeElement!==hex)hex.value=childColour(company);}for(const role of roles){document.querySelector('[data-role='+role+']').value=state.customColors[role];const hex=document.querySelector('[data-hex='+role+']');if(document.activeElement!==hex)hex.value=state.customColors[role];}}
 $('sticky-custom').addEventListener('click',openCustomEditor);
 $('close-colour-editor').addEventListener('click',()=>{$('colour-editor').hidden=true;$('open-lab').setAttribute('aria-expanded','false');$('sticky-custom').setAttribute('aria-expanded','false');});
-$('reset-custom').addEventListener('click',()=>{state.customColors={...PALETTES[state.customBase]};repaintCustom();});
+$('reset-custom').addEventListener('click',()=>{state.customColors={...PALETTES[state.customBase]};state.customChildColors={};repaintCustom();});
 $('exit-custom').addEventListener('click',()=>{state.customMode=false;stages=[...allStages];$('colour-editor').hidden=true;repaintCustom();});
 
 
