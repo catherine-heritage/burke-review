@@ -191,6 +191,15 @@ function childArtwork(logo,company,colors){
  const holder=document.createElement('div');holder.className='child-logo';holder.innerHTML=COMPANY_TEMPLATES[logo].replaceAll('#1b2e46',colors.primary).replaceAll('#b78352',colors.secondary).replace('COMPANY_NAME',company.name.toUpperCase());
  const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name);svg.querySelector('text').setAttribute('font-size',company.name.length>15?'38':'55');return holder;
 }
+function childHorizontalArtwork(logo,company,colors){
+ const art=window.BURKE_DATA.logos[logo].blue.horizontal,ns='http://www.w3.org/2000/svg';
+ const holder=document.createElement('div');holder.className='child-horizontal';const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox',art.vb);svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name+' horizontal logo');
+ const word=document.createElementNS(ns,'g'),descriptor=document.createElementNS(ns,'g');svg.append(word,descriptor);
+ for(const [tag,attrs,role,original] of art.els){const el=document.createElementNS(ns,tag);for(const [key,value] of Object.entries(attrs))el.setAttribute(key,value);el.setAttribute('fill',['symSec','group'].includes(role)?colors.secondary:['symMain','burke'].includes(role)?colors.primary:original);(role==='burke'?word:role==='group'?descriptor:svg).append(el);}
+ // Measure the supplied wordmark and descriptor to retain their alignment.
+ svg.style.cssText='position:absolute;left:-10000px;visibility:hidden;width:1000px;height:300px';document.body.append(svg);const w=word.getBBox(),d=descriptor.getBBox();svg.remove();svg.removeAttribute('style');descriptor.remove();
+ const text=document.createElementNS(ns,'text');text.textContent=company.name.toUpperCase();text.setAttribute('x',w.x);text.setAttribute('y',d.y+d.height);text.setAttribute('font-family','Montserrat, sans-serif');text.setAttribute('font-weight','600');text.setAttribute('font-size',Math.min(d.height*1.35,w.width/(company.name.length*.8)));text.setAttribute('letter-spacing',d.height*.1);text.setAttribute('fill',colors.secondary);svg.append(text);holder.append(svg);return holder;
+}
 function renderChildren(container,logo,pal){
  const colors=state.customMode?state.customColors:PALETTES[pal];
  container.replaceChildren();container.append(companyCard('Burke Group',image(reviewLogoAsset(logo,pal),'Burke Group'),colors.secondary));
@@ -215,7 +224,7 @@ function renderColourStudy(container,choice){
  const c=company?{...base,secondary:childColour(company)}:base;
  container.replaceChildren();const study=document.createElement('article');study.className='colour-study';study.dataset.company=state.websiteCompany;study.setAttribute('aria-label',(company?'Burke '+company.name:'Burke Group')+' website colour study, '+label(choice.logo));
  for(const role of roles)study.style.setProperty('--'+role,c[role]);
- const nav=document.createElement('div');nav.className='study-nav';nav.append(company?childArtwork(choice.logo,company,c):image(reviewLogoAsset(choice.logo,choice.palette,'horizontal',choice.colors),'Burke Group'));
+ const nav=document.createElement('div');nav.className='study-nav';nav.append(company?childHorizontalArtwork(choice.logo,company,c):image(reviewLogoAsset(choice.logo,choice.palette,'horizontal',choice.colors),'Burke Group'));
  const hero=document.createElement('div');hero.className='study-hero';hero.innerHTML='<p class="study-note">PRIMARY + NEUTRAL 2</p><h3>Primary sets the tone.</h3><p>Primary colours the logo, heading and button. Neutral 2 keeps the background light.</p><span class="study-button">Primary button ↗</span><span class="study-link">Accent colour link →</span>';
  const band=document.createElement('div');band.className='study-band';band.innerHTML='<span class="study-note">NEUTRAL 1 + ACCENT</span><div><strong>01</strong><span>Neutral 1 adds contrast.<br>Accent highlights the details.</span></div>';
  const dark=document.createElement('div');dark.className='study-dark';dark.innerHTML='<span class="study-note">PRIMARY + SECONDARY</span><h3>A distinct secondary colour.</h3><p>Primary anchors this dark section. Secondary colours the logo detail and the line below.</p><i aria-hidden="true"></i>';

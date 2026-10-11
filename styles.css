@@ -157,3 +157,5 @@ body:has(#control-rail:not([hidden])) main{padding-right:36px;padding-bottom:0}
 
 .website-companies{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.website-company{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:white;padding:8px 10px;font-size:10px;min-height:36px}.website-company i{width:13px;height:13px;border:1px solid #0002;flex-shrink:0}.website-company[aria-pressed=true]{outline:1px solid var(--ink);background:var(--paper)}.study-nav .child-logo{width:160px;height:90px}.study-nav .child-logo svg{width:100%;height:100%}.child-editor-title{font-size:12px;margin:20px 0 8px}.colour-editor{max-height:calc(100vh - 150px);overflow-y:auto}
 @media(max-width:800px){#website-stage>.section-line,#compare-row-website>.section-line{flex-wrap:wrap}.website-companies{justify-content:flex-start}.website-company{font-size:9px;padding:7px 8px}}
+
+.study-nav .child-horizontal{width:145px;max-width:100%;height:42px}.study-nav .child-horizontal svg{display:block;width:100%;height:100%}
