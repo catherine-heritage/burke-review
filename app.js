@@ -198,7 +198,12 @@ function childHorizontalArtwork(logo,company,colors){
  for(const [tag,attrs,role,original] of art.els){const el=document.createElementNS(ns,tag);for(const [key,value] of Object.entries(attrs))el.setAttribute(key,value);el.setAttribute('fill',['symSec','group'].includes(role)?colors.secondary:['symMain','burke'].includes(role)?colors.primary:original);(role==='burke'?word:role==='group'?descriptor:svg).append(el);}
  // Measure the supplied wordmark and descriptor to retain their alignment.
  svg.style.cssText='position:absolute;left:-10000px;visibility:hidden;width:1000px;height:300px';document.body.append(svg);const w=word.getBBox(),d=descriptor.getBBox();svg.remove();svg.removeAttribute('style');descriptor.remove();
- const text=document.createElementNS(ns,'text');text.textContent=company.name.toUpperCase();text.setAttribute('x',w.x);text.setAttribute('y',d.y+d.height);text.setAttribute('font-family','Montserrat, sans-serif');text.setAttribute('font-weight','600');text.setAttribute('font-size',Math.min(d.height*1.35,w.width/(company.name.length*.8)));text.setAttribute('letter-spacing',d.height*.1);text.setAttribute('fill',colors.secondary);svg.append(text);holder.append(svg);return holder;
+ const lines=logo===1&&company.name==='Property Management'?['PROPERTY','MANAGEMENT']:[company.name.toUpperCase()];
+ const fontSize=Math.min(d.height*1.35,w.width/(Math.max(...lines.map(line=>line.length))*.8)),spacing=d.height*.1;
+ const text=document.createElementNS(ns,'text');text.setAttribute('font-family','Montserrat, sans-serif');text.setAttribute('font-weight','600');text.setAttribute('font-size',fontSize);text.setAttribute('letter-spacing',spacing);text.setAttribute('fill',colors.secondary);
+ lines.forEach((line,i)=>{const span=document.createElementNS(ns,'tspan');span.textContent=line+(i<lines.length-1?' ':'');span.setAttribute('x',w.x);span.setAttribute('y',d.y+d.height+i*fontSize*1.2);span.setAttribute('textLength',Math.min(w.width*.97,line.length*(fontSize*.7+spacing)));span.setAttribute('lengthAdjust','spacingAndGlyphs');text.append(span);});
+ if(lines.length>1){const vb=art.vb.split(/\s+/).map(Number);vb[3]+=fontSize*1.2+3;svg.setAttribute('viewBox',vb.join(' '));}
+ svg.append(text);holder.append(svg);return holder;
 }
 function renderChildren(container,logo,pal){
  const colors=state.customMode?state.customColors:PALETTES[pal];
@@ -271,9 +276,12 @@ $('exit-custom').addEventListener('click',()=>{state.customMode=false;stages=[..
 
 const feedbackRanks={logos:{},palettes:{}};
 function rankControl(group,key,name,art){
- const card=document.createElement('div');card.className='feedback-card';card.append(art);const title=document.createElement('h3');title.textContent=name;const labelEl=document.createElement('label');labelEl.textContent='Your ranking';const select=document.createElement('select');select.dataset.rankGroup=group;select.dataset.rankKey=key;select.setAttribute('aria-label',name+' ranking');select.required=true;
- for(const [value,text] of [['','Choose rank'],['1','1st'],['2','2nd'],['3','3rd']]){const option=document.createElement('option');option.value=value;option.textContent=text;select.append(option);}
- select.addEventListener('change',()=>{const ranks=feedbackRanks[group],previous=ranks[key]||'',next=select.value;const other=Object.keys(ranks).find(k=>k!==String(key)&&ranks[k]===next&&next);if(other)ranks[other]=previous;ranks[key]=next;document.querySelectorAll('[data-rank-group='+group+']').forEach(el=>el.value=ranks[el.dataset.rankKey]||'');$('feedback-status').textContent='';});labelEl.append(select);card.append(title,labelEl);$('feedback-'+group).append(card);
+ const card=document.createElement('div');card.className='feedback-card';card.append(art);const title=document.createElement('h3');title.textContent=name;const field=document.createElement('fieldset');field.className='rank-options';const legend=document.createElement('legend');legend.textContent='Your ranking';field.append(legend);
+ for(const [value,label] of [['1','1st'],['2','2nd'],['3','3rd']]){
+  const option=document.createElement('label'),radio=document.createElement('input');radio.type='radio';radio.name='rank-'+group+'-'+key;radio.value=value;radio.required=true;radio.dataset.rankGroup=group;radio.dataset.rankKey=key;radio.setAttribute('aria-label',name+' '+label);const text=document.createElement('span');text.textContent=label;option.append(radio,text);field.append(option);
+  radio.addEventListener('change',()=>{const ranks=feedbackRanks[group],previous=ranks[key]||'',next=radio.value;const other=Object.keys(ranks).find(k=>k!==String(key)&&ranks[k]===next);if(other)ranks[other]=previous;ranks[key]=next;document.querySelectorAll('[data-rank-group='+group+']').forEach(el=>el.checked=el.value===(ranks[el.dataset.rankKey]||''));$('feedback-status').textContent='';});
+ }
+ card.append(title,field);$('feedback-'+group).append(card);
 }
 for(const logo of LOGOS)rankControl('logos',String(logo),label(logo),image(logoAsset(logo,null),label(logo)+' in black'));
 for(const [key,pal] of Object.entries(PALETTES)){const sw=document.createElement('div');sw.className='feedback-swatches';for(const role of roles){const colour=document.createElement('i');colour.style.background=pal[role];colour.title=role+' '+pal[role];sw.append(colour);}rankControl('palettes',key,pal.name,sw);}
