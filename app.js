@@ -192,8 +192,8 @@ document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();
 
 const CHILDREN=[{name:'Realty',colour:'#BD6C5A'},{name:'Development',colour:'#648EAB'},{name:'Property Management',colour:'#8F9868'}];
 const CHILD_COLOUR_SETS=[
- {id:'balanced',name:'Set 01 · Balanced',colours:{Realty:'#BD6C5A',Development:'#648EAB','Property Management':'#8F9868'}},
- {id:'warm',name:'Set 02 · Warm Mineral',colours:{Realty:'#C5795C',Development:'#7798B4','Property Management':'#719B7C'}}
+ {id:'balanced',name:'Original palette',colours:{Realty:'#BD6C5A',Development:'#648EAB','Property Management':'#8F9868'},colourNames:['Oxide Red','Mineral Blue','Olive Sage']},
+ {id:'alternative',name:'Alternative palette',colours:{Realty:'#519B8B',Development:'#C27B5B','Property Management':'#7395BD'},colourNames:['Jade Teal','Burnished Copper','Slate Blue']}
 ];
 let activeChildSet='balanced';
 function selectedChildColours(){return CHILD_COLOUR_SETS.find(s=>s.id===activeChildSet)?.colours||CHILD_COLOUR_SETS[0].colours;}
@@ -206,15 +206,21 @@ function chooseChildSet(id){
 function renderChildSetChoices(){
  const host=$('child-palette-options');if(!host)return;
  host.replaceChildren();
- const heading=document.createElement('div');heading.className='child-palette-heading';heading.textContent='Explore subsidiary colour sets';host.append(heading);
- const description=document.createElement('p');description.className='muted';description.textContent='Switch all three accents together. For individual HEX adjustments, use Customise colours.';host.append(description);
- const options=document.createElement('div');options.className='child-palette-buttons';host.append(options);
+ const options=document.createElement('div');options.className='child-palette-buttons';
+ options.setAttribute('role','radiogroup');options.setAttribute('aria-label','Subsidiary colour palette');
  for(const set of CHILD_COLOUR_SETS){
-  const e=button('','child-palette-button');e.setAttribute('aria-pressed',String(activeChildSet===set.id));e.setAttribute('aria-label',set.name);
-  const dots=document.createElement('span');dots.className='child-palette-swatches';dots.setAttribute('aria-hidden','true');
-  for(const company of CHILDREN){const sw=document.createElement('i');sw.style.background=set.colours[company.name];dots.append(sw);}
-  const name=document.createElement('span');name.textContent=set.name;e.append(dots,name);e.addEventListener('click',()=>chooseChildSet(set.id));options.append(e);
+  const choice=document.createElement('label');choice.className='child-palette-button';choice.title=set.name+' — '+set.colourNames.join(', ');
+  const input=document.createElement('input');input.type='radio';input.name='child-colour-set';
+  input.value=set.id;input.checked=activeChildSet===set.id;
+  input.setAttribute('aria-label',set.name+': Realty '+set.colourNames[0]+', Development '+set.colourNames[1]+', Property Management '+set.colourNames[2]);
+  input.addEventListener('change',()=>{if(input.checked)chooseChildSet(set.id);});
+  const swatches=document.createElement('span');swatches.className='child-palette-swatches';swatches.setAttribute('aria-hidden','true');
+  for(const company of CHILDREN){const swatch=document.createElement('i');swatch.style.background=set.colours[company.name];swatches.append(swatch);}
+  choice.append(input,swatches);options.append(choice);
  }
+ const reset=button('×','child-palette-reset');reset.setAttribute('aria-label','Reset subsidiary colours to the original palette');reset.title='Reset to original subsidiary colours';
+ reset.addEventListener('click',()=>chooseChildSet('balanced'));
+ host.append(options,reset);
 }
 function companyCard(name,art,caption=''){
  const fig=document.createElement('figure');fig.className='company-card';const box=document.createElement('div');box.className='company-art';box.append(art);const cap=document.createElement('figcaption');const title=document.createElement('h3');title.textContent=name;cap.append(title);if(caption){const p=document.createElement('p');p.className='muted';p.textContent=caption;cap.append(p);}fig.append(box,cap);return fig;
