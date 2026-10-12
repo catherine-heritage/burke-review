@@ -47,7 +47,7 @@ window.addEventListener('popstate',applyRoute);window.addEventListener('hashchan
 $('all-logos').addEventListener('click',()=>navigate('intro'));
 $('compare-link').addEventListener('click',()=>openCompare());
 $('start-review').addEventListener('click',()=>navigate('explore',1,'identity'));
-function openCompare(){if(state.page==='compare'){const previous=state.returnView||{logo:railChoice().logo,stage:'identity'};if(!state.returnView)state.palettes[previous.logo]=railChoice().palette;navigate('explore',previous.logo,previous.stage,true);return;}state.returnView={logo:state.logo,stage:state.stage};state.compare='logos';state.compareLogo=state.logo;state.comparePalette=palette();state.comparisonView=state.stage==='mockups'?'sign':state.stage==='group'?'identity':state.stage;navigate('compare',state.logo,state.stage,true);}
+function openCompare(){if(state.page==='compare'){const previous=state.returnView||{logo:railChoice().logo,stage:'identity'};if(!state.returnView)state.palettes[previous.logo]=railChoice().palette;navigate('explore',previous.logo,previous.stage,true);return;}state.returnView={logo:state.logo,stage:state.stage};state.compare='logos';state.compareLogo=state.logo;state.comparePalette=palette();state.comparisonView='identity';navigate('compare',state.logo,state.stage);}
 document.querySelectorAll('[data-stage]').forEach(e=>e.addEventListener('click',()=>navigate('explore',state.logo,e.dataset.stage,'content')));
 $('black').addEventListener('click',()=>{state.black=!state.black;renderFocus();});
 function renderFocus(){
@@ -193,7 +193,7 @@ document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();
 const CHILDREN=[{name:'Realty',colour:'#BD6C5A'},{name:'Development',colour:'#648EAB'},{name:'Property Management',colour:'#8F9868'}];
 const CHILD_COLOUR_SETS=[
  {id:'balanced',name:'Original palette',colours:{Realty:'#BD6C5A',Development:'#648EAB','Property Management':'#8F9868'},colourNames:['Oxide Red','Mineral Blue','Olive Sage']},
- {id:'alternative',name:'Alternative palette',colours:{Realty:'#519B8B',Development:'#C27B5B','Property Management':'#7395BD'},colourNames:['Jade Teal','Burnished Copper','Slate Blue']}
+ {id:'alternative',name:'Alternative palette',colours:{Realty:'#C75F4F',Development:'#4D86BC','Property Management':'#699B7A'},colourNames:['Warm Red','Clear Blue','Sage Green']}
 ];
 let activeChildSet='balanced';
 function selectedChildColours(){return CHILD_COLOUR_SETS.find(s=>s.id===activeChildSet)?.colours||CHILD_COLOUR_SETS[0].colours;}
