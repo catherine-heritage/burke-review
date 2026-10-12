@@ -9,7 +9,7 @@ const roles=['primary','secondary','accent','neutral1','neutral2'];
 const sharedRoles=['accent','primary','secondary','neutral1','neutral2'];
 const CUSTOM_PRESETS=[
  {id:'espresso',name:'Custom Palette 04 — Espresso + Aged Brass',colors:{primary:'#392F27',secondary:'#BB9769',accent:'#786451',neutral1:'#DFD4C5',neutral2:'#F8F3EC'},children:{Realty:'#C5795C',Development:'#7798B4','Property Management':'#68998A'}},
- {id:'petrol',name:'Custom Palette 05 — Deep Petrol + Copper',colors:{primary:'#234443',secondary:'#C0936A',accent:'#537A70',neutral1:'#DDD4C7',neutral2:'#F8F3EB'},children:{Realty:'#C77D70',Development:'#7097B5','Property Management':'#8F9868'}}
+ {id:'petrol',name:'Custom Palette 05 — Deep Petrol + Copper',colors:{primary:'#234443',secondary:'#C0936A',accent:'#537A70',neutral1:'#DDD4C7',neutral2:'#F8F3EB'},children:{Realty:'#C77D70',Development:'#7097B5','Property Management':'#719B7C'}}
 ];
 const allStages=['identity','children','group','website','mockups'];
 let stages=[...allStages];
@@ -67,7 +67,7 @@ function renderFocus(){
 
  renderGroup($('group-gallery'),state.logo,palette());
  }
- renderChildren($('children-gallery'),state.logo,palette());
+ renderChildren($('children-gallery'),state.logo,palette());renderChildSetChoices();
  {
  renderWebsiteCompanyControls($('website-companies'));
  renderColourStudy($('website-mount'),{logo:state.logo,palette:palette()});
@@ -190,11 +190,36 @@ let stickyTick=false;window.addEventListener('scroll',()=>{if(!stickyTick){stick
 document.querySelector('footer a').addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'instant'});});
 document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();$('main').focus({preventScroll:true});$('main').scrollIntoView({block:'start'});});
 
-const CHILDREN=[{name:'Realty',colour:'#BD6C5A'},{name:'Development',colour:'#648EAB'},{name:'Property Management',colour:'#4C968E'}];
+const CHILDREN=[{name:'Realty',colour:'#BD6C5A'},{name:'Development',colour:'#648EAB'},{name:'Property Management',colour:'#8F9868'}];
+const CHILD_COLOUR_SETS=[
+ {id:'balanced',name:'Set 01 · Balanced',colours:{Realty:'#BD6C5A',Development:'#648EAB','Property Management':'#8F9868'}},
+ {id:'warm',name:'Set 02 · Warm Mineral',colours:{Realty:'#C5795C',Development:'#7798B4','Property Management':'#719B7C'}}
+];
+let activeChildSet='balanced';
+function selectedChildColours(){return CHILD_COLOUR_SETS.find(s=>s.id===activeChildSet)?.colours||CHILD_COLOUR_SETS[0].colours;}
+function chooseChildSet(id){
+ if(!CHILD_COLOUR_SETS.some(set=>set.id===id))return;
+ activeChildSet=id;
+ if(state.customMode){state.customChildColors={...selectedChildColours()};state.customDirty=true;}
+ if(state.page==='compare')renderComparison();else renderFocus();
+}
+function renderChildSetChoices(){
+ const host=$('child-palette-options');if(!host)return;
+ host.replaceChildren();
+ const heading=document.createElement('div');heading.className='child-palette-heading';heading.textContent='Explore subsidiary colour sets';host.append(heading);
+ const description=document.createElement('p');description.className='muted';description.textContent='Switch all three accents together. For individual HEX adjustments, use Customise colours.';host.append(description);
+ const options=document.createElement('div');options.className='child-palette-buttons';host.append(options);
+ for(const set of CHILD_COLOUR_SETS){
+  const e=button('','child-palette-button');e.setAttribute('aria-pressed',String(activeChildSet===set.id));e.setAttribute('aria-label',set.name);
+  const dots=document.createElement('span');dots.className='child-palette-swatches';dots.setAttribute('aria-hidden','true');
+  for(const company of CHILDREN){const sw=document.createElement('i');sw.style.background=set.colours[company.name];dots.append(sw);}
+  const name=document.createElement('span');name.textContent=set.name;e.append(dots,name);e.addEventListener('click',()=>chooseChildSet(set.id));options.append(e);
+ }
+}
 function companyCard(name,art,caption=''){
  const fig=document.createElement('figure');fig.className='company-card';const box=document.createElement('div');box.className='company-art';box.append(art);const cap=document.createElement('figcaption');const title=document.createElement('h3');title.textContent=name;cap.append(title);if(caption){const p=document.createElement('p');p.className='muted';p.textContent=caption;cap.append(p);}fig.append(box,cap);return fig;
 }
-function childColour(company){return state.customMode?(state.customChildColors[company.name]||company.colour):company.colour;}
+function childColour(company){return state.customMode?(state.customChildColors[company.name]||selectedChildColours()[company.name]):selectedChildColours()[company.name];}
 function childArtwork(logo,company,colors){
  const holder=document.createElement('div');holder.className='child-logo';holder.innerHTML=COMPANY_TEMPLATES[logo].replaceAll('#1b2e46',colors.primary).replaceAll('#b78352',colors.secondary).replace('COMPANY_NAME',company.name.toUpperCase());
  const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name);svg.querySelector('text').setAttribute('font-size',company.name.length>15?'38':'55');return holder;
@@ -257,7 +282,7 @@ function applyCustomView(){
 function repaintCustom(){if(state.page==='compare')renderComparison();else renderFocus();applyCustomView();}
 function openCustomEditor(){
  if(state.page==='compare')state.compare='logos';
- if(!state.customMode){state.customBase=railChoice().palette;state.customColors={...PALETTES[state.customBase]};state.customChildColors={};state.customPreset=null;state.customDirty=false;state.customMode=true;stages=['identity','children','website'];}
+ if(!state.customMode){state.customBase=railChoice().palette;state.customColors={...PALETTES[state.customBase]};state.customChildColors={...selectedChildColours()};state.customPreset=null;state.customDirty=false;state.customMode=true;stages=['identity','children','website'];}
  $('colour-editor').hidden=false;if(state.page==='explore'&&!stages.includes(state.stage))navigate('explore',state.logo,'identity','content');else if(state.page==='compare'&&!['identity','horizontal','icons','children','website'].includes(state.comparisonView))state.comparisonView='identity';
  repaintCustom();if(state.page==='compare')scrollToComparison('identity');$('sticky-custom').setAttribute('aria-expanded','true');$('open-lab').setAttribute('aria-expanded','true');$('colour-editor').scrollTop=0;document.querySelector('#custom-presets button').focus({preventScroll:true});
 }
@@ -278,7 +303,7 @@ for(const company of CHILDREN){
 function updateEditorFields(){if(!state.customColors)return;document.querySelectorAll('[data-preset]').forEach(e=>e.setAttribute('aria-pressed',String(e.dataset.preset===state.customPreset)));const preset=CUSTOM_PRESETS.find(p=>p.id===state.customPreset);$('custom-preset-status').textContent=preset?preset.name+(state.customDirty?' · Edited':' · Applied'):'';for(const company of CHILDREN){document.querySelector('[data-child-picker="'+company.name+'"]').value=childColour(company);const hex=document.querySelector('[data-child-hex="'+company.name+'"]');if(document.activeElement!==hex)hex.value=childColour(company);}for(const role of roles){document.querySelector('[data-role='+role+']').value=state.customColors[role];const hex=document.querySelector('[data-hex='+role+']');if(document.activeElement!==hex)hex.value=state.customColors[role];}}
 $('sticky-custom').addEventListener('click',openCustomEditor);
 $('close-colour-editor').addEventListener('click',()=>{$('colour-editor').hidden=true;$('open-lab').setAttribute('aria-expanded','false');$('sticky-custom').setAttribute('aria-expanded','false');});
-$('reset-custom').addEventListener('click',()=>{if(state.customPreset){chooseCustomPreset(state.customPreset);return;}state.customColors={...PALETTES[state.customBase]};state.customChildColors={};state.customDirty=false;repaintCustom();});
+$('reset-custom').addEventListener('click',()=>{if(state.customPreset){chooseCustomPreset(state.customPreset);return;}state.customColors={...PALETTES[state.customBase]};state.customChildColors={...selectedChildColours()};state.customDirty=false;repaintCustom();});
 $('exit-custom').addEventListener('click',()=>{state.customMode=false;stages=[...allStages];$('colour-editor').hidden=true;repaintCustom();});
 
 
