@@ -223,7 +223,17 @@ function renderWebsiteCompanyControls(container){
   const e=button('','website-company');e.dataset.company=company.key;e.setAttribute('aria-pressed',String(state.websiteCompany===company.key));const square=document.createElement('i');square.style.background=company.colour;square.setAttribute('aria-hidden','true');const text=document.createElement('span');text.textContent=company.name;e.append(square,text);e.addEventListener('click',()=>{state.websiteCompany=company.key;const y=scrollY;if(state.page==='compare')renderComparison();else renderFocus();window.scrollTo({top:y,behavior:'instant'});});container.append(e);
  }
 }
-function renderGroup(container,logo,pal){container.replaceChildren();for(const [name,src] of [['Burke Group',reviewLogoAsset(logo,pal)],['SureBuilt','assets/companies/surebuilt.png'],['Slimlines','assets/companies/slimlines.png']])container.append(companyCard(name,image(src,name)));}
+function renderGroup(container,logo,pal){
+ const company=CHILDREN.find(c=>c.name===state.websiteCompany);
+ const colors=state.customMode?state.customColors:PALETTES[pal];
+ const name=company?'Burke '+company.name:'Burke Group';
+ const art=company?childArtwork(logo,company,{...colors,secondary:childColour(company)}):image(reviewLogoAsset(logo,pal),'Burke Group');
+ container.replaceChildren();
+ container.append(companyCard(name,art));
+ for(const [name,src] of [['SureBuilt','assets/companies/surebuilt.png'],['Slimlines','assets/companies/slimlines.png']]){
+  container.append(companyCard(name,image(src,name)));
+ }
+}
 
 for(const id of ['open-guide','sticky-guide'])$(id).addEventListener('click',()=>$('control-guide').showModal());
 $('close-guide').addEventListener('click',()=>$('control-guide').close());
