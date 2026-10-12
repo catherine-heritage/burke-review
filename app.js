@@ -1,5 +1,5 @@
 import './colour-lab/logo-data.js';
-import {COMPANY_TEMPLATES} from './company-data.js';
+import {CHILD_PRIMARY} from './child-primary-data.js';
 import {CHILD_HORIZONTAL} from './child-horizontal-data.js';
 import {LOGOS,PALETTES,APPLICATIONS,VARIATIONS,logoAsset,mockupAsset,availableVariations} from './data.js';
 const $=id=>document.getElementById(id);
@@ -201,8 +201,26 @@ function companyCard(name,art,caption=''){
 }
 function childColour(company){return state.customMode?(state.customChildColors[company.name]||company.colour):company.colour;}
 function childArtwork(logo,company,colors){
- const holder=document.createElement('div');holder.className='child-logo';holder.innerHTML=COMPANY_TEMPLATES[logo].replaceAll('#1b2e46',colors.primary).replaceAll('#b78352',colors.secondary).replace('COMPANY_NAME',company.name.toUpperCase());
- const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name);svg.querySelector('text').setAttribute('font-size',company.name.length>15?'38':'55');return holder;
+ const holder=document.createElement('div');holder.className='child-logo';
+ // Render the exact supplied vector artwork for this logo concept and company.
+ holder.innerHTML=CHILD_PRIMARY[logo][company.name];
+ const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name);
+ const items=[...svg.children];
+ const paint=(element,colour)=>element.querySelectorAll('path,rect').forEach(shape=>shape.setAttribute('fill',colour));
+ if(logo===1){
+  // Four-Part B: BURKE first, subsidiary text second, then the four symbol parts.
+  paint(items[0],colors.primary);paint(items[1],colors.secondary);
+  items.slice(2).forEach((part,i)=>part.setAttribute('fill',i===2?colors.secondary:colors.primary));
+ }else if(logo===2){
+  // Layered B: third layer is the subsidiary accent.
+  items.slice(0,3).forEach((part,i)=>part.setAttribute('fill',i===2?colors.secondary:colors.primary));
+  paint(items[3],colors.primary);paint(items[4],colors.secondary);
+ }else{
+  // Rising Forms: shorter left form is the subsidiary accent.
+  items[0].setAttribute('fill',colors.secondary);items[1].setAttribute('fill',colors.primary);
+  paint(items[2],colors.primary);paint(items[3],colors.secondary);
+ }
+ return holder;
 }
 function childHorizontalArtwork(logo,company,colors){
  const holder=document.createElement('div');holder.className='child-horizontal';holder.innerHTML=CHILD_HORIZONTAL[logo][company.name];const svg=holder.querySelector('svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Burke '+company.name+' horizontal logo');svg.querySelectorAll('[data-colour]').forEach(el=>el.setAttribute('fill',colors[el.dataset.colour]));const vb=svg.viewBox.baseVal;holder.style.width=(42*vb.width/vb.height)+'px';return holder;
