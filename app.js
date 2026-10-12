@@ -198,7 +198,7 @@ const CHILD_COLOUR_SETS=[
 let activeChildSet='balanced';
 function selectedChildColours(){return CHILD_COLOUR_SETS.find(s=>s.id===activeChildSet)?.colours||CHILD_COLOUR_SETS[0].colours;}
 function chooseChildSet(id){
- if(!CHILD_COLOUR_SETS.some(set=>set.id===id))return;
+ if(id!==null&&!CHILD_COLOUR_SETS.some(set=>set.id===id))return;
  activeChildSet=id;
  if(state.customMode){state.customChildColors={...selectedChildColours()};state.customDirty=true;}
  if(state.page==='compare')renderComparison();else renderFocus();
@@ -218,8 +218,8 @@ function renderChildSetChoices(){
   for(const company of CHILDREN){const swatch=document.createElement('i');swatch.style.background=set.colours[company.name];swatches.append(swatch);}
   choice.append(input,swatches);options.append(choice);
  }
- const reset=button('×','child-palette-reset');reset.setAttribute('aria-label','Reset subsidiary colours to the original palette');reset.title='Reset to original subsidiary colours';
- reset.addEventListener('click',()=>chooseChildSet('balanced'));
+ const reset=button('×','child-palette-reset');reset.setAttribute('aria-label','Clear selected radio button and restore original subsidiary colours');reset.title='Clear selection and restore original colours';
+ reset.addEventListener('click',()=>chooseChildSet(null));
  host.append(options,reset);
 }
 function companyCard(name,art,caption=''){
