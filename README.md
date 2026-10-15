@@ -10,7 +10,7 @@ options row. The layout follows the owner's reference screenshot while retaining
 the supplied SVG artwork and the original Round 2 Blue palette and child colours.
 Palette values stay fixed. A compact Colour treatment control switches between
 Original, Single-colour icon, Single-colour text and Inverse across all four logos.
-A collapsed Explore colours section allows temporary subsidiary accent edits,
+A collapsed Explore colours section allows temporary company accent edits with paired family swatches,
 locked shuffles, reset and palette copying without changing votes. Comparison
 has been removed for now. Anonymous voting stores one changeable vote per Firebase
 account and reveals live results only after voting. See `FIREBASE_SETUP.md` for
