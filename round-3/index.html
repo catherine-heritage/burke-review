@@ -6,9 +6,9 @@
   <meta name="description" content="Explore the final refinements to the Burke Group logo.">
   <title>Round 3 — Burke Group Identity Review</title>
   <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="round-3.css?v=voting-1">
+  <link rel="stylesheet" href="round-3.css?v=explore-1">
   <link rel="stylesheet" href="../round-navigation.css">
-  <script type="module" src="round-3.js?v=voting-1"></script>
+  <script type="module" src="round-3.js?v=explore-1"></script>
 </head>
 <body class="round-three">
 <a class="skip" href="#main">Skip to review</a>
@@ -32,8 +32,22 @@
     <fieldset class="refinement colour"><legend>Colour treatment</legend><div class="segments"><label><input type="radio" name="colour" value="0" checked><span>Original</span></label><label><input type="radio" name="colour" value="2"><span>Single-colour icon</span></label><label><input type="radio" name="colour" value="1"><span>Single-colour text</span></label><label><input type="radio" name="colour" value="3"><span>Inverse</span></label></div></fieldset>
   </form>
   <p id="preview-status" class="sr-only" role="status" aria-live="polite"></p>
+  <details id="colour-explorer" class="colour-explorer">
+    <summary>Explore colours</summary>
+    <div class="colour-explorer-content">
+      <p class="explorer-help">Try different subsidiary colours in the previews above. Burke Group’s navy and gold stay fixed. These colours are for exploration only.</p>
+      <div class="accent-controls">
+      <div class="accent-control"><label for="accent-0">Burke Realty</label><div class="accent-edit"><span class="accent-swatch" aria-hidden="true"></span><input id="accent-0" class="accent-hex" type="text" value="#BD6C5A" spellcheck="false" autocomplete="off" aria-label="Burke Realty HEX colour" aria-describedby="accent-error-0" maxlength="7"><label class="accent-lock-label"><input class="accent-lock" type="checkbox" aria-label="Lock Burke Realty colour"><span>Lock</span></label></div><p id="accent-error-0" class="accent-error" hidden>Enter a 3 or 6 digit HEX colour.</p></div>
+      <div class="accent-control"><label for="accent-1">Burke Development</label><div class="accent-edit"><span class="accent-swatch" aria-hidden="true"></span><input id="accent-1" class="accent-hex" type="text" value="#648EAB" spellcheck="false" autocomplete="off" aria-label="Burke Development HEX colour" aria-describedby="accent-error-1" maxlength="7"><label class="accent-lock-label"><input class="accent-lock" type="checkbox" aria-label="Lock Burke Development colour"><span>Lock</span></label></div><p id="accent-error-1" class="accent-error" hidden>Enter a 3 or 6 digit HEX colour.</p></div>
+      <div class="accent-control"><label for="accent-2">Burke Property Management</label><div class="accent-edit"><span class="accent-swatch" aria-hidden="true"></span><input id="accent-2" class="accent-hex" type="text" value="#8F9868" spellcheck="false" autocomplete="off" aria-label="Burke Property Management HEX colour" aria-describedby="accent-error-2" maxlength="7"><label class="accent-lock-label"><input class="accent-lock" type="checkbox" aria-label="Lock Burke Property Management colour"><span>Lock</span></label></div><p id="accent-error-2" class="accent-error" hidden>Enter a 3 or 6 digit HEX colour.</p></div>
+      </div>
+      <div class="explorer-actions"><button id="shuffle-colours" class="primary-button" type="button">Shuffle colours</button><button id="reset-colours" class="text-button" type="button">Reset to original</button><button id="copy-palette" class="text-button" type="button">Copy palette</button></div>
+      <p class="explorer-status" role="status" aria-live="polite"></p>
+    </div>
+  </details>
   <section id="voting" class="voting-section" aria-labelledby="vote-title">
     <div class="voting-heading"><h2 id="vote-title">Your vote</h2><p>Voting is anonymous. You can change your vote at any time.</p></div>
+    <div class="vote-colour-note"><p><strong>We're voting on the design, not the colours.</strong></p><p>Feel free to experiment with different colour combinations. For this round, we're choosing the logo's shape, spacing and lettering. The final colours will be decided separately.</p></div>
     <div id="vote-before" class="voting-action"><button id="cast-vote" class="primary-button" type="button" disabled>Vote for this version</button><p>Choose your preferred options above, then vote for this version.</p></div>
     <div id="vote-after" hidden><div class="vote-confirmation"><p>Your vote has been recorded.</p><button id="update-vote" class="text-button" type="button" disabled>Update my vote</button></div><p class="vote-summary-label">You’re currently voting for:</p><p id="your-vote" class="vote-summary"></p><p id="vote-edit-hint" class="vote-help"></p></div>
     <p id="vote-notice" class="vote-help" role="status" aria-live="polite">Connecting to voting…</p><button id="retry-voting" class="text-button" type="button" hidden>Try again</button>
