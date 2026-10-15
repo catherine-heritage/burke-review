@@ -101,4 +101,3 @@ export function makeLogo(settings) {
   // in their original compound paths and retain SVG's nonzero fill rule.
   return svg;
 }
-
