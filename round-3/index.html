@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore the final refinements to the Burke Group logo.">
+  <title>Round 3 — Burke Group Identity Review</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="round-3.css">
+  <script type="module" src="round-3.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to review</a>
+<header class="masthead">
+  <a class="wordmark" href="../">BURKE GROUP<span>IDENTITY REVIEW</span></a>
+  <nav class="round-nav" aria-label="Review rounds"><a href="../round-1/">Round 1</a><a href="../">Round 2</a><a href="./" aria-current="page">Round 3</a></nav>
+</header>
+<main id="main" tabindex="-1">
+  <div class="round-heading"><h1>Round 3</h1><p class="muted">A few final refinements. Try them together and save your favourites below.</p></div>
+  <section aria-label="Explore logo refinements">
+    <div id="preview" class="logo-preview" aria-live="polite"><p class="muted">Loading logo…</p></div>
+    <form id="options" class="logo-options" aria-label="Logo settings">
+      <label>Icon spacing<select name="spacing"><option value="0">Original</option><option value="1">Wider</option></select></label>
+      <label>Icon shape<select name="shape"><option value="0">Original</option><option value="1">Curved layers</option></select></label>
+      <label>GROUP weight<select name="weight"><option value="0">Original</option><option value="1">Extra bold</option></select></label>
+      <label>Letter spacing<select name="tracking"><option value="0">Original</option><option value="1">Tighter</option></select></label>
+      <label>Colour<select name="colour"><option value="0">Original</option><option value="1">Blue GROUP</option><option value="2">Gold icon / Blue lettering</option></select></label>
+      <button type="reset" class="text-button">Reset</button>
+    </form>
+    <div class="preview-actions"><button id="add" class="primary-button" disabled>Add to comparison</button><span id="status" class="muted" role="status"></span></div>
+  </section>
+  <section class="favourites" aria-labelledby="favourites-title">
+    <div class="comparison-heading"><h2 id="favourites-title">Compare favourites <span id="count" class="muted">0 / 6</span></h2><div class="selection-actions"><button id="select-all" class="text-button" disabled>Select all</button><button id="clear-selection" class="text-button" disabled>Clear selection</button><button id="copy" class="text-button" disabled>Copy selected link</button></div></div>
+    <p id="empty" class="muted">Add the combinations you’d like to see side by side. Up to six.</p>
+    <div id="saved" class="saved-logos"></div>
+    <div id="copy-fallback" hidden><label for="share-link" class="muted">Copy this link to share your selected combinations.</label><input id="share-link" readonly></div>
+  </section>
+</main>
+<noscript><p>Please enable JavaScript to explore the logo refinements.</p></noscript>
+</body>
+</html>
