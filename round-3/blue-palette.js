@@ -11,16 +11,17 @@ export const bluePalette = Object.freeze({
 export function makeFixedBlueLogo(refinements, company) {
   // Treatments change colour placement only; the Blue palette and each
   // company’s existing accent remain fixed. Values match the supplied SVGs:
-  // 0 = original, 1 = single-colour text (02), 2 = single-colour icon (05).
+  // 0 = original, 1 = single-colour text (02), 2 = single-colour icon (05), 3 = inverse.
   const geometry = refinements.slice(0, 4);
   const treatment = refinements[4] || 0;
   const logo = makeLogo([...geometry, treatment, company, 0]);
   const accent = bluePalette.accents[company];
   logo.querySelectorAll('[data-part="burke"] path').forEach(path => path.setAttribute('fill', bluePalette.primary));
   [...logo.querySelector('[data-part="icon"]').children].forEach((path, index) => {
-    path.setAttribute('fill', treatment === 2 || index === 2 ? accent : bluePalette.primary);
+    const iconAccent = treatment === 3 ? company !== 0 && index < 2 : treatment === 2 || index === 2;
+    path.setAttribute('fill', iconAccent ? accent : bluePalette.primary);
   });
-  logo.querySelectorAll('[data-part="group"] path').forEach(path => path.setAttribute('fill', treatment === 0 ? accent : bluePalette.primary));
+  logo.querySelectorAll('[data-part="group"] path').forEach(path => path.setAttribute('fill', treatment === 0 || (treatment === 3 && company !== 0) ? accent : bluePalette.primary));
   logo.setAttribute('aria-label', `${companies[company].name} — Blue palette — ${describe([...geometry, treatment])}`);
   return logo;
 }

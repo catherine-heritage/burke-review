@@ -15,7 +15,7 @@ const labels = [
   ['Original icon shape', 'Curved layers'],
   ['Original GROUP weight', 'Extra bold GROUP'],
   ['Original letter spacing', 'Tighter BURKE and GROUP'],
-  ['Original colours', 'Single-colour text', 'Single-colour icon'],
+  ['Original colours', 'Single-colour text', 'Single-colour icon', 'Inverse'],
 ];
 export function describe(settings) {
   const company = settings[5] || 0;

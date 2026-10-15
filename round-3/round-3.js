@@ -22,7 +22,7 @@ function render(announce = false) {
 function restore() {
   const value = new URLSearchParams(location.hash.slice(1)).get('logo');
   // Keep existing refinement links usable; company choices now appear together.
-  current = value && /^[01]{4}[012](?:[0-3][01])?$/.test(value) ? [...value.slice(0, 5)].map(Number) : [0, 0, 0, 0, 0];
+  current = value && /^[01]{4}[0-3](?:[0-3][01])?$/.test(value) ? [...value.slice(0, 5)].map(Number) : [0, 0, 0, 0, 0];
   keys.forEach((key, index) => { form.elements[key].value = current[index]; });
   render();
 }

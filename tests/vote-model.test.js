@@ -20,11 +20,22 @@ test('preference counts precede the three most popular complete combinations', (
   assert.deepEqual(summary.top.map(combination => combination.count), [3, 2, 1]);
   assert.equal(summary.top.length, 3);
   assert.deepEqual(summary.preferences[0].options.map(option => option.count), [4, 3]);
-  assert.deepEqual(summary.preferences[4].options.map(option => [option.value, option.count]), [[0, 3], [2, 2], [1, 2]]);
+  assert.deepEqual(summary.preferences[4].options.map(option => [option.value, option.count]), [[0, 3], [2, 2], [1, 2], [3, 0]]);
 });
 test('empty data produces zero counts without invented results', () => {
   const summary = summariseVotes([]);
   assert.equal(summary.total, 0);
   assert.deepEqual(summary.top, []);
   assert.equal(summary.preferences.length, 5);
+});
+
+test('inverse votes restore and appear in preference counts and popular previews', () => {
+  const vote = settingsToVote([1, 1, 0, 1, 3]);
+  assert.equal(validVote(vote), true);
+  assert.deepEqual(voteToSettings(vote), [1, 1, 0, 1, 3]);
+  assert.match(voteDescription(vote), /Inverse/);
+  const summary = summariseVotes([vote]);
+  assert.equal(summary.total, 1);
+  assert.equal(summary.preferences[4].options.find(option => option.value === 3).count, 1);
+  assert.equal(summary.top[0].vote.colour, 3);
 });

@@ -14,7 +14,7 @@ service cloud.firestore {
         && vote.shape is int && vote.shape in [0, 1]
         && vote.weight is int && vote.weight in [0, 1]
         && vote.tracking is int && vote.tracking in [0, 1]
-        && vote.colour is int && vote.colour in [0, 1, 2];
+        && vote.colour is int && vote.colour in [0, 1, 2, 3];
     }
     match /round3Votes/{voterId} {
       // Restore only the caller's own vote before enabling any results query.

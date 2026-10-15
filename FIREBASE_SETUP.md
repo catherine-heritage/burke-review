@@ -45,7 +45,7 @@ Each active vote is stored at `round3Votes/{firebaseUid}` with only:
 ```
 
 The first four settings allow 0 or 1. Colour uses the existing reference mapping:
-0 Original, 1 Single-colour text, 2 Single-colour icon. No subsidiary colours,
+0 Original, 1 Single-colour text, 2 Single-colour icon, 3 Inverse. No subsidiary colours,
 name, email, timestamp, IP address or client-written totals are saved in these
 vote documents. Firebase itself manages anonymous authentication accounts.
 
@@ -78,8 +78,8 @@ server or Cloud Functions.
 - Fault-injection tests passed for permission/network failures, retry, rejected
   and pending votes, capturing the choice at click time, results-read failure,
   results retry and stale-count messaging. Unconfirmed writes never unlock results.
-- Existing checks passed: 28 SVG/reference pixel comparisons, 192 underlying
-  combinations, 48 interface settings, navigation, earlier review flows, asset
+- Existing checks passed: 28 SVG/reference pixel comparisons, 256 underlying
+  combinations, 64 interface settings, navigation, earlier review flows, asset
   integrity, JavaScript syntax and whitespace.
 
 Screenshots: `/tmp/burke-voting-before.png`, `/tmp/burke-voting-after.png`,
@@ -125,3 +125,11 @@ python -u scripts/check-round-3.py
 `demo-burke-logo`. There is no deployment command. The browser tests replace only
 the Firebase transport/configuration with local emulator endpoints; the production
 page has no URL flag or user-accessible switch for changing its backend.
+
+### Inverse treatment update
+
+The colour setting now also accepts `3` (Inverse). If you published the earlier
+rules, replace the entire Rules editor with the updated `firestore.rules` and
+click **Publish** again before testing an Inverse vote. Existing votes remain valid.
+Inverse uses all navy for Burke Group; subsidiaries retain accent secondary
+lettering with accent top two icon layers and a navy bottom layer.
