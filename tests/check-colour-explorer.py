@@ -28,12 +28,14 @@ with sync_playwright() as p:
   assert values()==original
   assert 'main Burke navy stays fixed' in explorer.inner_text()
   assert page.locator('.family-swatches').count()==4
-  assert page.locator('.accent-swatch').count()==8
-  assert page.locator('.family-choice span').all_text_contents()==['Navy','Gold','Red','Orange','Purple','Blue','Green','Teal']
+  assert page.locator('.family-choice').count()==8
+  assert page.locator('.family-swatches input[type=color]').count()==0
+  assert page.locator('.custom-colour-input').count()==4
+  assert page.locator('.family-choice span:last-child').all_text_contents()==['Navy','Gold','Red','Orange','Purple','Blue','Green','Teal']
   assert page.locator('.lock-open:visible').count()==4
   # Swatches are native, full-spectrum colour pickers; input updates immediately.
   for i,colour in enumerate(['#00ffcc','#ff00ff','#0000ff','#f0a000']):
-   picker=page.locator('.family-swatches').nth(i).locator('input').nth([0,1,0,1][i])
+   picker=page.locator('.custom-colour-input').nth(i)
    assert picker.get_attribute('type')=='color'
    picker.evaluate('(e,value)=>{e.value=value;e.dispatchEvent(new Event("input",{bubbles:true}))}',colour)
    assert values()[i]==colour.upper()
@@ -46,14 +48,28 @@ with sync_playwright() as p:
   page.check('[name=spacing][value="0"]')
   page.click('#reset-colours');assert values()==original
   for i,alternate in enumerate([1,0,1,0]):
-   picker=page.locator('.family-swatches').nth(i).locator('input').nth(alternate)
-   picker.evaluate('(e)=>e.dispatchEvent(new MouseEvent("click",{bubbles:true}))')
-   assert page.locator('.family-swatches').nth(i).locator('.selected input').input_value().upper()==values()[i]
+   before=values();before_logos=page.locator('.logo-family').inner_html()
+   picker=page.locator('.family-swatches').nth(i).locator('button').nth(alternate)
+   picker.click()
+   assert picker.get_attribute('aria-pressed')=='true'
+   assert values()==before
+   assert page.locator('.logo-family').inner_html()==before_logos
+  # Family selection never activates a picker. The wheel is the only native
+  # colour input; its click is tested with default action prevented for automation.
+  for picker in page.locator('.custom-colour-input').all():
+   assert picker.get_attribute('title')=='Choose custom colour'
+   picker.evaluate('(e)=>e.addEventListener("click",event=>{window.pickerClicks=(window.pickerClicks||0)+1;event.preventDefault()})')
+   picker.click()
+  assert page.evaluate('window.pickerClicks')==4
   alternate_values=values()
   page.click('#shuffle-colours')
   assert all(a!=b for a,b in zip(alternate_values,values()))
   page.click('#reset-colours');assert values()==original
-  page.locator('.accent-lock').nth(0).click();page.click('#shuffle-colours')
+  page.locator('.accent-lock').nth(0).click()
+  page.locator('.family-swatches').nth(0).locator('button').nth(1).click()
+  assert page.locator('.accent-lock').nth(0).get_attribute('aria-pressed')=='true'
+  assert values()==original
+  page.click('#shuffle-colours')
   shuffled=values();assert shuffled[0]==original[0] and all(shuffled[i]!=original[i] for i in [1,2,3])
   assert page.locator('#preview').inner_html()==parent
   assert path_shapes()==geometry
@@ -63,7 +79,7 @@ with sync_playwright() as p:
    assert page.locator(selector+' [data-part=group] path').evaluate_all('(ps)=>ps.every(p=>p.getAttribute("fill")==="'+shuffled[i]+'")')
   page.locator('#accent-1').fill('abc');assert values()[1]=='abc'
   page.locator('#accent-1').blur();assert values()[1]=='#AABBCC'
-  assert page.locator('.family-swatches').nth(1).locator('input').nth(1).input_value()=='#aabbcc'
+  assert page.locator('.custom-colour-input').nth(1).input_value()=='#aabbcc'
   previous=page.locator('#preview-realty').inner_html()
   page.locator('#accent-1').fill('#zzzzzz')
   assert page.locator('#accent-1').get_attribute('aria-invalid')=='true'
@@ -99,6 +115,7 @@ with sync_playwright() as p:
   assert page.locator('#update-vote').is_disabled()
   assert page.evaluate('window.savedVotes')==[dict(spacing=1,shape=1,weight=1,tracking=1,colour=3)]
   page.click('#shuffle-colours');page.locator('#accent-2').fill('#41785C');page.click('#reset-colours')
+  page.locator('.family-swatches').nth(2).locator('button').nth(1).click()
   assert page.locator('#your-vote').inner_text()==vote
   assert page.locator('#results-content').inner_html()==results
   assert page.locator('#update-vote').is_disabled()

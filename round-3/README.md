@@ -53,9 +53,11 @@ comparison feature remains absent, as it was before this enhancement.
 Explore colours is an initially expanded native `details` section between Options and Your
 vote. Each company has two visible family swatches: Group Navy/Gold, Realty
 Red/Orange, Development Purple/Blue, and Property Management Green/Teal. Clicking
-a swatch selects that family and opens the native full-spectrum colour picker.
-The underlined family is active; HEX editing updates that family. Each family's
-manual value is remembered until edited, shuffled while active/unlocked, or reset.
+a swatch selects only the family for the next shuffle and updates the underline.
+It leaves the current HEX value, preview and lock unchanged. A separate 18px
+colour-wheel icon beside each HEX field opens the native full-spectrum picker,
+with tooltip "Choose custom colour". Manual colours remain until edited, reset
+or shuffled while unlocked.
 Shuffle varies all unlocked companies in their selected warm/cool shade families.
 Group exploration affects only its accent; the main navy is fixed. Reset restores
 all four defaults, default families, and unlocked padlocks without changing logo

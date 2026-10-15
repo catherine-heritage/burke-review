@@ -1,18 +1,18 @@
 import { bluePalette } from './blue-palette.js';
 
-import { companyNames, originalAccents, defaultFamilies, colourFamilies, normaliseHex, shuffleAccents } from './colour-model.js';
+import { companyNames, originalAccents, defaultFamilies, normaliseHex, shuffleAccents } from './colour-model.js';
 
 export function mountColourExplorer(onChange) {
   const section = document.querySelector('#colour-explorer');
   const inputs = [...section.querySelectorAll('.accent-hex')];
   const locks = [...section.querySelectorAll('.accent-lock')];
   const pairs = [...section.querySelectorAll('.family-swatches')];
+  const pickers = [...section.querySelectorAll('.custom-colour-input')];
   const status = section.querySelector('[role=status]');
   const shuffle = section.querySelector('#shuffle-colours');
   const shuffleHelp = section.querySelector('#shuffle-help');
   let accents = [...originalAccents];
   let selectedFamilies = [...defaultFamilies];
-  let familyValues = colourFamilies.map((families,i) => families.map((family,j) => j === defaultFamilies[i] ? originalAccents[i] : family.initial));
   const locked = () => locks.map(button => button.getAttribute('aria-pressed') === 'true');
   function paintLocks() {
     const states = locked();
@@ -29,17 +29,19 @@ export function mountColourExplorer(onChange) {
     status.textContent = '';
     paintLocks();
   }));
+  function paintFamilies() {
+    pairs.forEach((pair, i) => pair.querySelectorAll('.family-choice').forEach((choice,j) => {
+      choice.classList.toggle('selected', selectedFamilies[i] === j);
+      choice.setAttribute('aria-pressed', String(selectedFamilies[i] === j));
+    }));
+  }
   function paint(syncInputs = true) {
     inputs.forEach((input, i) => {
       if (syncInputs) { input.value = accents[i]; input.removeAttribute('aria-invalid'); }
-      familyValues[i][selectedFamilies[i]] = accents[i];
-      pairs[i].querySelectorAll('.family-choice').forEach((choice,j) => {
-        choice.classList.toggle('selected', selectedFamilies[i] === j);
-        choice.querySelector('input').setAttribute('aria-current', String(selectedFamilies[i] === j));
-        choice.querySelector('input').value = familyValues[i][j];
-      });
+      pickers[i].value = accents[i];
       section.querySelector(`#accent-error-${i}`).hidden = syncInputs || normaliseHex(input.value) !== null;
     });
+    paintFamilies();
     onChange([...accents]);
   }
   inputs.forEach((input, i) => input.addEventListener('input', () => {
@@ -54,23 +56,24 @@ export function mountColourExplorer(onChange) {
   inputs.forEach((input, i) => input.addEventListener('blur', () => {
     if (normaliseHex(input.value)) input.value = accents[i];
   }));
-  pairs.forEach((pair, i) => pair.querySelectorAll('input[type=color]').forEach((swatch, j) => {
-    const select = () => {
+  pairs.forEach((pair, i) => pair.querySelectorAll('.family-choice').forEach((swatch, j) => {
+    swatch.addEventListener('click', () => {
       selectedFamilies[i] = j;
-      accents[i] = familyValues[i][j];
+      paintFamilies();
+      status.textContent = '';
+    });
+  }));
+  pickers.forEach((picker, i) => {
+    const choose = () => {
+      accents[i] = picker.value.toUpperCase();
       inputs[i].value = accents[i];
       inputs[i].removeAttribute('aria-invalid');
       paint(false);
       status.textContent = '';
     };
-    const choose = () => {
-      familyValues[i][j] = swatch.value.toUpperCase();
-      select();
-    };
-    swatch.addEventListener('click', select);
-    swatch.addEventListener('input', choose);
-    swatch.addEventListener('change', choose);
-  }));
+    picker.addEventListener('input', choose);
+    picker.addEventListener('change', choose);
+  });
   shuffle.addEventListener('click', () => {
     accents = shuffleAccents(accents, locked(), selectedFamilies);
     paint();
@@ -79,7 +82,6 @@ export function mountColourExplorer(onChange) {
   section.querySelector('#reset-colours').addEventListener('click', () => {
     accents = [...originalAccents];
     selectedFamilies = [...defaultFamilies];
-    familyValues = colourFamilies.map((families,i) => families.map((family,j) => j === defaultFamilies[i] ? originalAccents[i] : family.initial));
     locks.forEach(button => button.setAttribute('aria-pressed', 'false'));
     paintLocks();
     paint();
