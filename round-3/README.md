@@ -50,7 +50,7 @@ headings use the existing Montserrat section-heading style. Results list the fiv
 preference breakdowns before the top three complete combinations. The existing
 comparison feature remains absent, as it was before this enhancement.
 
-Explore colours is a collapsed native `details` section between Options and Your
+Explore colours is an initially expanded native `details` section between Options and Your
 vote. Each company has two visible family swatches: Group Navy/Gold, Realty
 Red/Orange, Development Purple/Blue, and Property Management Green/Teal. Clicking
 a swatch selects that family and opens the native full-spectrum colour picker.

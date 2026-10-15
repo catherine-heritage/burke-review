@@ -17,7 +17,7 @@ with sync_playwright() as p:
  for route in ['', 'round-3/']:
   page.goto(base+route);page.wait_for_selector('#preview svg');page.wait_for_function("!document.querySelector('#cast-vote').disabled")
   explorer=page.locator('#colour-explorer')
-  assert not explorer.evaluate('(e)=>e.open')
+  assert explorer.evaluate('(e)=>e.open')
   assert explorer.locator('.logo-stage, svg[role=img], img').count()==0
   assert explorer.evaluate('(e)=>!!(document.querySelector("#options").compareDocumentPosition(e)&Node.DOCUMENT_POSITION_FOLLOWING)&&!!(e.compareDocumentPosition(document.querySelector("#voting"))&Node.DOCUMENT_POSITION_FOLLOWING)')
   options=page.locator('#options').inner_html();parent=page.locator('#preview').inner_html()
@@ -25,7 +25,7 @@ with sync_playwright() as p:
   def values():return page.locator('.accent-hex').evaluate_all('(es)=>es.map(e=>e.value)')
   def path_shapes():return page.locator('.subsidiary-grid path').evaluate_all('(ps)=>ps.map(p=>[p.getAttribute("d"),p.getAttribute("transform")])')
   geometry=path_shapes()
-  explorer.locator('summary').click();assert values()==original
+  assert values()==original
   assert 'main Burke navy stays fixed' in explorer.inner_text()
   assert page.locator('.family-swatches').count()==4
   assert page.locator('.accent-swatch').count()==8
@@ -121,4 +121,4 @@ with sync_playwright() as p:
  assert not errors,errors
  browser.close()
 server.shutdown()
-print('PASS: both routes; collapsed defaults; HEX validation; locks; shuffle; reset; clipboard success/failure; SVG geometry; fixed navy; parent accent exploration; paired family switches; all refinements; voting isolation; responsive layouts')
+print('PASS: both routes; expanded defaults; HEX validation; locks; shuffle; reset; clipboard success/failure; SVG geometry; fixed navy; parent accent exploration; paired family switches; all refinements; voting isolation; responsive layouts')
