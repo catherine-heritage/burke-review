@@ -74,7 +74,7 @@ with sync_playwright() as p:
  print('All 256 company/refinement/treatment combinations: valid outlines, fixed colours and no clipping')
  # The four company previews share every refinement setting.
  assert page.locator('.logo-stage svg').count()==4
- assert page.locator('select, #saved, #add, .favourites, .company-selector, #accent-swatches, input[type=color]').count()==0
+ assert page.locator('select, #saved, #add, .favourites, .company-selector, #accent-swatches, #options input[type=color]').count()==0
  assert page.locator('[name=colour]').count()==4
  assert page.locator('.refinement.colour legend').inner_text()=='Colour treatment'
  assert page.locator('.refinement.colour .segments span').all_text_contents()==['Original','Single-colour icon','Single-colour text','Inverse']

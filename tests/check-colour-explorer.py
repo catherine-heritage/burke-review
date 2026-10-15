@@ -18,7 +18,7 @@ with sync_playwright() as p:
   page.goto(base+route);page.wait_for_selector('#preview svg');page.wait_for_function("!document.querySelector('#cast-vote').disabled")
   explorer=page.locator('#colour-explorer')
   assert not explorer.evaluate('(e)=>e.open')
-  assert explorer.locator('svg,img').count()==0
+  assert explorer.locator('.logo-stage, svg[role=img], img').count()==0
   assert explorer.evaluate('(e)=>!!(document.querySelector("#options").compareDocumentPosition(e)&Node.DOCUMENT_POSITION_FOLLOWING)&&!!(e.compareDocumentPosition(document.querySelector("#voting"))&Node.DOCUMENT_POSITION_FOLLOWING)')
   options=page.locator('#options').inner_html();parent=page.locator('#preview').inner_html()
   original=['#BD6C5A','#648EAB','#8F9868']
@@ -27,7 +27,22 @@ with sync_playwright() as p:
   geometry=path_shapes()
   explorer.locator('summary').click();assert values()==original
   assert 'navy and gold stay fixed' in explorer.inner_text()
-  page.locator('.accent-lock').nth(0).check();page.click('#shuffle-colours')
+  assert page.locator('.lock-open:visible').count()==3
+  # Swatches are native, full-spectrum colour pickers; input updates immediately.
+  for i,colour in enumerate(['#00ffcc','#ff00ff','#0000ff']):
+   picker=page.locator('.accent-swatch').nth(i)
+   assert picker.get_attribute('type')=='color'
+   picker.evaluate('(e,value)=>{e.value=value;e.dispatchEvent(new Event("input",{bubbles:true}))}',colour)
+   assert values()[i]==colour.upper()
+   assert page.locator('.accent-lock').nth(i).get_attribute('aria-pressed')=='false'
+   selector=['#preview-realty','#preview-development','#preview-management'][i]
+   assert page.locator(selector+' [data-part=group] path').first.get_attribute('fill')==colour.upper()
+  assert page.locator('#preview').inner_html()==parent
+  # Refinements leave manually selected colours in place.
+  page.check('[name=spacing][value="1"]');assert values()==['#00FFCC','#FF00FF','#0000FF']
+  page.check('[name=spacing][value="0"]')
+  page.click('#reset-colours');assert values()==original
+  page.locator('.accent-lock').nth(0).click();page.click('#shuffle-colours')
   shuffled=values();assert shuffled[0]==original[0] and all(shuffled[i]!=original[i] for i in [1,2])
   assert page.locator('#preview').inner_html()==parent
   assert path_shapes()==geometry
@@ -37,20 +52,30 @@ with sync_playwright() as p:
    assert page.locator(selector+' [data-part=group] path').evaluate_all('(ps)=>ps.every(p=>p.getAttribute("fill")==="'+shuffled[i]+'")')
   page.locator('#accent-1').fill('abc');assert values()[1]=='abc'
   page.locator('#accent-1').blur();assert values()[1]=='#AABBCC'
+  assert page.locator('.accent-swatch').nth(1).input_value()=='#aabbcc'
   previous=page.locator('#preview-development').inner_html()
   page.locator('#accent-1').fill('#zzzzzz')
   assert page.locator('#accent-1').get_attribute('aria-invalid')=='true'
   assert page.locator('#accent-error-1').is_visible()
   assert page.locator('#preview-development').inner_html()==previous
   page.locator('#accent-1').fill('#5476A1');page.locator('#accent-1').blur()
-  for lock in page.locator('.accent-lock').all():lock.check()
-  locked=values();page.click('#shuffle-colours');assert values()==locked
-  assert 'All colours are locked' in page.locator('.explorer-status').inner_text()
+  for lock in page.locator('.accent-lock').all():
+   if lock.get_attribute('aria-pressed')=='false':lock.click()
+  locked=values();assert page.locator('#shuffle-colours').is_disabled()
+  assert 'All colours are locked' in page.locator('#shuffle-help').inner_text()
+  assert page.locator('#shuffle-help').is_visible()
+  assert page.locator('.lock-closed:visible').count()==3
+  page.locator('.accent-lock').nth(1).click()
+  assert page.locator('#shuffle-colours').is_enabled()
+  assert page.locator('#shuffle-help').is_hidden()
+  page.locator('.accent-lock').nth(1).click()
   page.click('#copy-palette')
   page.wait_for_function("document.querySelector('.explorer-status').textContent==='Palette copied.'")
   copied=page.evaluate('navigator.clipboard.readText()');assert all(c in copied for c in locked+['#1B2E46','#B78352'])
   page.click('#reset-colours');assert values()==original
-  assert not any(lock.is_checked() for lock in page.locator('.accent-lock').all())
+  assert all(lock.get_attribute('aria-pressed')=='false' for lock in page.locator('.accent-lock').all())
+  assert page.locator('.lock-open:visible').count()==3
+  assert page.locator('#shuffle-colours').is_enabled()
   assert page.locator('#preview').inner_html()==parent
   # Every existing refinement/treatment preserves edited accents and geometry.
   page.locator('#accent-0').fill('#A85649')
@@ -66,6 +91,8 @@ with sync_playwright() as p:
   assert page.locator('#your-vote').inner_text()==vote
   assert page.locator('#results-content').inner_html()==results
   assert page.locator('#update-vote').is_disabled()
+  assert page.locator('[name=shape]:checked').input_value()=='1'
+  assert page.locator('[name=colour]:checked').input_value()=='3'
   assert page.evaluate('window.savedVotes.length')==1
   assert "We're voting on the design, not the colours." in page.locator('#voting').inner_text()
   # Clipboard denial keeps manual copying usable.
@@ -76,7 +103,9 @@ with sync_playwright() as p:
    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),width
    assert page.locator('.accent-hex').evaluate_all('(es)=>es.every(e=>e.getBoundingClientRect().width>=100)')
    assert page.locator('.logo-stage svg').count()==4
-   if width in [390,1448]:page.screenshot(path=f'/tmp/burke-explore-{width}.png',full_page=True)
+   if width in [390,1448]:
+    page.evaluate('document.activeElement.blur()')
+    page.screenshot(path=f'/tmp/burke-explore-{width}.png',full_page=True)
   explorer.locator('summary').click();assert not explorer.evaluate('(e)=>e.open')
  assert not errors,errors
  browser.close()
