@@ -1,3 +1,4 @@
+import { mountColourExplorer } from './colour-explorer.js';
 import { mountVoting } from './voting.js';
 import { describe } from './logo-renderer.js';
 import { makeFixedBlueLogo } from './blue-palette.js';
@@ -7,10 +8,11 @@ const form = document.querySelector('#options');
 const previews = ['#preview', '#preview-realty', '#preview-development', '#preview-management'].map(selector => document.querySelector(selector));
 let current = [0, 0, 0, 0, 0];
 let voting;
+let exploredAccents = [];
 
 function render(announce = false) {
   previews.forEach((preview, company) => {
-    const logo = makeFixedBlueLogo(current, company);
+    const logo = makeFixedBlueLogo(current, company, exploredAccents);
     // A shared crop trims empty artboard space without altering the outlines.
     // The same viewBox keeps BURKE and the icon at one scale for all subsidiaries.
     logo.setAttribute('viewBox', '160 150 760 680');
@@ -43,3 +45,6 @@ voting = mountVoting({
     render();
   },
 });
+
+// Exploration updates previews only, never the five settings or voting callbacks.
+mountColourExplorer(accents => { exploredAccents = accents; render(); });

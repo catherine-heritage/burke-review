@@ -5,8 +5,8 @@ screenshot, with the supplied logo geometry and the original Round 2 Blue palett
 as clarified by the owner.
 
 All four shape/lettering controls and the Colour treatment segmented control
-update all companies simultaneously. The palette values stay fixed; there is no
-colour picker or customisation. Original uses the two-colour icon and accent
+update all companies simultaneously. Burke Group navy and gold stay fixed;
+subsidiary accents can be explored separately below the toolbar. Original uses the two-colour icon and accent
 lettering; Single-colour icon uses an all-accent icon with navy lettering;
 Single-colour text retains the two-colour icon with navy lettering. Inverse makes Group entirely navy; subsidiaries use accent
 top two icon layers, a navy bottom layer and accent secondary lettering. The primary
@@ -53,3 +53,21 @@ logo rendering. The owner-approved existing visual identity is unchanged; new
 headings use the existing Montserrat section-heading style. Results list the five
 preference breakdowns before the top three complete combinations. The existing
 comparison feature remains absent, as it was before this enhancement.
+
+Explore colours is a native collapsed `details` section between Options and
+Your vote, using the existing logo cards. `colour-model.js` supplies curated muted
+palettes, normalises 3/6-digit HEX input, and selects distinct complete combinations
+while respecting locks. `colour-explorer.js` owns temporary in-memory accents and
+locks. Reset restores the current Round 2 defaults and unlocks all colours. Copy
+includes company names and HEX codes, including fixed parent navy/gold. Invalid
+input retains the last valid preview, with an inline error; clipboard denial offers
+manual copying. No colour exploration state is persisted or sent to Firebase.
+The renderer accepts optional subsidiary overrides; voting and results continue
+to use the five design settings and default parent palette only.
+
+Verification: `node tests/colour-explorer.test.js` and
+`python tests/check-colour-explorer.py` cover HEX validation, coordinated shuffles,
+locks, reset, clipboard success/failure, SVG geometry, fixed parent, both routes,
+all treatment controls, 320–1448px layouts and isolation from saved votes/results.
+The browser test uses a local mock voting transport, never production Firebase.
+The existing `scripts/check-round-3.py` also passed unchanged.
