@@ -21,7 +21,7 @@ test('shuffle preserves locks and changes unlocked colours within muted families
       const before=[1,3,5].map(k=>parseInt(colours[i].slice(k,k+2),16));
       assert.ok(Math.hypot(...rgb[i].map((v,k)=>v-before[k])) >= 45);
     });
-    assert.ok(rgb[2][1] >= rgb[2][0] && rgb[2][1] + 2 >= rgb[2][2]);
+    assert.ok(rgb[2][1] >= rgb[2][0] && rgb[2][1] + 12 >= rgb[2][2]);
     for (let i=0; i<3; i++) for (let j=i+1; j<3; j++) assert.ok(Math.hypot(...rgb[i].map((v,k) => v-rgb[j][k])) >= 65);
     colours = next;
   }

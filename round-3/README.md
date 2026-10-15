@@ -56,7 +56,7 @@ comparison feature remains absent, as it was before this enhancement.
 
 Explore colours is a native collapsed `details` section between Options and
 Your vote, using the existing logo cards. `colour-model.js` supplies curated muted
-orange/purple/green palettes (18 shades per family), normalises 3/6-digit HEX
+orange/purple/green-and-teal palettes (18 orange, 18 purple and 30 green/teal shades), normalises 3/6-digit HEX
 input, and selects distinct complete combinations with noticeable shade changes
 while respecting locks. `colour-explorer.js` owns temporary in-memory accents and
 locks. Native colour-picker swatches allow the full spectrum; HEX and picker

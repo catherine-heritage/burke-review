@@ -10,10 +10,12 @@ export const colourFamilies = [
   ['#67405E', '#77516F', '#543D59', '#82628B', '#69658E', '#8B6B89',
    '#62476F', '#765D83', '#59445F', '#8C7898', '#705D78', '#785269',
    '#5D526F', '#92799E', '#63425B', '#81758F', '#734E7A', '#6C607D'],
-  // Green: forest, olive, sage, moss, eucalyptus and muted teal green.
+  // Green and teal: forest, olive, sage, moss, eucalyptus, petrol and deep teal.
   ['#41785C', '#347B73', '#6E8664', '#78865F', '#587C68', '#7D8B6A',
    '#496B50', '#65815B', '#88956F', '#3D6754', '#547C75', '#75896E',
-   '#5D7350', '#829583', '#426B66', '#6B805D', '#376452', '#7B8552'],
+   '#5D7350', '#829583', '#426B66', '#6B805D', '#376452', '#7B8552',
+   '#347B7C', '#2F6668', '#4E8987', '#3C7475', '#5C9390', '#427F83',
+   '#326B70', '#568A88', '#3D737C', '#60918B', '#2D6262', '#4B8180'],
 ];
 export function normaliseHex(value) {
   const hex = value.trim().replace(/^#/, '');
