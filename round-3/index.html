@@ -6,9 +6,9 @@
   <meta name="description" content="Explore the final refinements to the Burke Group logo.">
   <title>Round 3 — Burke Group Identity Review</title>
   <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="round-3.css?v=colour-treatment">
+  <link rel="stylesheet" href="round-3.css?v=voting-1">
   <link rel="stylesheet" href="../round-navigation.css">
-  <script type="module" src="round-3.js?v=colour-treatment"></script>
+  <script type="module" src="round-3.js?v=voting-1"></script>
 </head>
 <body class="round-three">
 <a class="skip" href="#main">Skip to review</a>
@@ -32,6 +32,20 @@
     <fieldset class="refinement colour"><legend>Colour treatment</legend><div class="segments"><label><input type="radio" name="colour" value="0" checked><span>Original</span></label><label><input type="radio" name="colour" value="2"><span>Single-colour icon</span></label><label><input type="radio" name="colour" value="1"><span>Single-colour text</span></label></div></fieldset>
   </form>
   <p id="preview-status" class="sr-only" role="status" aria-live="polite"></p>
+  <section id="voting" class="voting-section" aria-labelledby="vote-title">
+    <div class="voting-heading"><h2 id="vote-title">Your vote</h2><p>Voting is anonymous. You can change your vote at any time.</p></div>
+    <div id="vote-before" class="voting-action"><button id="cast-vote" class="primary-button" type="button" disabled>Vote for this version</button><p>Choose your preferred options above, then vote for this version.</p></div>
+    <div id="vote-after" hidden><div class="vote-confirmation"><p>Your vote has been recorded.</p><button id="update-vote" class="text-button" type="button" disabled>Update my vote</button></div><p class="vote-summary-label">You’re currently voting for:</p><p id="your-vote" class="vote-summary"></p><p id="vote-edit-hint" class="vote-help"></p></div>
+    <p id="vote-notice" class="vote-help" role="status" aria-live="polite">Connecting to voting…</p><button id="retry-voting" class="text-button" type="button" hidden>Try again</button>
+  </section>
+  <section id="live-results" class="voting-results" aria-labelledby="results-title" hidden>
+    <div class="results-heading"><h2 id="results-title">Live results</h2><span id="vote-total"></span></div>
+    <p id="results-status" class="vote-help" role="status" aria-live="polite">Loading live results…</p><button id="retry-results" class="text-button" type="button" hidden>Retry results</button>
+    <div id="results-content" hidden>
+      <h3 class="results-subtitle">Preference breakdowns</h3><div id="preference-breakdowns" class="preference-breakdowns"></div>
+      <h3 class="results-subtitle">Most popular combinations</h3><div id="top-combinations" class="top-combinations"></div>
+    </div>
+  </section>
 </main>
 <noscript><p>Please enable JavaScript to explore the logo refinements.</p></noscript>
 </body>

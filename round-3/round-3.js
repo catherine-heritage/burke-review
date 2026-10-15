@@ -1,3 +1,4 @@
+import { mountVoting } from './voting.js';
 import { describe } from './logo-renderer.js';
 import { makeFixedBlueLogo } from './blue-palette.js';
 
@@ -5,6 +6,7 @@ const keys = ['spacing', 'shape', 'weight', 'tracking', 'colour'];
 const form = document.querySelector('#options');
 const previews = ['#preview', '#preview-realty', '#preview-development', '#preview-management'].map(selector => document.querySelector(selector));
 let current = [0, 0, 0, 0, 0];
+let voting;
 
 function render(announce = false) {
   previews.forEach((preview, company) => {
@@ -28,6 +30,16 @@ function restore() {
 form.addEventListener('change', () => {
   current = keys.map(key => Number(form.elements[key].value));
   render(true);
+  voting?.selectionChanged();
 });
-window.addEventListener('hashchange', restore);
+window.addEventListener('hashchange', () => { restore(); voting?.selectionChanged(); });
 restore();
+
+voting = mountVoting({
+  getSettings: () => [...current],
+  setSettings: settings => {
+    current = [...settings];
+    keys.forEach((key, index) => { form.elements[key].value = current[index]; });
+    render();
+  },
+});

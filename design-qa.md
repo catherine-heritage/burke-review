@@ -66,6 +66,37 @@ radio keyboard navigation follows Original, Single-colour icon, Single-colour
 text, and no colour picker or extra customisation is present. Existing
 asset integrity checks passed.
 
-Implementation checklist: complete. No P3 follow-up is required for this layout.
+## Voting enhancement QA
+
+The latest voting reference is used only for hierarchy and functionality, per
+the owner's explicit instruction. Its decorative styling, serif voting headings,
+compressed logo staging and simultaneous before/after demonstration are not
+introduced. Existing logo layout, SVG proportions, typography, colours, controls
+and navigation are retained.
+
+Rendered evidence (Chromium, scale factor 1, demo Firebase emulators):
+- `/tmp/burke-voting-before.png` at 1448 CSS px wide: only the voting CTA state,
+  with anonymous/changeable explanation and no results.
+- `/tmp/burke-voting-after.png` at 1448 CSS px wide: only confirmed-vote state,
+  recorded settings, Update my vote, five breakdowns first, then three previews
+  with counts/percentages. Five local test voters, four distinct combinations.
+- `/tmp/burke-voting-mobile.png` at 390 CSS px wide: readable wrapping, the same
+  hierarchy, and no horizontal overflow. Widths 320/768/1100/1448 also passed.
+
+All new section headings use the existing Montserrat 21px/500 style; the primary
+CTA reuses `.primary-button`, and update/retry use `.text-button`. Existing warm
+grey background, white/bordered logo stages and original accent palette remain.
+New bars use existing navy and neutral colours, with no decorative icons or
+animations. SVG previews remain sharp. Full-page and focused voting/results
+sections were inspected. No actionable P0/P1/P2 visual findings remain.
+
+Interaction checks cover restoration, an unsubmitted changed preview versus the
+recorded selection, disabled duplicate updates, server-confirmed saves, failure
+and retry states, and live changes between browsers. All 10 model/rules tests and
+local emulator browser tests passed; existing logo regression checks also passed.
+Live Firebase checks were network-blocked and are not claimed as verified.
+
+Implementation checklist: complete for review. Production activation requires
+the owner's manual rule publication and approval to merge/deploy.
 
 final result: passed

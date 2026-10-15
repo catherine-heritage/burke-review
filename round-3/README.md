@@ -20,8 +20,10 @@ Comparison UI and behaviour, including saving, removing and sharing favourites,
 are removed for now. Existing browser favourites are left untouched. Existing
 `#logo=` refinement links initialize geometry and treatment together. Treatment
 values retain the supplied reference mapping: 0 Original, 1 Single-colour text
-(reference 02), 2 Single-colour icon (reference 05). Company previews are always shown together. Voting and submission are deliberately deferred until
-the owner's next instructions.
+(reference 02), 2 Single-colour icon (reference 05). Company previews are always shown together. Anonymous voting appears below the
+options, followed by voter-only live results. It uses the five parent settings
+and restores the saved vote for the same Firebase account. See
+`../FIREBASE_SETUP.md` for security rules, manual activation and testing status.
 
 `source-data.js` and `subsidiary-data.js` embed the 28 exact reference strings
 from `Round 4/`. `logo-renderer.js` composes their actual outlined paths.
@@ -43,3 +45,10 @@ UI settings, treatment keyboard navigation, no colour picker, comparison removal
 and the earlier review flows under the `/burke-review/` GitHub Pages path.
 Screenshots are written to `/tmp/burke-round3-layout-desktop.png` and
 `/tmp/burke-round3-layout-mobile.png`.
+
+Voting UI is isolated in `voting.js`, validation/aggregation in `vote-model.js`,
+and Firebase transport in `firebase-voting.js`. The SDK loads separately from
+logo rendering. The owner-approved existing visual identity is unchanged; new
+headings use the existing Montserrat section-heading style. Results list the five
+preference breakdowns before the top three complete combinations. The existing
+comparison feature remains absent, as it was before this enhancement.

@@ -10,7 +10,9 @@ options row. The layout follows the owner's reference screenshot while retaining
 the supplied SVG artwork and the original Round 2 Blue palette and child colours.
 Palette values stay fixed. A compact Colour treatment control switches between
 Original, Single-colour icon and Single-colour text across all four logos. Comparison
-has been removed for now; voting will follow separate instructions. Existing
+has been removed for now. Anonymous voting stores one changeable vote per Firebase
+account and reveals live results only after voting. See `FIREBASE_SETUP.md` for
+the manual rules-publication steps and the distinction between local and live tests. Existing
 refinement links still work. See `round-3/README.md` for rendering and verification.
 
 Round 1 remains at `round-1/`. Round 2's former homepage is now at `round-2/`,
