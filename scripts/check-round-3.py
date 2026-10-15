@@ -14,10 +14,10 @@ with sync_playwright() as p:
  page=context.new_page(); errors=[]
  page.on('pageerror',lambda error:errors.append(str(error)))
  page.goto(url);page.wait_for_selector('#preview svg')
- # Verify the fixed subsidiary colours against the actual Round 2 implementation.
+ # Verify the new owner-selected Round 3 accents; earlier rounds retain their own palettes.
  round2_children=re.search(r'const CHILDREN=\[(.*?)\];',Path(root,'app.js').read_text()).group(1)
- expected_accents=['#B78352']+re.findall(r"colour:'(#[0-9A-Fa-f]{6})'",round2_children)
- assert expected_accents==['#B78352','#BD6C5A','#648EAB','#8F9868']
+ expected_accents=['#768290','#CC6E2F','#81376D','#317B82']
+ assert len(re.findall(r"colour:'(#[0-9A-Fa-f]{6})'",round2_children))==3
  assert page.evaluate("async()=>{const {bluePalette}=await import('./blue-palette.js');return bluePalette.accents}")==expected_accents
  results=page.evaluate('''async () => {
  const {companies}=await import('./logo-renderer.js');

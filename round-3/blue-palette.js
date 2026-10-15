@@ -1,21 +1,21 @@
 import { PALETTES } from '../data.js';
+import { originalAccents } from './colour-model.js';
 import { companies, describe, makeLogo } from './logo-renderer.js';
 
-// The supplied Round 2 Blue logo colours, with Round 2's fixed child accents.
-// Default display colours; exploration may override subsidiary accents only.
+// Fixed Burke navy, with the owner-selected Round 3 default accents.
+// Exploration overrides accents only, including Group; main navy stays fixed.
 export const bluePalette = Object.freeze({
   primary: PALETTES.blue.primary,
-  accents: Object.freeze([PALETTES.blue.secondary, '#BD6C5A', '#648EAB', '#8F9868']),
+  accents: Object.freeze([...originalAccents]),
 });
 
-export function makeFixedBlueLogo(refinements, company, subsidiaryAccents = []) {
-  // Treatments change colour placement only; the Blue palette and each
-  // selected subsidiary accent are independent. Values match the supplied SVGs:
+export function makeFixedBlueLogo(refinements, company, exploredAccents = []) {
+  // Treatments change colour placement independently of explored accents. Values match the supplied SVGs:
   // 0 = original, 1 = single-colour text (02), 2 = single-colour icon (05), 3 = inverse.
   const geometry = refinements.slice(0, 4);
   const treatment = refinements[4] || 0;
   const logo = makeLogo([...geometry, treatment, company, 0]);
-  const accent = company > 0 ? subsidiaryAccents[company - 1] || bluePalette.accents[company] : bluePalette.accents[0];
+  const accent = exploredAccents[company] || bluePalette.accents[company];
   logo.querySelectorAll('[data-part="burke"] path').forEach(path => path.setAttribute('fill', bluePalette.primary));
   [...logo.querySelector('[data-part="icon"]').children].forEach((path, index) => {
     const iconAccent = treatment === 3 ? company !== 0 && index < 2 : treatment === 2 || index === 2;
