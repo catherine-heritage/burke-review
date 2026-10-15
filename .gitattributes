@@ -1,0 +1,2 @@
+# Upstream SDK templates contain intentional spaces before newlines.
+round-3/vendor/* -whitespace linguist-vendored=true

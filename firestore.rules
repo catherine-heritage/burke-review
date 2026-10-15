@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+    function hasVoted() {
+      return signedIn() && exists(/databases/$(database)/documents/round3Votes/$(request.auth.uid));
+    }
+    function validVote(vote) {
+      return vote.keys().hasAll(['spacing', 'shape', 'weight', 'tracking', 'colour'])
+        && vote.keys().hasOnly(['spacing', 'shape', 'weight', 'tracking', 'colour'])
+        && vote.spacing is int && vote.spacing in [0, 1]
+        && vote.shape is int && vote.shape in [0, 1]
+        && vote.weight is int && vote.weight in [0, 1]
+        && vote.tracking is int && vote.tracking in [0, 1]
+        && vote.colour is int && vote.colour in [0, 1, 2];
+    }
+    match /round3Votes/{voterId} {
+      // Restore only the caller's own vote before enabling any results query.
+      allow get: if signedIn() && request.auth.uid == voterId;
+      allow list: if hasVoted();
+      allow create, update: if signedIn()
+        && request.auth.uid == voterId
+        && validVote(request.resource.data);
+      allow delete: if false;
+    }
+    // No client-written totals, other collections or nested documents.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
