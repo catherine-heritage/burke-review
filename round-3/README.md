@@ -8,11 +8,15 @@ retains its self-contained bundle; only its embedded template navigation changed
 `subsidiary-data.js` embeds the seven supplied references for each of Realty,
 Development and PM, in filename order. These are local module data, so controls
 never wait for a network request. Original source SVG files remain untouched.
-The preview omits the two previously approved isolated navy dots in Group 05 and
-06; compound paths and letter counters remain intact.
+The latest Group upload already removes the two previously flagged stray dots.
+Group 06 moves BURKE into its icon; the owner approved retaining the earlier
+vertical placement. Its exact earlier tighter BURKE outlines are also supplied
+in Realty 06 and are reused for that one component. All other latest Group
+components are retained; compound paths and letter counters remain intact.
 
 `logo-renderer.js` composes the supplied paths. All single-option previews match
-the relevant reference, including incidental alignment and rounding. Wider +
+the relevant reference, including incidental alignment and rounding, apart from
+the approved Group 06 placement correction described above. Wider +
 curved moves whole curved layers by the gap increments measured from 03 versus
 00. Bold + tighter uniformly scales the actual 01 descriptor outlines to 06's
 cap height and places them at 06's individual letter centres. Each subsidiary

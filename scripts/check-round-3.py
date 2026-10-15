@@ -27,6 +27,11 @@ with sync_playwright() as p:
  for(let company=0;company<4;company++) for(let accent=0;accent<companies[company].accents.length;accent++) for(let i=0;i<7;i++){
   const reference=new DOMParser().parseFromString(companies[company].sources[i],'image/svg+xml').documentElement;
   if(company===0&&(i===5||i===6)) [...reference.children].filter(x=>x.localName==='path').forEach(x=>x.remove());
+  // Owner-approved correction: use the earlier tighter BURKE placement.
+  if(company===0&&i===6){
+   const earlier=new DOMParser().parseFromString(companies[1].sources[6],'image/svg+xml').documentElement;
+   reference.querySelector('g').replaceWith(earlier.querySelector('g').cloneNode(true));
+  }
   if(company) reference.querySelectorAll('[fill="#a67c52"]').forEach(path=>path.setAttribute('fill',companies[company].accents[accent].value));
   const a=await pixels(reference),b=await pixels(makeLogo([...settings[i],company,accent]));
   let different=0,max=0;for(let j=0;j<a.length;j++){if(a[j]!==b[j])different++;max=Math.max(max,Math.abs(a[j]-b[j]));}

@@ -39,9 +39,9 @@ const companyReferences = companies.map(company => company.sources.map(source =>
   const svg = new DOMParser().parseFromString(source, 'image/svg+xml').documentElement;
   measuring.append(svg);
   const groups = [...svg.children].filter(child => child.localName === 'g');
-  const burke = groups.find(group => group.getBBox().y > 500 && group.getBBox().y < 650);
-  const group = groups.find(group => group.getBBox().y > 650);
   const iconGroup = groups.find(group => group.children.length === 3);
+  const lettering = groups.filter(group => group !== iconGroup).sort((a, b) => a.getBBox().y - b.getBBox().y);
+  const [burke, group] = lettering;
   const icon = iconGroup ? [...iconGroup.children] : [...svg.children].filter(child => child.localName === 'path');
   const bounds = path => {
     const b = path.getBBox();
@@ -60,7 +60,10 @@ export function makeLogo(settings) {
   const baseIndex = tight ? 6 : bold ? 1 : curved ? 4 : wide ? 3 : colour === 2 ? 5 : colour === 1 ? 2 : 0;
   const base = references[baseIndex];
   const svg = node('svg', { viewBox: '0 0 1080 935.4', role: 'img', 'aria-label': `${companies[company].name} — ${describe(settings)}` });
-  const burke = (tight ? references[6] : base).burke.cloneNode(true);
+  // The latest Group 06 moves BURKE into the icon. The owner approved its
+  // earlier placement, whose exact tighter outlines are also in Realty 06.
+  const burkeSource = company === 0 && tight ? companyReferences[1][6] : tight ? references[6] : base;
+  const burke = burkeSource.burke.cloneNode(true);
   const iconSource = references[curved ? 4 : wide ? 3 : baseIndex];
   const icon = node('g', { 'data-part': 'icon' });
   iconSource.icon.forEach((path, i) => {
