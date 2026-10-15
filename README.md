@@ -2,6 +2,19 @@
 
 A buildless static website for GitHub Pages at `/burke-review/`. All website assets and development files are self-contained on the laptop. Catherine approved publication after the final child-company spacing adjustment.
 
+## Current round and navigation
+
+Round 3 is the default homepage and remains available at `round-3/`. It includes
+compact refinement controls, four company previews using the new supplied SVGs,
+two provisional accent swatches per subsidiary, and up to six saved comparisons.
+The navy is fixed to the supplied SVG value. Comparison links retain company and
+accent choices, and original Round 3 links remain supported. See
+`round-3/README.md` for rendering details and browser verification.
+
+Round 1 remains at `round-1/`. Round 2's former homepage is now at `round-2/`,
+using its original review code and assets. All three rounds have the same top
+navigation. The following review-flow notes describe Round 2.
+
 ## Review flow
 
 The identities are Logo 01 — Four-Part B, Logo 02 — Layered B, and Logo 03 — Rising Forms. The opening Shortlist shows three black logos and one Next button. The guided journey proceeds through Logo 1, Logo 2 and Logo 3 in order, then comparison. Each logo has The logo, Child companies, Group of companies, On a website and In real life — Mockups sections. Each logo is one continuous scrolling page; Jump to scrolls to its content, and All logos sits beside the identity title. Mockups form a two-by-two desktop grid, and Next advances to the next logo. Logo applications are expanded by default.

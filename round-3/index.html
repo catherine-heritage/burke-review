@@ -7,24 +7,32 @@
   <title>Round 3 — Burke Group Identity Review</title>
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="round-3.css">
+  <link rel="stylesheet" href="../round-navigation.css">
   <script type="module" src="round-3.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to review</a>
-<header class="masthead">
-  <a class="wordmark" href="../">BURKE GROUP<span>IDENTITY REVIEW</span></a>
-  <nav class="round-nav" aria-label="Review rounds"><a href="../round-1/">Round 1</a><a href="../">Round 2</a><a href="./" aria-current="page">Round 3</a></nav>
-</header>
+<header class="review-masthead"><a class="review-wordmark" href="../">BURKE GROUP<span>IDENTITY REVIEW</span></a><nav class="round-nav" aria-label="Review rounds"><a href="../round-1/">Round 1</a><a href="../round-2/">Round 2</a><a href="../" aria-current="page">Round 3</a></nav></header>
 <main id="main" tabindex="-1">
   <div class="round-heading"><h1>Round 3</h1><p class="muted">A few final refinements. Try them together and save your favourites below.</p></div>
   <section aria-label="Explore logo refinements">
+    <div class="company-controls">
+      <fieldset class="company-selector"><legend>Preview company</legend><div class="company-options">
+        <label><input type="radio" name="company" value="0" checked><span>Burke Group</span></label>
+        <label><input type="radio" name="company" value="1"><span>Burke Realty</span></label>
+        <label><input type="radio" name="company" value="2"><span>Burke Development</span></label>
+        <label><input type="radio" name="company" value="3"><span>Burke Property Management</span></label>
+      </div></fieldset>
+      <div id="accent-swatches" class="accent-swatches" role="group" aria-label="Provisional subsidiary accent" hidden></div>
+      <p class="company-note">Subsidiary accent colours are illustrative and will be finalised separately.</p>
+    </div>
     <div id="preview" class="logo-preview" aria-live="polite"><p class="muted">Loading logo…</p></div>
     <form id="options" class="logo-options" aria-label="Logo settings">
-      <label>Icon spacing<select name="spacing"><option value="0">Original</option><option value="1">Wider</option></select></label>
-      <label>Icon shape<select name="shape"><option value="0">Original</option><option value="1">Curved layers</option></select></label>
-      <label>GROUP weight<select name="weight"><option value="0">Original</option><option value="1">Extra bold</option></select></label>
-      <label>Letter spacing<select name="tracking"><option value="0">Original</option><option value="1">Tighter</option></select></label>
-      <label>Colour<select name="colour"><option value="0">Original</option><option value="1">Blue GROUP</option><option value="2">Gold icon / Blue lettering</option></select></label>
+      <fieldset class="refinement spacing"><legend>Icon spacing</legend><div class="segments"><label><input type="radio" name="spacing" value="0" checked><span>Original</span></label><label><input type="radio" name="spacing" value="1"><span>Wider</span></label></div></fieldset>
+      <fieldset class="refinement shape"><legend>Icon shape</legend><div class="segments"><label><input type="radio" name="shape" value="0" checked><span>Original</span></label><label><input type="radio" name="shape" value="1"><span>Curved</span></label></div></fieldset>
+      <fieldset class="refinement weight"><legend id="weight-label">GROUP weight</legend><div class="segments"><label><input type="radio" name="weight" value="0" checked><span>Original</span></label><label><input type="radio" name="weight" value="1"><span>Bold</span></label></div></fieldset>
+      <fieldset class="refinement tracking"><legend>Letter spacing</legend><div class="segments"><label><input type="radio" name="tracking" value="0" checked><span>Original</span></label><label><input type="radio" name="tracking" value="1"><span>Tighter</span></label></div></fieldset>
+      <fieldset class="refinement colour"><legend>Colour</legend><div class="segments"><label><input type="radio" name="colour" value="0" checked><span>Original</span></label><label><input type="radio" name="colour" value="1"><span>Text one colour</span></label><label><input type="radio" name="colour" value="2"><span>Icon one colour</span></label></div></fieldset>
       <button type="reset" class="text-button">Reset</button>
     </form>
     <div class="preview-actions"><button id="add" class="primary-button" disabled>Add to comparison</button><span id="status" class="muted" role="status"></span></div>
