@@ -42,7 +42,7 @@ Run locally with `python -m http.server 8000` from the repository root.
 With Python Playwright and `/usr/bin/chromium` installed, run
 `python -u scripts/check-round-3.py`. It verifies 28 reference/colour pixel
 comparisons, all 256 company/refinement/treatment combinations, all 64 shared
-UI settings, treatment keyboard navigation, no colour picker, comparison removal, legacy links, layout, navigation
+UI settings, treatment keyboard navigation, unchanged Options toolbar, comparison removal, legacy links, layout, navigation
 and the earlier review flows under the `/burke-review/` GitHub Pages path.
 Screenshots are written to `/tmp/burke-round3-layout-desktop.png` and
 `/tmp/burke-round3-layout-mobile.png`.
@@ -56,9 +56,12 @@ comparison feature remains absent, as it was before this enhancement.
 
 Explore colours is a native collapsed `details` section between Options and
 Your vote, using the existing logo cards. `colour-model.js` supplies curated muted
-palettes, normalises 3/6-digit HEX input, and selects distinct complete combinations
+orange/purple/green-and-teal palettes (18 orange, 18 purple and 30 green/teal shades), normalises 3/6-digit HEX
+input, and selects distinct complete combinations with noticeable shade changes
 while respecting locks. `colour-explorer.js` owns temporary in-memory accents and
-locks. Reset restores the current Round 2 defaults and unlocks all colours. Copy
+locks. Native colour-picker swatches allow the full spectrum; HEX and picker
+values stay in sync. Padlock buttons show open/closed states immediately; all
+locked disables Shuffle and explains why. Manual editing never auto-locks. Reset restores the current Round 2 defaults and unlocks all colours. Copy
 includes company names and HEX codes, including fixed parent navy/gold. Invalid
 input retains the last valid preview, with an inline error; clipboard denial offers
 manual copying. No colour exploration state is persisted or sent to Firebase.
@@ -67,7 +70,8 @@ to use the five design settings and default parent palette only.
 
 Verification: `node tests/colour-explorer.test.js` and
 `python tests/check-colour-explorer.py` cover HEX validation, coordinated shuffles,
-locks, reset, clipboard success/failure, SVG geometry, fixed parent, both routes,
+padlock states, all-locked disabling, full-spectrum picker updates, reset,
+clipboard success/failure, SVG geometry, fixed parent, both routes,
 all treatment controls, 320–1448px layouts and isolation from saved votes/results.
 The browser test uses a local mock voting transport, never production Firebase.
 The existing `scripts/check-round-3.py` also passed unchanged.
