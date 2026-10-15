@@ -8,7 +8,8 @@ Round 3 is the default homepage and remains available at `round-3/`. It shows
 one large Group logo above three subsidiary previews, with a compact shared
 options row. The layout follows the owner's reference screenshot while retaining
 the supplied SVG artwork and the original Round 2 Blue palette and child colours.
-Colours are fixed and have no editing controls. Comparison
+Palette values stay fixed. A compact Colour treatment control switches between
+Original, Single-colour icon and Single-colour text across all four logos. Comparison
 has been removed for now; voting will follow separate instructions. Existing
 refinement links still work. See `round-3/README.md` for rendering and verification.
 

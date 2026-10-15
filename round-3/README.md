@@ -4,8 +4,11 @@ and a compact shared options row. The layout follows the owner's supplied
 screenshot, with the supplied logo geometry and the original Round 2 Blue palette
 as clarified by the owner.
 
-All four shape/lettering controls update all companies simultaneously. Colour is
-fixed to the original Round 2 Blue palette, with no editing controls. The primary
+All four shape/lettering controls and the Colour treatment segmented control
+update all companies simultaneously. The palette values stay fixed; there is no
+colour picker or customisation. Original uses the two-colour icon and accent
+lettering; Single-colour icon uses an all-accent icon with navy lettering;
+Single-colour text retains the two-colour icon with navy lettering. The primary
 #1B2E46 and Group secondary #B78352 come from `PALETTES.blue` in `data.js`.
 The child accents match Round 2's `CHILDREN` exactly: Realty #BD6C5A,
 Development #648EAB, Property Management #8F9868. `blue-palette.js` applies these
@@ -15,8 +18,9 @@ remain unchanged.
 
 Comparison UI and behaviour, including saving, removing and sharing favourites,
 are removed for now. Existing browser favourites are left untouched. Existing
-`#logo=` refinement links still initialize the shared geometry options; legacy
-colour settings are ignored. Company previews are always shown together. Voting and submission are deliberately deferred until
+`#logo=` refinement links initialize geometry and treatment together. Treatment
+values retain the supplied reference mapping: 0 Original, 1 Single-colour text
+(reference 02), 2 Single-colour icon (reference 05). Company previews are always shown together. Voting and submission are deliberately deferred until
 the owner's next instructions.
 
 `source-data.js` and `subsidiary-data.js` embed the 28 exact reference strings
@@ -33,9 +37,9 @@ without changing geometry, proportions or the scale between subsidiary logos.
 
 Run locally with `python -m http.server 8000` from the repository root.
 With Python Playwright and `/usr/bin/chromium` installed, run
-`python -u scripts/check-round-3.py`. It verifies 20 reference/colour pixel
-comparisons, all 64 fixed-palette company/refinement combinations, all 16 shared
-UI settings, no colour editing, comparison removal, legacy links, layout, navigation
+`python -u scripts/check-round-3.py`. It verifies 28 reference/colour pixel
+comparisons, all 192 company/refinement/treatment combinations, all 48 shared
+UI settings, treatment keyboard navigation, no colour picker, comparison removal, legacy links, layout, navigation
 and the earlier review flows under the `/burke-review/` GitHub Pages path.
 Screenshots are written to `/tmp/burke-round3-layout-desktop.png` and
 `/tmp/burke-round3-layout-mobile.png`.
