@@ -10,39 +10,28 @@
   <link rel="stylesheet" href="round-navigation.css">
   <script type="module" src="round-3/round-3.js"></script>
 </head>
-<body>
+<body class="round-three">
 <a class="skip" href="#main">Skip to review</a>
-<header class="review-masthead"><a class="review-wordmark" href="./">BURKE GROUP<span>IDENTITY REVIEW</span></a><nav class="round-nav" aria-label="Review rounds"><a href="./round-1/">Round 1</a><a href="./round-2/">Round 2</a><a href="./" aria-current="page">Round 3</a></nav></header>
+<header class="review-masthead"><a class="review-wordmark" href="./"><img src="round-3/header-logo.svg" width="180" height="51" alt="Burke Group"></a><nav class="round-nav" aria-label="Review rounds"><a href="round-1/">Round 1</a><a href="round-2/">Round 2</a><a href="./" aria-current="page">Round 3</a></nav></header>
 <main id="main" tabindex="-1">
-  <div class="round-heading"><h1>Round 3</h1><p class="muted">A few final refinements. Try them together and save your favourites below.</p></div>
-  <section aria-label="Explore logo refinements">
-    <div class="company-controls">
-      <fieldset class="company-selector"><legend>Preview company</legend><div class="company-options">
-        <label><input type="radio" name="company" value="0" checked><span>Burke Group</span></label>
-        <label><input type="radio" name="company" value="1"><span>Burke Realty</span></label>
-        <label><input type="radio" name="company" value="2"><span>Burke Development</span></label>
-        <label><input type="radio" name="company" value="3"><span>Burke Property Management</span></label>
-      </div></fieldset>
-      <div id="accent-swatches" class="accent-swatches" role="group" aria-label="Provisional subsidiary accent" hidden></div>
-      <p class="company-note">Subsidiary accent colours are illustrative and will be finalised separately.</p>
+  <div class="round-heading"><h1>Round 3</h1><p>Review the latest logo concepts for Burke Group and its companies.</p></div>
+  <section class="logo-family" aria-label="Burke Group and subsidiary logo previews">
+    <figure id="preview" class="logo-stage group-stage" aria-label="Burke Group"><span class="muted">Loading logos…</span></figure>
+    <div class="subsidiary-grid">
+      <figure id="preview-realty" class="logo-stage subsidiary-stage" aria-label="Burke Realty"></figure>
+      <figure id="preview-development" class="logo-stage subsidiary-stage" aria-label="Burke Development"></figure>
+      <figure id="preview-management" class="logo-stage subsidiary-stage" aria-label="Burke Property Management"></figure>
     </div>
-    <div id="preview" class="logo-preview" aria-live="polite"><p class="muted">Loading logo…</p></div>
-    <form id="options" class="logo-options" aria-label="Logo settings">
-      <fieldset class="refinement spacing"><legend>Icon spacing</legend><div class="segments"><label><input type="radio" name="spacing" value="0" checked><span>Original</span></label><label><input type="radio" name="spacing" value="1"><span>Wider</span></label></div></fieldset>
-      <fieldset class="refinement shape"><legend>Icon shape</legend><div class="segments"><label><input type="radio" name="shape" value="0" checked><span>Original</span></label><label><input type="radio" name="shape" value="1"><span>Curved</span></label></div></fieldset>
-      <fieldset class="refinement weight"><legend id="weight-label">GROUP weight</legend><div class="segments"><label><input type="radio" name="weight" value="0" checked><span>Original</span></label><label><input type="radio" name="weight" value="1"><span>Bold</span></label></div></fieldset>
-      <fieldset class="refinement tracking"><legend>Letter spacing</legend><div class="segments"><label><input type="radio" name="tracking" value="0" checked><span>Original</span></label><label><input type="radio" name="tracking" value="1"><span>Tighter</span></label></div></fieldset>
-      <fieldset class="refinement colour"><legend>Colour</legend><div class="segments"><label><input type="radio" name="colour" value="0" checked><span>Original</span></label><label><input type="radio" name="colour" value="1"><span>Text one colour</span></label><label><input type="radio" name="colour" value="2"><span>Icon one colour</span></label></div></fieldset>
-      <button type="reset" class="text-button">Reset</button>
-    </form>
-    <div class="preview-actions"><button id="add" class="primary-button" disabled>Add to comparison</button><span id="status" class="muted" role="status"></span></div>
   </section>
-  <section class="favourites" aria-labelledby="favourites-title">
-    <div class="comparison-heading"><h2 id="favourites-title">Compare favourites <span id="count" class="muted">0 / 6</span></h2><div class="selection-actions"><button id="select-all" class="text-button" disabled>Select all</button><button id="clear-selection" class="text-button" disabled>Clear selection</button><button id="copy" class="text-button" disabled>Copy selected link</button></div></div>
-    <p id="empty" class="muted">Add the combinations you’d like to see side by side. Up to six.</p>
-    <div id="saved" class="saved-logos"></div>
-    <div id="copy-fallback" hidden><label for="share-link" class="muted">Copy this link to share your selected combinations.</label><input id="share-link" readonly></div>
-  </section>
+  <form id="options" class="logo-options" aria-label="Logo settings">
+    <div class="options-intro"><h2>Options</h2><p>Adjust the logo styling to compare variations.</p></div>
+    <fieldset class="refinement spacing"><legend>Icon spacing</legend><div class="segments"><label><input type="radio" name="spacing" value="0" checked><span>Original</span></label><label><input type="radio" name="spacing" value="1"><span>Wider</span></label></div></fieldset>
+    <fieldset class="refinement shape"><legend>Icon shape</legend><div class="segments"><label><input type="radio" name="shape" value="0" checked><span>Original</span></label><label><input type="radio" name="shape" value="1"><span>Curved</span></label></div></fieldset>
+    <fieldset class="refinement weight"><legend>Group weight</legend><div class="segments"><label><input type="radio" name="weight" value="0" checked><span>Original</span></label><label><input type="radio" name="weight" value="1"><span>Bold</span></label></div></fieldset>
+    <fieldset class="refinement tracking"><legend>Letter spacing</legend><div class="segments"><label><input type="radio" name="tracking" value="0" checked><span>Original</span></label><label><input type="radio" name="tracking" value="1"><span>Tighter</span></label></div></fieldset>
+    <fieldset class="refinement colour"><legend>Colour</legend><div class="segments"><label><input type="radio" name="colour" value="0" checked><span>Original</span></label><label><input type="radio" name="colour" value="1"><span>Text only</span></label><label><input type="radio" name="colour" value="2"><span>Icon only</span></label></div></fieldset>
+  </form>
+  <p id="preview-status" class="sr-only" role="status" aria-live="polite"></p>
 </main>
 <noscript><p>Please enable JavaScript to explore the logo refinements.</p></noscript>
 </body>

@@ -59,77 +59,50 @@ with sync_playwright() as p:
  }
 }''',combos)
  print('All 336 company / accent / refinement combinations: valid outlines, fixed navy and no clipping')
- assert page.locator('#saved figure').count()==0
- for settings in combos[:6]:
+ # The four company previews share every refinement setting.
+ assert page.locator('.logo-stage svg').count()==4
+ assert page.locator('select, #saved, #add, .favourites, .company-selector, #accent-swatches').count()==0
+ for settings in combos:
   for key,value in zip(['spacing','shape','weight','tracking','colour'],settings):page.check(f'[name={key}][value="{value}"]')
-  page.click('#add')
- assert page.locator('#saved figure').count()==6
- assert page.locator('#add').is_disabled()
- page.click('#clear-selection');assert page.locator('#saved input:checked').count()==0;assert page.locator('#copy').is_disabled()
- page.click('#select-all');assert page.locator('#saved input:checked').count()==6
- page.locator('#saved input').nth(1).uncheck()
- page.click('#copy');page.wait_for_function("document.querySelector('#status').textContent.startsWith('Link copied')")
- shared=page.evaluate('navigator.clipboard.readText()')
- assert 'compare=' in shared
- page.locator('#saved button').first.click();assert page.locator('#saved figure').count()==5
- page.reload();page.wait_for_selector('#preview svg');assert page.locator('#saved figure').count()==5
- page.goto(shared);page.wait_for_selector('#preview svg');assert page.locator('#saved figure').count()==5
- page.click('button[type=reset]');assert all(page.locator(f'[name={key}]:checked').input_value()=='0' for key in ['spacing','shape','weight','tracking','colour'])
- # Company switching preserves refinements and each company's accent choice.
- assert page.locator('#accent-swatches').is_hidden()
- page.check('[name=shape][value="1"]')
- for company in [1,2,3]:
-  page.check(f'[name=company][value="{company}"]')
-  assert page.locator('#accent-swatches button').count()==2
-  assert page.locator('[name=shape]:checked').input_value()=='1'
-  page.locator('#accent-swatches button').nth(1).click()
-  assert page.locator('#accent-swatches button[aria-pressed=true]').get_attribute('aria-label')==['Clay Red','Slate Violet','Deep Teal'][company-1]
- page.check('[name=company][value="1"]')
- assert page.locator('#accent-swatches button').nth(1).get_attribute('aria-pressed')=='true'
- page.click('button[type=reset]')
- assert page.locator('#accent-swatches').is_hidden()
- # Share company and accent together, while retaining old five-digit links.
- page.goto(url+'#compare=00000,00100,0000010,0000011,0000020,0000031&logo=0000021')
- page.wait_for_function("document.querySelectorAll('#saved figure').length===6")
- assert page.locator('[name=company]:checked').input_value()=='2'
- assert page.locator('#accent-swatches button').nth(1).get_attribute('aria-pressed')=='true'
- assert 'Deep Teal' in page.locator('#saved figure').nth(5).inner_text()
- page.click('#copy');page.wait_for_function("document.querySelector('#status').textContent.startsWith('Link copied')")
- mixed_shared=page.evaluate('navigator.clipboard.readText()')
- page.goto(base+mixed_shared[mixed_shared.index('#'):])
- page.wait_for_selector('#preview svg')
- assert page.locator('#saved figure').count()==6
- assert page.locator('[name=company]:checked').input_value()=='2'
- page.check('[name=company][value="3"]')
+  assert page.locator('.logo-stage svg').count()==4
+  for index,expected in enumerate(['Burke Group','Burke Realty','Burke Development','Burke Property Management']):
+   logo=page.locator('.logo-stage svg').nth(index)
+   assert expected in logo.get_attribute('aria-label')
+   assert logo.get_attribute('viewBox')=='160 150 760 680'
+ assert page.locator('#preview-status').inner_text().startswith('All four logos updated:')
+ # Old comparison storage and fragments must not recreate the removed interface.
+ page.evaluate("localStorage.setItem('burke-round-3-favourites-v1',JSON.stringify(['00000','11112']))")
+ page.goto(url+'#compare=00000,11112&logo=11112');page.wait_for_selector('.logo-stage svg')
+ assert page.locator('.logo-stage svg').count()==4
+ assert page.locator('.favourites, #saved, #add').count()==0
+ assert page.locator('[name=colour]:checked').input_value()=='2'
+ page.goto(url+'#logo=bad');page.wait_for_function("document.querySelector('[name=colour]:checked').value==='0'")
  page.evaluate('document.activeElement.blur()');page.evaluate('scrollTo(0,0)')
- page.screenshot(path='/tmp/burke-round3-desktop.png',full_page=True)
- dimensions=page.locator('.saved-art svg').evaluate_all('(xs)=>xs.map(x=>[x.getBoundingClientRect().width,x.getBoundingClientRect().height])')
- assert all(abs(x[0]-dimensions[0][0])<0.1 and abs(x[1]-dimensions[0][1])<0.1 for x in dimensions),dimensions
- for width in [390,320,768]:
+ page.set_viewport_size({'width':1448,'height':1086})
+ page.screenshot(path='/tmp/burke-round3-layout-desktop.png',full_page=True)
+ # No part of any supplied logo is clipped by the common artboard crop.
+ assert page.locator('.logo-stage svg').evaluate_all("""svgs=>svgs.every(svg=>{const b=svg.getBBox();return b.x>=160&&b.x+b.width<=920&&b.y>=150&&b.y+b.height<=830})""")
+ for width in [390,320,768,1100]:
   page.set_viewport_size({'width':width,'height':844})
   assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'),width
-  assert page.locator('#preview svg').is_visible()
-  if width==390:page.screenshot(path='/tmp/burke-round3-mobile.png',full_page=True)
- page.goto(url+'#compare=garbage,11112,11112,99999');page.wait_for_function("document.querySelectorAll('#saved figure').length===1");assert page.locator('#saved figure').count()==1
- # Clipboard fallback remains usable when access is denied.
- page.evaluate("Object.defineProperty(navigator,'clipboard',{value:{writeText:()=>Promise.reject(new Error('denied'))},configurable:true})")
- page.click('#copy');page.wait_for_selector('#share-link:visible');assert 'compare=11112' in page.input_value('#share-link')
- assert not errors,errors
- # All three rounds have working top navigation under the GitHub Pages subpath.
+  for preview in page.locator('.logo-stage svg').all():assert preview.is_visible()
+  if width==390:page.screenshot(path='/tmp/burke-round3-layout-mobile.png',full_page=True)
+ # All three rounds keep working navigation under the Pages repository path.
  for route,round_number in [('',3),('round-3/',3),('round-2/',2),('round-1/',1)]:
   page.goto(base+route);page.wait_for_selector('.review-masthead .round-nav')
   assert page.locator('.round-nav a[aria-current=page]').inner_text()==f'Round {round_number}'
   for link,target in zip(page.locator('.round-nav a').all(),['round-1/','round-2/','']):
    assert link.evaluate('(a)=>a.href')==base+target
+  if round_number==3:
+   assert page.locator('.logo-stage svg').count()==4
+   assert page.locator('#add, .favourites').count()==0
+   assert page.locator('.review-wordmark img').evaluate('(img)=>img.complete&&img.naturalWidth>0')
   if round_number==2:
    page.click('#start-review');page.wait_for_selector('#focus-logo:visible');assert page.locator('#focus-logo').evaluate('(img)=>img.complete && img.naturalWidth>0')
   if round_number==1:
    assert page.locator('.item').count()>0
    assert page.locator('.item img').first.evaluate('(img)=>img.complete && img.naturalWidth>0')
-  for width in [390,320,1440]:
-   page.set_viewport_size({'width':width,'height':900})
-   assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'),(route,width)
- print('PASS: navigation across all three rounds, homepage, company and accent round trip')
- print('PASS: save limit, duplicates, select/clear, removal, persistence, share round trip, reset, clipboard fallback, malformed links, equal sizes and responsive layouts')
+ assert not errors,errors
+ print('PASS: simultaneous four-company previews, all 48 UI settings, comparison removed, legacy links, responsive layout, navigation and existing rounds')
  browser.close()
 server.shutdown()

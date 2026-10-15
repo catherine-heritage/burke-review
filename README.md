@@ -4,12 +4,12 @@ A buildless static website for GitHub Pages at `/burke-review/`. All website ass
 
 ## Current round and navigation
 
-Round 3 is the default homepage and remains available at `round-3/`. It includes
-compact refinement controls, four company previews using the new supplied SVGs,
-two provisional accent swatches per subsidiary, and up to six saved comparisons.
-The navy is fixed to the supplied SVG value. Comparison links retain company and
-accent choices, and original Round 3 links remain supported. See
-`round-3/README.md` for rendering details and browser verification.
+Round 3 is the default homepage and remains available at `round-3/`. It shows
+one large Group logo above three subsidiary previews, with a compact shared
+options row. The layout follows the owner's reference screenshot while retaining
+the supplied SVG artwork, fixed navy and default subsidiary accents. Comparison
+has been removed for now; voting will follow separate instructions. Existing
+refinement links still work. See `round-3/README.md` for rendering and verification.
 
 Round 1 remains at `round-1/`. Round 2's former homepage is now at `round-2/`,
 using its original review code and assets. All three rounds have the same top
