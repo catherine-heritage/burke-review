@@ -3,7 +3,7 @@
 Source visual truth: the owner's latest attached layout screenshot in this chat
 (1448 × 1086 pixels; no local source file was provided). The owner's subsequent
 latest clarification is part of the visual brief: match the layout, use the
-original Round 2 Blue palette and original child colours without colour editing,
+original Round 2 Blue palette and original child colours with fixed values,
 and keep all child previews beneath the Group by default. Remove comparison. Voting is deferred.
 
 Implementation captures:
@@ -49,17 +49,21 @@ approved supplied logos and fonts are intentional; no logo geometry was redrawn.
 
 Chromium exercised every shared refinement combination and confirmed all four
 previews update together. No comparison controls or company selector remain,
-even when old saved favourites exist. Existing geometry refinement hashes still work; legacy colour settings are ignored.
+even when old saved favourites exist. Existing refinement hashes initialize geometry and colour treatment together.
 Desktop and widths 320, 390, 700, 768 and 1100 do not overflow. Subsidiaries stack
 on narrow screens and retain equal scales. Keyboard focus remains visible on
 native radio controls, and a screen-reader status announces shared updates.
 No browser JavaScript errors were observed. All three round navigation links and
 the earlier review flows were checked under the repository URL prefix.
 
-Reference verification passed: 20 fixed-palette SVG pixel comparisons, all 64 company/refinement combinations,
-and 16 shared interface states. The fixed colours were also checked directly
-against `PALETTES.blue` and Round 2’s `CHILDREN`. The colour control is now a
-read-only label; the other four controls preserve the reference’s options row. Existing
+Reference verification passed: 28 fixed-palette SVG pixel comparisons, all 192 company/refinement/treatment
+combinations, and 48 shared interface states. The fixed colours were also checked directly
+against `PALETTES.blue` and Round 2’s `CHILDREN`. The requested Colour treatment segmented control uses the same styling as the
+other four options. Its wider final column accommodates the full labels on
+desktop; tablet/mobile wrapping prevents truncation. All three treatments were
+checked against references 00/02/05 with each company’s existing accent. Native
+radio keyboard navigation follows Original, Single-colour icon, Single-colour
+text, and no colour picker or extra customisation is present. Existing
 asset integrity checks passed.
 
 Implementation checklist: complete. No P3 follow-up is required for this layout.
