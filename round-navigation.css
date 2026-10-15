@@ -1,0 +1,10 @@
+@font-face{font-family:BurkeNav;src:url('assets/fonts/Montserrat-Variable.ttf') format('truetype');font-weight:100 900;font-display:swap}
+.review-masthead{box-sizing:border-box;max-width:1240px;margin:0 auto;min-height:88px;padding:18px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid #d7d6d0;font-family:BurkeNav,Montserrat,Arial,sans-serif;color:#1c1c1c}
+.review-masthead .review-wordmark{font-size:16px;font-weight:600;letter-spacing:.18em;text-decoration:none;line-height:1.5;white-space:nowrap;color:inherit}
+.review-masthead .review-wordmark span{display:block;font-size:9px;font-weight:500;letter-spacing:.2em;color:#65645e}
+.review-masthead .round-nav{display:flex;align-items:center;gap:22px;margin-left:auto;font-size:12px;line-height:1.6;white-space:nowrap}
+.review-masthead .round-nav a{color:inherit;text-decoration:none;padding:8px 0;border-bottom:1px solid transparent}
+.review-masthead .round-nav a[aria-current=page]{border-color:#1c1c1c}
+.review-masthead a:focus-visible{outline:3px solid #957446;outline-offset:3px}
+.review-masthead .review-help{border:0;background:none;font:inherit;font-size:11px;color:#65645e;cursor:pointer}
+@media(max-width:600px){.review-masthead{padding-inline:18px;gap:12px;flex-wrap:wrap}.review-masthead .review-wordmark{font-size:13px}.review-masthead .review-wordmark span{font-size:8px}.review-masthead .round-nav{font-size:11px;gap:16px}.review-masthead .review-help{order:3;width:100%;text-align:right}}

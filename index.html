@@ -1,39 +1,49 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Explore each Burke Group identity in colour, in real life and on a website. Then compare the identities."><title>Burke Group — Identity Review</title><link rel="stylesheet" href="styles.css"><script type="module" src="app.js"></script></head>
-<body><a class="skip" href="#main">Skip to review</a>
-<header class="masthead"><a class="wordmark" href="./">BURKE GROUP<span>IDENTITY REVIEW</span></a><button id="open-guide" class="text-button">Quick guide</button><a class="previous" href="round-1/">Previous Round ↗</a><a class="previous" href="round-3/">Round 3 ↗</a></header>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore the final refinements to the Burke Group logo.">
+  <title>Round 3 — Burke Group Identity Review</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="round-3/round-3.css">
+  <link rel="stylesheet" href="round-navigation.css">
+  <script type="module" src="round-3/round-3.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to review</a>
+<header class="review-masthead"><a class="review-wordmark" href="./">BURKE GROUP<span>IDENTITY REVIEW</span></a><nav class="round-nav" aria-label="Review rounds"><a href="./round-1/">Round 1</a><a href="./round-2/">Round 2</a><a href="./" aria-current="page">Round 3</a></nav></header>
 <main id="main" tabindex="-1">
-<section id="introduction" aria-labelledby="intro-title"><div class="intro"><h1 id="intro-title">Shortlist</h1><p class="mobile-desktop-note">Best viewed on desktop.</p></div><div class="logo-grid shortlist-logos"><figure><img src="assets/logos/black/1/stacked.svg" alt="Logo 01 — Four-Part B in black"><figcaption>Logo 01 — Four-Part B</figcaption></figure><figure><img src="assets/logos/black/2/stacked.svg" alt="Logo 02 — Layered B in black"><figcaption>Logo 02 — Layered B</figcaption></figure><figure><img src="assets/logos/black/3/stacked.svg" alt="Logo 03 — Rising Forms in black"><figcaption>Logo 03 — Rising Forms</figcaption></figure></div><div class="intro-bottom"><button id="start-review" class="primary-button">Next →</button></div></section>
-<section id="exploration" hidden aria-labelledby="focus-title">
-<div class="explore-heading" hidden><div class="logo-navigation"><nav id="logo-progress" aria-label="Logo review progress"></nav><button id="compare-link" class="compare-button">Compare</button></div></div>
-<div class="focus-heading"><div><h1 id="focus-title" tabindex="-1"></h1><p id="focus-status" class="muted"></p></div><button id="all-logos" class="text-button">← All logos</button></div>
-<div class="explore-toolbar">
-<div id="palettes" class="palette-grid" role="group" aria-label="Colour palette"></div>
-
-</div>
-<div id="identity-stage" class="stage-panel"><div class="solo-logo"><img id="focus-logo" alt=""><button id="black" class="text-button" aria-pressed="false">View in Original Black</button></div><details id="variations" class="variations" open><summary>Logo applications</summary><div id="variation-grid" class="variation-grid"></div></details></div>
-<div id="children-stage" class="stage-panel" hidden><div class="section-line"><h2>Child companies</h2><span class="muted">One identity. Three distinct secondary colours.</span></div><div id="children-gallery" class="company-grid"></div></div>
-<div id="group-stage" class="stage-panel" hidden><div class="section-line"><h2>Group of companies</h2></div><div id="group-gallery" class="sister-grid"></div></div>
-<div id="website-stage" class="stage-panel" hidden><div class="section-line"><h2>On a website</h2><div id="website-companies"></div></div><div id="website-mount"></div></div>
-<div id="mockups-stage" class="stage-panel" hidden><div class="section-line"><h2>In real life — Mockups</h2><span class="muted">Select a photo to enlarge ↗</span></div><div id="finished-gallery" class="finished-grid"></div></div>
-<div class="custom-invitation"><h2>Have another colour in mind?</h2><button id="explore-custom" class="text-button" aria-controls="colour-editor">Customise colours →</button></div><div class="journey-navigation"><button id="journey-back" class="text-button"></button><button id="journey-next" class="primary-button"></button></div>
-</section>
-<section id="comparison" hidden aria-labelledby="comparison-title">
-<div class="section-line"><button id="comparison-back" class="text-button">← Back to exploration</button></div>
-<h1 id="comparison-title" tabindex="-1">Compare the logos</h1><p id="comparison-description" class="section-copy">Three logos, one colour. Keep the setting the same.</p>
-<div class="comparison-toolbar"><div class="segmented" role="group" aria-label="Comparison type"><button data-compare="logos" aria-pressed="true">Compare logos</button><button data-compare="palettes" aria-pressed="false">Compare colours</button></div><label>Jump to<select id="comparison-view"><option value="identity">Primary logo</option><option value="sign">Limestone wall signage</option><option value="card">Business card</option><option value="polo">Polo shirt</option><option value="cap">Baseball cap</option><option value="website">Website</option></select></label></div>
-<div id="compare-palettes" class="palette-grid" role="group" aria-label="Comparison colour"></div><div id="compare-logos" class="segmented" role="group" aria-label="Logo to compare colours" hidden></div>
-<div class="comparison-actions"><button id="add-combination" class="text-button" hidden>Add to comparison +</button></div><div id="comparison-gallery"></div>
-<div class="custom-invitation"><h2>Have another colour in mind?</h2><button id="open-lab" class="text-button" aria-expanded="false" aria-controls="colour-editor">Customise colours →</button></div><div id="custom-lab" hidden><div id="lab-mount"></div></div>
-</section>
-</main><div id="scroll-header" class="scroll-header" aria-label="Sticky identity controls" hidden>
-<div class="sticky-control"><span class="sticky-label">Logo <select id="sticky-column" aria-label="Comparison option" hidden></select></span><div id="sticky-logos" class="sticky-options" role="group" aria-label="Sticky logo selection"></div></div>
-<div class="sticky-control"><span class="sticky-label">Colour</span><div id="sticky-palettes" class="sticky-options" role="group" aria-label="Sticky colour selection"></div></div>
-<div id="sticky-mode-control" class="sticky-control"><span class="sticky-label">Compare</span><div class="compare-controls"><select id="sticky-mode" aria-label="Comparison type"><option value="logos">All 3 logos</option><option value="palettes">All 3 palettes</option></select><button id="sticky-compare" class="sticky-toggle" role="switch" aria-checked="false"><i aria-hidden="true"></i></button></div></div>
-<label class="sticky-control sticky-jump"><span class="sticky-label">Jump to</span><select id="sticky-section" aria-label="Jump to section"></select></label>
-<div class="sticky-options sticky-tools"><button id="sticky-custom" class="sticky-choice" aria-controls="colour-editor" aria-expanded="false">Customise colours</button><button id="sticky-guide" class="sticky-choice" aria-label="Help">Help</button></div><button id="provide-feedback" class="feedback-button" aria-haspopup="dialog">Provide Feedback</button></div>
-<aside id="colour-editor" class="colour-editor" aria-labelledby="colour-editor-title" hidden><div class="section-line"><h2 id="colour-editor-title">Customise colours</h2><button id="close-colour-editor" aria-label="Close colour editor">×</button></div><button id="exit-custom" class="text-button editor-return">← Return to supplied palettes</button><p class="muted">Updates the logos, child companies and website studies. Supplied mockups keep their original colours.</p><h3 class="child-editor-title">Interactive examples</h3><p class="muted">Try a preset, then edit any colour.</p><div id="custom-presets" role="group" aria-label="Custom colour presets"></div><p id="custom-preset-status" class="muted" role="status" aria-live="polite"></p><div id="colour-fields"></div><h3 class="child-editor-title">Child-company secondary colours</h3><div id="child-colour-fields"></div><div class="editor-actions"><button id="reset-custom" class="text-button">Reset colours</button></div></aside><footer><span>BURKE GROUP</span><span>Identity Review</span><a href="#main">Back to top ↑</a></footer>
-<dialog id="control-guide" aria-labelledby="guide-title"><div class="viewer-bar"><h2 id="guide-title">A quick guide</h2><button id="close-guide">Close ×</button></div><dl class="guide-list"><dt>Logo</dt><dd>Choose one of the three Burke symbols. Your colour selection stays with it.</dd><dt>Colour</dt><dd>Switch between Black and gold, Blue and Green. Child companies keep their own secondary colours.</dd><dt>Jump to</dt><dd>Explore the logo, real-life applications, website, child companies or group of companies.</dd><dt>Compare</dt><dd>Switch comparison on to see matching sections side by side. Switch it off to return to exploration. Compare all three logos in one palette, or all three palettes using one logo.</dd><dt>Customise colours</dt><dd>Edit the colours across the logos and website studies.</dd><dt>Provide Feedback</dt><dd>Rank the three black logos and the three supplied palettes separately. Add your name, then copy your answers or open an email to Catherine.</dd></dl></dialog>
-<dialog id="feedback-dialog" aria-labelledby="feedback-title"><form id="feedback-form"><div class="viewer-bar"><h2 id="feedback-title">Provide Feedback</h2><button id="close-feedback" type="button" aria-label="Close feedback">Close ×</button></div><p class="feedback-intro">Rank the logo designs and colour palettes separately. 1st is your favourite.</p><fieldset><legend>Rank the logos</legend><p class="muted">Judge the shape first. All three are shown in black.</p><div id="feedback-logos" class="feedback-grid"></div></fieldset><fieldset><legend>Rank the colour palettes</legend><div id="feedback-palettes" class="feedback-grid"></div></fieldset><label class="feedback-name" for="feedback-name">Your name<input id="feedback-name" name="name" autocomplete="name" required maxlength="120"></label><div class="feedback-actions"><button id="copy-feedback" type="button" class="primary-button">Copy answers to clipboard</button><a id="email-feedback" class="feedback-email" href="mailto:catherine@heritageholdings.ky">Email Catherine ↗</a></div><p class="muted">Copy your answers, then open an email to catherine@heritageholdings.ky and paste them in. The email also includes your answers automatically.</p><p id="feedback-status" class="muted" role="status" aria-live="polite"></p></form></dialog>
-<dialog id="viewer" aria-labelledby="viewer-title"><div class="viewer-bar"><h2 id="viewer-title"></h2><button id="close-viewer" aria-label="Close image viewer">Close ×</button></div><img id="viewer-image" alt=""><div class="viewer-nav"><button id="viewer-prev" aria-label="Previous mockup">← Previous</button><span id="viewer-count" aria-live="polite"></span><button id="viewer-next" aria-label="Next mockup">Next →</button></div></dialog>
-<noscript><p>Please enable JavaScript to explore the identity.</p></noscript></body></html>
+  <div class="round-heading"><h1>Round 3</h1><p class="muted">A few final refinements. Try them together and save your favourites below.</p></div>
+  <section aria-label="Explore logo refinements">
+    <div class="company-controls">
+      <fieldset class="company-selector"><legend>Preview company</legend><div class="company-options">
+        <label><input type="radio" name="company" value="0" checked><span>Burke Group</span></label>
+        <label><input type="radio" name="company" value="1"><span>Burke Realty</span></label>
+        <label><input type="radio" name="company" value="2"><span>Burke Development</span></label>
+        <label><input type="radio" name="company" value="3"><span>Burke Property Management</span></label>
+      </div></fieldset>
+      <div id="accent-swatches" class="accent-swatches" role="group" aria-label="Provisional subsidiary accent" hidden></div>
+      <p class="company-note">Subsidiary accent colours are illustrative and will be finalised separately.</p>
+    </div>
+    <div id="preview" class="logo-preview" aria-live="polite"><p class="muted">Loading logo…</p></div>
+    <form id="options" class="logo-options" aria-label="Logo settings">
+      <fieldset class="refinement spacing"><legend>Icon spacing</legend><div class="segments"><label><input type="radio" name="spacing" value="0" checked><span>Original</span></label><label><input type="radio" name="spacing" value="1"><span>Wider</span></label></div></fieldset>
+      <fieldset class="refinement shape"><legend>Icon shape</legend><div class="segments"><label><input type="radio" name="shape" value="0" checked><span>Original</span></label><label><input type="radio" name="shape" value="1"><span>Curved</span></label></div></fieldset>
+      <fieldset class="refinement weight"><legend id="weight-label">GROUP weight</legend><div class="segments"><label><input type="radio" name="weight" value="0" checked><span>Original</span></label><label><input type="radio" name="weight" value="1"><span>Bold</span></label></div></fieldset>
+      <fieldset class="refinement tracking"><legend>Letter spacing</legend><div class="segments"><label><input type="radio" name="tracking" value="0" checked><span>Original</span></label><label><input type="radio" name="tracking" value="1"><span>Tighter</span></label></div></fieldset>
+      <fieldset class="refinement colour"><legend>Colour</legend><div class="segments"><label><input type="radio" name="colour" value="0" checked><span>Original</span></label><label><input type="radio" name="colour" value="1"><span>Text one colour</span></label><label><input type="radio" name="colour" value="2"><span>Icon one colour</span></label></div></fieldset>
+      <button type="reset" class="text-button">Reset</button>
+    </form>
+    <div class="preview-actions"><button id="add" class="primary-button" disabled>Add to comparison</button><span id="status" class="muted" role="status"></span></div>
+  </section>
+  <section class="favourites" aria-labelledby="favourites-title">
+    <div class="comparison-heading"><h2 id="favourites-title">Compare favourites <span id="count" class="muted">0 / 6</span></h2><div class="selection-actions"><button id="select-all" class="text-button" disabled>Select all</button><button id="clear-selection" class="text-button" disabled>Clear selection</button><button id="copy" class="text-button" disabled>Copy selected link</button></div></div>
+    <p id="empty" class="muted">Add the combinations you’d like to see side by side. Up to six.</p>
+    <div id="saved" class="saved-logos"></div>
+    <div id="copy-fallback" hidden><label for="share-link" class="muted">Copy this link to share your selected combinations.</label><input id="share-link" readonly></div>
+  </section>
+</main>
+<noscript><p>Please enable JavaScript to explore the logo refinements.</p></noscript>
+</body>
+</html>
