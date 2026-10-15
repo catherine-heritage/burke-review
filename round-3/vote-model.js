@@ -3,7 +3,7 @@ export const preferenceFields = [
   { key: 'shape', label: 'Icon shape', options: [{ value: 0, label: 'Original' }, { value: 1, label: 'Curved' }] },
   { key: 'weight', label: 'Group weight', options: [{ value: 0, label: 'Original' }, { value: 1, label: 'Bold' }] },
   { key: 'tracking', label: 'Letter spacing', options: [{ value: 0, label: 'Original' }, { value: 1, label: 'Tighter' }] },
-  { key: 'colour', label: 'Colour treatment', options: [{ value: 0, label: 'Original' }, { value: 2, label: 'Single-colour icon' }, { value: 1, label: 'Single-colour text' }] },
+  { key: 'colour', label: 'Colour treatment', options: [{ value: 0, label: 'Original' }, { value: 2, label: 'Single-colour icon' }, { value: 1, label: 'Single-colour text' }, { value: 3, label: 'Inverse' }] },
 ];
 export const settingsToVote = settings => Object.fromEntries(preferenceFields.map((field, i) => [field.key, settings[i]]));
 export const voteToSettings = vote => preferenceFields.map(field => vote[field.key]);

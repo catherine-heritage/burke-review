@@ -47,7 +47,7 @@ with sync_playwright() as p:
 }''')
  print('Colour-treatment pixel comparisons:',len(results),'authoritative references')
  assert all(r['differentChannels']==0 for r in results),results
- combos=list(itertools.product(range(2),range(2),range(2),range(2),range(3)))
+ combos=list(itertools.product(range(2),range(2),range(2),range(2),range(4)))
  page.evaluate('''async (combos)=>{
  const {companies}=await import('./logo-renderer.js');
  const {makeFixedBlueLogo,bluePalette}=await import('./blue-palette.js');
@@ -66,18 +66,18 @@ with sync_playwright() as p:
   const fills=selector=>[...svg.querySelectorAll(selector)].map(path=>path.getAttribute('fill').toLowerCase());
   const accentColour=bluePalette.accents[company].toLowerCase();
   const iconFills=fills('[data-part=icon] path');
-  if(iconFills.some((fill,i)=>fill!==(treatment===2||i===2?accentColour:'#1b2e46')))throw Error('Wrong icon treatment');
-  if(fills('[data-part=group] path').some(fill=>fill!==(treatment===0?accentColour:'#1b2e46')))throw Error('Wrong descriptor treatment');
+  if(iconFills.some((fill,i)=>fill!==((treatment===3?company!==0&&i<2:treatment===2||i===2)?accentColour:'#1b2e46')))throw Error('Wrong icon treatment');
+  if(fills('[data-part=group] path').some(fill=>fill!==(treatment===0||(treatment===3&&company!==0)?accentColour:'#1b2e46')))throw Error('Wrong descriptor treatment');
   svg.remove();
  }
 }''',combos)
- print('All 192 company/refinement/treatment combinations: valid outlines, fixed colours and no clipping')
+ print('All 256 company/refinement/treatment combinations: valid outlines, fixed colours and no clipping')
  # The four company previews share every refinement setting.
  assert page.locator('.logo-stage svg').count()==4
  assert page.locator('select, #saved, #add, .favourites, .company-selector, #accent-swatches, input[type=color]').count()==0
- assert page.locator('[name=colour]').count()==3
+ assert page.locator('[name=colour]').count()==4
  assert page.locator('.refinement.colour legend').inner_text()=='Colour treatment'
- assert page.locator('.refinement.colour .segments span').all_text_contents()==['Original','Single-colour icon','Single-colour text']
+ assert page.locator('.refinement.colour .segments span').all_text_contents()==['Original','Single-colour icon','Single-colour text','Inverse']
  for settings in combos:
   for key,value in zip(['spacing','shape','weight','tracking','colour'],settings):page.check(f'[name={key}][value="{value}"]')
   assert page.locator('.logo-stage svg').count()==4
@@ -103,6 +103,8 @@ with sync_playwright() as p:
  page.locator('[name=colour][value="0"]').focus()
  page.keyboard.press('ArrowRight');assert page.locator('[name=colour]:checked').input_value()=='2'
  page.keyboard.press('ArrowRight');assert page.locator('[name=colour]:checked').input_value()=='1'
+ page.keyboard.press('ArrowRight');assert page.locator('[name=colour]:checked').input_value()=='3'
+ page.goto(url+'#logo=11113');page.wait_for_function("document.querySelector('[name=colour]:checked').value==='3'")
  page.check('[name=colour][value="0"]')
  page.evaluate('document.activeElement.blur()');page.evaluate('scrollTo(0,0)')
  page.set_viewport_size({'width':1448,'height':1086})
@@ -131,6 +133,6 @@ with sync_playwright() as p:
    assert page.locator('.item').count()>0
    assert page.locator('.item img').first.evaluate('(img)=>img.complete && img.naturalWidth>0')
  assert not errors,errors
- print('PASS: simultaneous four-company previews, all 48 UI settings, three colour treatments, keyboard navigation, comparison removed, legacy links, responsive layout, navigation and existing rounds')
+ print('PASS: simultaneous four-company previews, all 64 UI settings, four colour treatments, keyboard navigation, comparison removed, legacy links, responsive layout, navigation and existing rounds')
  browser.close()
 server.shutdown()

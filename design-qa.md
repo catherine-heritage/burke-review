@@ -56,11 +56,11 @@ native radio controls, and a screen-reader status announces shared updates.
 No browser JavaScript errors were observed. All three round navigation links and
 the earlier review flows were checked under the repository URL prefix.
 
-Reference verification passed: 28 fixed-palette SVG pixel comparisons, all 192 company/refinement/treatment
-combinations, and 48 shared interface states. The fixed colours were also checked directly
+Reference verification passed: 28 fixed-palette SVG pixel comparisons, all 256 company/refinement/treatment
+combinations, and 64 shared interface states. The fixed colours were also checked directly
 against `PALETTES.blue` and Round 2’s `CHILDREN`. The requested Colour treatment segmented control uses the same styling as the
 other four options. Its wider final column accommodates the full labels on
-desktop; tablet/mobile wrapping prevents truncation. All three treatments were
+desktop; tablet/mobile wrapping prevents truncation. All four treatments were
 checked against references 00/02/05 with each company’s existing accent. Native
 radio keyboard navigation follows Original, Single-colour icon, Single-colour
 text, and no colour picker or extra customisation is present. Existing

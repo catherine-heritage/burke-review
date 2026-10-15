@@ -48,14 +48,14 @@ test('visitors cannot overwrite, create or delete another account’s vote', asy
 test('only the five validated integer settings may be saved', async () => {
   const db = account('alice');
   const ref = doc(db, 'round3Votes/alice');
-  for (const [key, values] of Object.entries({ spacing: [-1, 2, 0.5, '0', true, null], shape: [2], weight: [2], tracking: [2], colour: [-1, 3, '2'] })) {
+  for (const [key, values] of Object.entries({ spacing: [-1, 2, 0.5, '0', true, null], shape: [2], weight: [2], tracking: [2], colour: [-1, 4, '2'] })) {
     for (const value of values) await assertFails(setDoc(ref, { ...original, [key]: value }));
   }
   const { colour, ...missing } = original;
   for (const value of [missing, { ...original, uid: 'alice' }, { ...original, company: 1 }, { ...original, accent: '#fff' }, { ...original, total: 5 }]) {
     await assertFails(setDoc(ref, value));
   }
-  for (const value of [0, 1, 2]) await assertSucceeds(setDoc(ref, { ...original, colour: value }));
+  for (const value of [0, 1, 2, 3]) await assertSucceeds(setDoc(ref, { ...original, colour: value }));
   await assertFails(updateDoc(ref, { secondary: '#fff' }));
 });
 test('other collections, nested documents and shared totals cannot be written', async () => {

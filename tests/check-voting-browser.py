@@ -44,7 +44,7 @@ with sync_playwright() as p:
  assert a.locator('#live-results').is_hidden()
  assert a.locator('#vote-after').is_hidden()
  assert a.evaluate('window.__resultsListeners || 0')==0
- choose(a,[1,1,1,1,2])
+ choose(a,[1,1,1,1,3])
  a.screenshot(path='/tmp/burke-voting-before.png',full_page=True)
  a.evaluate("document.querySelector('#cast-vote').click();document.querySelector('#cast-vote').click()")
  total(a,1)
@@ -67,14 +67,15 @@ with sync_playwright() as p:
  a.wait_for_function("document.querySelector('#your-vote').textContent.includes('Icon spacing: Original')")
  total(a,2);total(b,2)
  a.wait_for_function("document.querySelector('[aria-label=\"Icon spacing: Original\"]').getAttribute('aria-valuenow')==='100'")
- choose(b,[0,1,1,1,2]);b.click('#update-vote')
+ choose(b,[0,1,1,1,3]);b.click('#update-vote')
  a.wait_for_function("document.querySelectorAll('.popular-combination').length===1")
  assert '2 votes · 100%' in a.locator('.popular-combination').inner_text()
  # A reload and a second page retain the exact same anonymous identity and vote.
  a.reload();a.wait_for_selector('#live-results:not([hidden])');total(a,2)
  assert uid(a)==saved_uid
- assert [a.locator(f'[name={key}]:checked').input_value() for key in ['spacing','shape','weight','tracking','colour']]==['0','1','1','1','2']
- assert a.locator('#vote-before').is_hidden()
+ assert [a.locator(f'[name={key}]:checked').input_value() for key in ['spacing','shape','weight','tracking','colour']]==['0','1','1','1','3']
+ assert 'Colour treatment: Inverse' in a.locator('#your-vote').inner_text()
+ assert 'Inverse' in a.locator('.popular-combination').inner_text()
  a.goto(base);a.wait_for_selector('#live-results:not([hidden])');total(a,2);assert uid(a)==saved_uid
  # Four distinct combinations exercise the top-three limit and percentage denominator.
  for index,settings in enumerate([[0,0,0,0,0],[1,0,0,0,0],[0,0,1,0,1]]):
