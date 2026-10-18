@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Burke Group — Round 4 Colour Review</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<nav aria-label="Review rounds" style="display:flex;flex-wrap:wrap;gap:16px;max-width:1376px;margin:0 auto;padding:20px 32px 0;font:14px Arial,sans-serif"><a href="../round-1/">Round 1</a><a href="../round-2/">Round 2</a><a href="../round-3/">Round 3</a><a href="./" aria-current="page">Round 4</a></nav>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Urbanist:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F2F0EC;-webkit-font-smoothing:antialiased}
+a{color:#1B2E46}a:hover{color:#A67C52}
+input,button{font-family:inherit}
+</style>
+</helmet>
+
+<div style="min-height:100vh;font-family:'Hanken Grotesk',sans-serif;color:#0F1B2A;padding-bottom:48px">
+  <div style="max-width:1440px;margin:0 auto;padding:40px 32px 0;box-sizing:border-box;display:flex;flex-direction:column;gap:28px">
+
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">
+      <div style="display:flex;align-items:center;gap:20px">
+        <img src="assets/mark.svg" alt="Burke" style="height:40px;display:block">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;color:#4E5A68">BURKE IDENTITY REVIEW · ROUND 4</div>
+          <div style="font-weight:300;font-size:34px;letter-spacing:-0.02em;line-height:1.1">Colour</div>
+        </div>
+      </div>
+      <p style="margin:0;max-width:520px;font-size:14px;line-height:1.55;color:#4E5A68;text-wrap:pretty">For each company, choose a colour family and where the colour sits in the logo. The boards update live. Everything else on the page is there to help you explore.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+    <div style="display:flex;flex-wrap:wrap;gap:6px;padding:5px;background:#E6E2DB;border-radius:999px;width:fit-content;max-width:100%">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+        <button onClick="{{ t.onClick }}" style="border:0;cursor:pointer;padding:10px 18px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;background:{{ t.bg }};color:{{ t.color }}">{{ t.label }}</button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:13px;color:#4E5A68">Starting shades (admin)</span>
+      <div style="display:flex;gap:4px;padding:4px;background:#E6E2DB;border-radius:999px">
+        <sc-for list="{{ defaultModes }}" as="m" hint-placeholder-count="2">
+          <button onClick="{{ m.onClick }}" style="border:0;cursor:pointer;padding:8px 14px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap;background:{{ m.bg }};color:{{ m.color }}">{{ m.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+    </div>
+
+    <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#FFFFFF;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">HOW TO REVIEW</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+          <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:50%;background:#1B2E46;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">1</span><div style="font-size:13.5px;line-height:1.45;color:#2A3644;text-wrap:pretty">Open each company tab and choose a <strong style="font-weight:600">colour family</strong>.</div></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:50%;background:#1B2E46;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">2</span><div style="font-size:13.5px;line-height:1.45;color:#2A3644;text-wrap:pretty">Choose whether the colour sits at the <strong style="font-weight:600">top or bottom</strong> of the logo. Not needed for Group if you pick Navy only.</div></div>
+        </div>
+        <div style="font-size:12.5px;line-height:1.5;color:#7A8592">Each child company has two colour options to choose between. Burke navy and the neutrals stay fixed.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <sc-for list="{{ cards }}" as="c" hint-placeholder-count="4">
+          <div style="background:#FFFFFF;display:flex;flex-direction:column">
+            <div style="height:190px;display:flex;align-items:center;justify-content:center;background:#FBFAF8">
+              <img src="{{ c.logoUrl }}" alt="{{ c.name }}" style="width:150px;height:150px;object-fit:contain;display:block">
+            </div>
+            <div style="display:flex;height:28px">
+              <sc-for list="{{ c.swatches }}" as="s" hint-placeholder-count="5">
+                <div style="flex:1;background:{{ s.hex }}"></div>
+              </sc-for>
+            </div>
+            <div style="padding:16px 16px 18px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                <div style="font-size:15px;font-weight:500">{{ c.name }}</div>
+                <div style="font-size:12px;font-weight:500;color:#4E5A68">{{ c.hex }}</div>
+              </div>
+              <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px">
+                <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#7A8592;padding-top:2px">FAMILY</span><span>{{ c.familyLabel }}</span>
+                <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#7A8592;padding-top:2px">LOGO</span><span>{{ c.treatmentLabel }}</span>
+                <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#7A8592;padding-top:2px">CONTRAST</span><span style="color:{{ c.contrastColor }};font-weight:500">{{ c.contrastText }}</span>
+              </div>
+              <button onClick="{{ c.onOpen }}" style="align-self:flex-start;border:1px solid #CFCAC1;background:transparent;cursor:pointer;padding:9px 16px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;color:#0F1B2A">EDIT {{ c.short }}</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}"><button onClick="{{ shuffleAll }}" style="border:0;cursor:pointer;padding:12px 20px;border-radius:999px;background:#1B2E46;color:#FFFFFF;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em">SHUFFLE ALL SHADES</button></sc-if>
+        <button onClick="{{ resetAll }}" style="border:1px solid #CFCAC1;cursor:pointer;padding:12px 20px;border-radius:999px;background:transparent;color:#0F1B2A;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em">RESET ALL</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCompany }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">
+        <sc-if value="{{ showPanel }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#FFFFFF;padding:24px;display:flex;flex-direction:column;gap:24px;flex:1 1 340px;max-width:400px;box-sizing:border-box">
+          <div style="display:flex;align-items:center;gap:16px">
+            <img src="{{ a.logoUrl }}" alt="{{ a.name }}" style="width:72px;height:72px;object-fit:contain;display:block">
+            <div style="font-size:20px;font-weight:500;letter-spacing:-0.01em">{{ a.name }}</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:20px;padding:18px;border-radius:12px;box-shadow:inset 0 0 0 1.5px #1B2E46">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+              <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">CHOICES</div>
+              <div style="font-size:12px;color:#6A7480">{{ a.voteCount }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">1 · COLOUR FAMILY</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <sc-for list="{{ a.families }}" as="f" hint-placeholder-count="2">
+                  <button onClick="{{ f.onClick }}" style="cursor:pointer;display:flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;border-radius:999px;background:#FFFFFF;border:1.5px solid {{ f.border }};font-size:13px;font-weight:500;color:#0F1B2A">
+                    <span style="width:22px;height:22px;border-radius:50%;background:{{ f.hex }}"></span>{{ f.label }}
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">2 · LOGO COLOUR POSITION</div>
+              <sc-if value="{{ a.editable }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                  <sc-for list="{{ a.treatments }}" as="tr" hint-placeholder-count="2">
+                    <button onClick="{{ tr.onClick }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:14px;border-radius:10px;background:#FFFFFF;border:1.5px solid {{ tr.border }};text-align:left">
+                      <img src="{{ tr.img }}" alt="" style="height:40px;display:block">
+                      <span style="font-size:13px;font-weight:500;color:#0F1B2A">{{ tr.label }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ a.isFixed }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13px;line-height:1.45;color:#6A7480">Not needed. With Navy only, the B is a single colour.</div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">IS IT EASY TO READ?</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <div style="font-size:14px;font-weight:500;color:{{ a.readColor }}">{{ a.readSummary }}</div>
+              <button onClick="{{ toggleChecks }}" style="border:0;background:transparent;cursor:pointer;padding:4px 0;font-size:12.5px;color:#4E5A68;text-decoration:underline;white-space:nowrap">{{ checksLabel }}</button>
+            </div>
+            <sc-if value="{{ showChecks }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ a.checks }}" as="k" hint-placeholder-count="5">
+                <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:8px;background:#F6F4F1">
+                  <div style="width:46px;height:40px;border-radius:6px;background:{{ k.bg }};color:{{ k.fg }};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.06)">{{ k.sample }}</div>
+                  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+                    <div style="font-size:13px;line-height:1.35;color:#2A3644">{{ k.label }}</div>
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <div style="display:flex;gap:3px">
+                        <sc-for list="{{ k.dots }}" as="d" hint-placeholder-count="4">
+                          <span style="width:16px;height:6px;border-radius:3px;background:{{ d.bg }}"></span>
+                        </sc-for>
+                      </div>
+                      <span style="font-size:13px;font-weight:600;color:{{ k.verdictColor }}">{{ k.verdict }}</span>
+                    </div>
+                    <div style="font-size:12px;line-height:1.4;color:#6A7480">{{ k.meaning }}</div>
+                    <sc-if value="{{ showTech }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding-top:4px">
+                        <span style="font-size:12px;font-weight:600;margin-right:4px">{{ k.ratio }}</span>
+                        <sc-for list="{{ k.badges }}" as="b" hint-placeholder-count="3">
+                          <span style="font-family:'Urbanist',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:0.08em;padding:3px 7px;border-radius:999px;white-space:nowrap;background:{{ b.bg }};color:{{ b.color }}">{{ b.text }}</span>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-for>
+              <button onClick="{{ toggleTech }}" style="align-self:flex-start;border:0;background:transparent;cursor:pointer;padding:4px 0;font-size:12.5px;color:#4E5A68;text-decoration:underline">{{ techLabel }}</button>
+              <sc-if value="{{ showTech }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:11.5px;line-height:1.5;color:#7A8592">Contrast ratio (WCAG 2.1 AA): small text needs 4.5:1, large text and graphics need 3:1. AAA needs 7:1.</div>
+              </sc-if>
+            </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ a.admin }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:10px;border:1.5px dashed #C9C2B6;background:#FAF8F5">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">FULL PALETTE · ADMIN ONLY</div>
+                <button onClick="{{ a.exitAdmin }}" style="border:0;background:transparent;cursor:pointer;padding:0;font-size:12px;color:#4E5A68;text-decoration:underline">Hide</button>
+              </div>
+              <div style="font-size:12.5px;line-height:1.4;color:#6A7480">Only visible to you. Changes preview on the board but are not saved or shown to anyone else.</div>
+              <sc-for list="{{ a.palette }}" as="p" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <label style="position:relative;width:36px;height:36px;border-radius:8px;background:{{ p.hex }};cursor:pointer;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.12)">
+                    <input type="color" value="{{ p.hex }}" onInput="{{ p.onPick }}" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+                  </label>
+                  <div style="flex:1;min-width:0;font-size:13px;font-weight:500;color:#0F1B2A">{{ p.label }}</div>
+                  <input value="{{ p.text }}" onChange="{{ p.onHex }}" spellCheck="false" style="width:96px;height:36px;box-sizing:border-box;border:1px solid #D6D1C8;border-radius:8px;padding:0 10px;font-size:13px;font-weight:500;text-transform:uppercase;color:#0F1B2A;background:#FFFFFF">
+                  <button onClick="{{ p.onReset }}" style="height:36px;border:0;cursor:pointer;padding:0 4px;background:transparent;color:#4E5A68;font-size:12.5px">Reset</button>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <div style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:flex-end">
+            <button onClick="{{ toggleWide }}" style="border:1px solid #CFCAC1;background:#FFFFFF;cursor:pointer;padding:8px 16px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;color:#0F1B2A">{{ wideLabel }}</button>
+          </div>
+          <div ref="{{ wrapRef }}" style="width:100%;background:#E6E2DB;overflow:hidden;position:relative;height:{{ boardH }}px">
+            <sc-for list="{{ boards }}" as="bd" hint-placeholder-count="4">
+              <iframe src="{{ bd.src }}" ref="{{ bd.ref }}" onLoad="{{ bd.onLoad }}" title="{{ bd.title }}" style="position:absolute;left:0;top:0;width:1920px;height:1140px;border:0;transform-origin:0 0;transform:scale({{ boardScale }});visibility:{{ bd.vis }};pointer-events:none"></iframe>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const NAVY = '#1B2E46';
+const CO = {
+  group: { name: 'Burke Group', short: 'GROUP', board: 'Burke Group Identity Board.dc.html', logo: 'assets/logo-primary.svg', mark: 'assets/mark.svg', orig: '#A67C52', n1: '#E6E4E0', n2: '#FAFAF8', accent2: '#4E5A68', accRange: { h: [200, 225], s: [0.1, 0.25], l: [0.32, 0.46] },
+    families: [
+      { id: 'navy', label: 'Navy only', hex: NAVY, fixed: true },
+      { id: 'slate', label: 'Slate', hex: '#768290', tuned: '#66717E', h: [208, 222], s: [0.1, 0.2], l: [0.44, 0.54] }
+    ] },
+  realty: { name: 'Burke Realty', short: 'REALTY', board: 'Burke Realty Identity Board.dc.html', logo: 'assets/realty-primary.svg', mark: 'assets/realty-mark.svg', illusKey: 'realty-', orig: '#CC6E2F', n1: '#E6E4E0', n2: '#FAFAF8', accent2: '#78A0B6', accRange: { h: [205, 222], s: [0.4, 0.6], l: [0.28, 0.42] },
+    families: [
+      { id: 'orange', label: 'Orange', hex: '#BB6130', tuned: '#BB6130', h: [20, 30], s: [0.58, 0.72], l: [0.42, 0.52] },
+      { id: 'red', label: 'Orange-red', hex: '#BF4E30', tuned: '#C24F31', h: [8, 15], s: [0.55, 0.65], l: [0.4, 0.48] }
+    ] },
+  development: { name: 'Burke Development', short: 'DEVELOPMENT', board: 'Burke Development Identity Board.dc.html', logo: 'assets/dev-primary.svg', mark: 'assets/dev-mark.svg', illusKey: 'dev-', orig: '#755A77', n1: '#E6E4E0', n2: '#FAFAF8', accent2: '#B9A9B6', accRange: { h: [285, 325], s: [0.12, 0.25], l: [0.5, 0.64] },
+    families: [
+      { id: 'purple', label: 'Purple', hex: '#755A77', tuned: '#87688A', h: [290, 320], s: [0.15, 0.32], l: [0.34, 0.44] },
+      { id: 'blue', label: 'Blue', hex: '#3A6EA5', tuned: '#3E75B0', h: [205, 218], s: [0.42, 0.55], l: [0.38, 0.46] }
+    ] },
+  pm: { name: 'Burke Property Management', short: 'PROPERTY MGMT', board: 'Burke Property Management Identity Board.dc.html', logo: 'assets/pm-primary.svg', mark: 'assets/pm-mark.svg', illusKey: 'pm-', orig: '#157279', n1: '#E6E4E0', n2: '#FAFAF8', accent2: '#6FA8A6', accRange: { h: [168, 186], s: [0.2, 0.38], l: [0.44, 0.58] },
+    families: [
+      { id: 'teal', label: 'Teal', hex: '#157279', tuned: '#177F87', h: [182, 190], s: [0.6, 0.75], l: [0.25, 0.34] },
+      { id: 'green', label: 'Green', hex: '#2E7D4F', tuned: '#308252', h: [140, 155], s: [0.4, 0.55], l: [0.3, 0.38] }
+    ] }
+};
+const KEYS = ['group', 'realty', 'development', 'pm'];
+const hexRgb = h => { const n = parseInt(h.replace('#', ''), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+const rgbStr = h => { const [r, g, b] = hexRgb(h); return `rgb(${r}, ${g}, ${b})`; };
+const lum = h => { const c = hexRgb(h).map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+const contrast = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+const hslHex = (h, s, l) => { const k = n => (n + h / 30) % 12, a = s * Math.min(l, 1 - l); const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1))); return '#' + [f(0), f(8), f(4)].map(v => Math.round(v * 255).toString(16).padStart(2, '0')).join('').toUpperCase(); };
+const rand = ([a, b]) => a + Math.random() * (b - a);
+const lighten = (h, amt) => { const [r, g, b] = hexRgb(h); return '#' + [r, g, b].map(v => Math.round(v + (255 - v) * amt).toString(16).padStart(2, '0')).join('').toUpperCase(); };
+const ILLUS = /(villa|warehouse|office|building|masterplan|siteplan)\.svg/;
+const greyOf = h => { const [r, g, b] = hexRgb(h); const v = Math.round(70 + (0.299 * r + 0.587 * g + 0.114 * b) * 0.7); return '#' + v.toString(16).padStart(2, '0').repeat(3); };
+const mixHex = (a, b, t) => { const x = hexRgb(a), y = hexRgb(b); return '#' + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, '0')).join('').toUpperCase(); };
+const tintOf = (h, sec) => { const [r, g, b] = hexRgb(h); const t = (0.299 * r + 0.587 * g + 0.114 * b) / 255; return mixHex(mixHex('#2C3036', sec, 0.35), lighten(sec, 0.86), Math.pow(t, 0.9)); };
+const REV = /(mark|primary)-(rev|tonal|tonal-full)\.svg/;
+const NAVY_B = '#5A6B81';
+const INK = '#0F1B2A';
+const inkOf = h => '#' + hexRgb(h).map(v => Math.round(v * 0.58).toString(16).padStart(2, '0')).join('').toUpperCase();
+const hslOf = h => { const [r, g, b] = hexRgb(h).map(v => v / 255); const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn; if (!d) return [0, 0, l]; const s = d / (1 - Math.abs(2 * l - 1)); let hh = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; return [(hh * 60 + 360) % 360, s, l]; };
+const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+class Component extends DCLogic {
+  state = (() => {
+    const c = {};
+    KEYS.forEach(k => { const f = CO[k].families[0]; const h0 = f.tuned || f.hex; c[k] = { family: f.id, hex: h0, hexText: h0, treatment: 'bottom', accent: CO[k].accent2, accentText: CO[k].accent2, navyAccent: NAVY_B, navyAccentText: NAVY_B, pal: { navy: NAVY, n1: CO[k].n1, n2: CO[k].n2 }, palText: { navy: NAVY, n1: CO[k].n1, n2: CO[k].n2 } }; });
+    const hist = {}; KEYS.forEach(k => { hist[k] = []; });
+    let admin = false; try { const q = new URLSearchParams(location.search); if (q.has('admin') || /admin/.test(location.hash)) localStorage.setItem('burkeColourAdmin', '1'); if (q.has('noadmin')) localStorage.removeItem('burkeColourAdmin'); admin = localStorage.getItem('burkeColourAdmin') === '1'; } catch (e) {}
+    return { admin, showChecks: false, showExplore: false, wide: false, touched: {}, navyB: NAVY_B, navyBText: NAVY_B, tuned: true, tab: 'overview', c, hist, imgMode: 'grey', showTech: false, markUrl: {}, logoUrl: {}, boardW: 1000 };
+  })();
+
+  frames = {}; snaps = {}; svgCache = {}; urlCache = {}; frameRefs = {}; loadHandlers = {};
+
+  componentDidMount() {
+    KEYS.forEach(k => this.refreshLogo(k));
+  }
+  componentWillUnmount() { this.ro?.disconnect(); }
+
+  wrapRef = el => {
+    this.ro?.disconnect();
+    if (!el) return;
+    this.ro = new ResizeObserver(([e]) => this.setState({ boardW: e.contentRect.width }));
+    this.ro.observe(el);
+  };
+
+  defHex(f) { return this.state.tuned && f.tuned ? f.tuned : f.hex; }
+  famOf(k) { return CO[k].families.find(f => f.id === this.state.c[k].family); }
+  pairs(k) {
+    const hex = this.state.c[k].hex, p = [[CO[k].orig, this.famOf(k).fixed ? 'MONO' : hex]];
+    if (k === 'development') p.push(['#866A88', lighten(hex, 0.08)]);
+    const acc = k === 'group' ? this.state.navyB : this.state.c[k].accent;
+    if (acc && acc.toUpperCase() !== CO[k].accent2.toUpperCase()) p.push(k === 'group' ? [CO[k].accent2, acc, 'bg'] : [CO[k].accent2, acc]);
+    if (k !== 'group' && this.state.navyB.toUpperCase() !== NAVY_B) p.push([NAVY_B, this.state.navyB, 'bg']);
+    const pal = this.state.c[k].pal, base = { navy: NAVY, n1: CO[k].n1, n2: CO[k].n2 };
+    ['navy', 'n1', 'n2'].forEach(x => { if (pal[x].toUpperCase() !== base[x].toUpperCase()) p.push([base[x], pal[x]]); });
+    if (pal.navy.toUpperCase() !== NAVY) p.push([INK, inkOf(pal.navy)]);
+    return p;
+  }
+
+  async svgUrl(src, pairs, treatment, acc) {
+    const mode = ILLUS.test(src) ? this.state.imgMode : 'brand';
+    const grey = mode !== 'brand';
+    const keep = ILLUS.test(src) ? this.state.c[KEYS.find(k => src.includes(CO[k].illusKey))]?.hex : null;
+    if (ILLUS.test(src)) pairs = [];
+    const key = src + '|' + pairs.map(p => p.join('>')).join(',') + '|' + treatment + '|' + mode + '|' + keep + '|' + (REV.test(src) ? acc : '');
+    if (this.urlCache[key]) return this.urlCache[key];
+    if (!this.svgCache[src]) this.svgCache[src] = fetch(src).then(r => r.text());
+    let t = await this.svgCache[src];
+    pairs.forEach(([a, b]) => {
+      if (b === 'MONO') {
+        const fills = [...t.matchAll(/fill="(#[0-9a-f]{6})"/gi)].map(m => m[1]);
+        b = fills.find(f => f.toLowerCase() !== a.toLowerCase()) || this.state.c[KEYS.find(k => CO[k].orig === a) || 'group'].pal.navy;
+      }
+      t = t.replace(new RegExp(escRe(a), 'gi'), b);
+    });
+    if (grey) t = t.replace(/#[0-9a-f]{6}/gi, h => (/^#(CC6E2F|157279|755A77)$/i.test(h) && keep) ? keep : (mode === 'tint' && keep ? tintOf(h, keep) : greyOf(h)));
+    else if (keep) t = t.replace(/#(CC6E2F|157279|755A77)/gi, keep);
+    const revAcc = REV.test(src) && acc ? acc : null;
+    if ((treatment === 'top' || revAcc) && !ILLUS.test(src)) {
+      const doc = new DOMParser().parseFromString(t, 'image/svg+xml');
+      const find = p => [...doc.querySelectorAll('path')].find(el => (el.getAttribute('d') || '').startsWith(p));
+      const b1 = find('M371.62,178.94'), b2 = find('M371.62,280.97'), b3 = find('M371.62,375.84');
+      if (b1 && b2 && b3) {
+        const f1 = b1.getAttribute('fill'), f3 = b3.getAttribute('fill');
+        if (treatment === 'top') { b1.setAttribute('fill', f3); b2.setAttribute('fill', f3); b3.setAttribute('fill', f1); }
+        if (revAcc) [b1, b2, b3].forEach(b => { if (b.getAttribute('fill').toLowerCase() === f1.toLowerCase()) b.setAttribute('fill', revAcc); });
+      }
+      t = new XMLSerializer().serializeToString(doc);
+    }
+    const url = URL.createObjectURL(new Blob([t], { type: 'image/svg+xml' }));
+    this.urlCache[key] = url;
+    return url;
+  }
+
+  async refreshLogo(k) {
+    const url = await this.svgUrl(CO[k].logo, this.pairs(k), this.state.c[k].treatment);
+    const [mb, mt, mn] = await Promise.all([this.svgUrl(CO[k].mark, this.pairs(k), 'bottom'), this.svgUrl(CO[k].mark, this.pairs(k), 'top'), this.svgUrl(CO[k].mark.replace('.svg', '-rev.svg'), this.pairs(k), this.state.c[k].treatment, this.state.navyB)]);
+    this.setState(s => ({ logoUrl: { ...s.logoUrl, [k]: url }, markUrl: { ...s.markUrl, [k]: { bottom: mb, top: mt, navy: mn } } }));
+  }
+
+  frameRef(k) {
+    if (!this.frameRefs[k]) this.frameRefs[k] = el => { this.frames[k] = el; };
+    return this.frameRefs[k];
+  }
+  onFrameLoad(k) {
+    if (!this.loadHandlers[k]) this.loadHandlers[k] = () => { this.snaps[k] = null; this.waitAndSnap(k); };
+    return this.loadHandlers[k];
+  }
+  waitAndSnap(k, tries = 0, last = -1) {
+    const doc = this.frames[k]?.contentDocument;
+    const n = doc ? doc.querySelectorAll('img').length : 0;
+    if (n > 0 && n === last) {
+      const styles = [...doc.querySelectorAll('[style]')].map(el => [el, el.getAttribute('style')]);
+      const imgs = [...doc.querySelectorAll('img')].filter(i => /\.svg($|\?)/.test(i.getAttribute('src') || '')).map(i => [i, i.getAttribute('src')]);
+      const texts = []; const w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT); let nd;
+      while ((nd = w.nextNode())) { if (/^\s*#[0-9A-F]{6}\s*$/i.test(nd.nodeValue)) texts.push([nd, nd.nodeValue]); }
+      const secCol = [...doc.querySelectorAll('div')].find(d => d.textContent.trim() === 'SECONDARY' && !d.children.length)?.parentElement;
+      this.snaps[k] = { styles, imgs, texts, secCol };
+      this.applyBoard(k);
+      return;
+    }
+    if (tries < 80) setTimeout(() => this.waitAndSnap(k, tries + 1, n), 250);
+  }
+  applyBoard(k) {
+    const snap = this.snaps[k];
+    if (!snap) return;
+    const pairs = this.pairs(k), tr = this.state.c[k].treatment;
+    const rgbPairs = pairs.map(([a, b]) => (b === 'MONO' ? [a, this.state.c[k].pal.navy] : [a, b])).map(([a, b], i) => [new RegExp(escRe(rgbStr(a)), 'g'), rgbStr(b), new RegExp(escRe(a), 'gi'), b, pairs[i][2] === 'bg']);
+    const mono = pairs.find(p => p[1] === 'MONO');
+    snap.styles.forEach(([el, orig]) => {
+      let s = orig;
+      if (mono && /background[^;]*/.test(s) && /(^|;)\s*color:\s*rgb\((15, 27, 42|27, 46, 70)\)/.test(s)) s = s.replace(new RegExp(escRe(rgbStr(mono[0])), 'g'), rgbStr(this.state.c[k].pal.n2));
+      rgbPairs.forEach(([re, to, re2, to2, bg]) => { s = bg ? s.replace(/(background(?:-color)?:\s*)([^;]*)/g, (m, p1, v) => p1 + v.replace(re, to).replace(re2, to2)) : s.replace(re, to).replace(re2, to2); });
+      if (this.state.tuned && !mono && s.includes('background: ' + rgbStr(this.state.c[k].hex))) { const pn = this.state.c[k].pal.navy; s = s.replace(new RegExp('(^|;)(\\s*)color:\\s*(rgb\\((15, 27, 42|27, 46, 70)\\)|' + escRe(rgbStr(pn)) + '|' + escRe(rgbStr(inkOf(pn))) + ')'), '$1$2color: ' + rgbStr(this.state.c[k].pal.n2)); }
+      if (el.getAttribute('style') !== s) el.setAttribute('style', s);
+    });
+    if (snap.secCol) snap.secCol.style.display = mono ? 'none' : '';
+    (snap.texts || []).forEach(([nd, orig]) => { let v = orig; rgbPairs.forEach(([, , re2, to2]) => { v = v.replace(re2, to2.toUpperCase()); }); if (nd.nodeValue !== v) nd.nodeValue = v; });
+    snap.imgs.forEach(([img, src]) => { this.svgUrl(src, pairs, tr, this.state.navyB).then(u => { img.src = u; }); });
+  }
+
+  setNavy(v) {
+    this.setState({ navyB: v, navyBText: v }, () => { clearTimeout(this.tNavy); this.tNavy = setTimeout(() => KEYS.forEach(x => { this.applyBoard(x); this.refreshLogo(x); }), 40); });
+  }
+  update(k, patch) {
+    this.setState(s => ({ c: { ...s.c, [k]: { ...s.c[k], ...patch } } }), () => {
+      clearTimeout(this['t' + k]);
+      this['t' + k] = setTimeout(() => { this.applyBoard(k); this.refreshLogo(k); }, 40);
+    });
+  }
+  pushHist(k, hex) {
+    this.setState(s => { const h = s.hist[k].filter(x => x !== hex); return { hist: { ...s.hist, [k]: [hex, ...h].slice(0, 16) } }; });
+  }
+  touch(k) { if (!this.state.touched[k]) this.setState(s => ({ touched: { ...s.touched, [k]: true } })); }
+  setFamily(k, id) { const f = CO[k].families.find(x => x.id === id); const h = this.defHex(f); this.update(k, { family: id, hex: h, hexText: h }); }
+  shadesOf(k) {
+    const f = this.famOf(k);
+    if (f.fixed) return [];
+    const key = f.id + '|' + this.state.tuned;
+    this.shadeCache = this.shadeCache || {};
+    if (this.shadeCache[key]) return this.shadeCache[key];
+    const lo = Math.max(0.18, f.l[0] - 0.05), hi = Math.min(0.75, f.l[1] + 0.05);
+    const out = [this.defHex(f)];
+    [lo, (lo + hi) / 2, hi].forEach(l => [[f.h[0], f.s[1]], [(f.h[0] + f.h[1]) / 2, (f.s[0] + f.s[1]) / 2], [f.h[1], f.s[0]]].forEach(([h, sat]) => out.push(hslHex(h, sat, l))));
+    const dist = (a, b) => { const x = hexRgb(a), y = hexRgb(b); return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]); };
+    const uniq = out.filter((h, i) => out.findIndex(o => dist(o, h) < 14) === i);
+    const first = uniq.shift();
+    uniq.sort((a, b) => lum(a) - lum(b));
+    return (this.shadeCache[key] = [first, ...uniq]);
+  }
+  stepShade(k, d) {
+    const list = this.shadesOf(k); if (!list.length) return;
+    const i = list.indexOf(this.state.c[k].hex.toUpperCase());
+    const n = i < 0 ? (d > 0 ? 0 : list.length - 1) : (i + d + list.length) % list.length;
+    this.update(k, { hex: list[n], hexText: list[n] });
+  }
+  shuffle(k) {
+    const list = this.shadesOf(k); if (list.length < 2) return;
+    const i = list.indexOf(this.state.c[k].hex.toUpperCase());
+    let n; do { n = Math.floor(Math.random() * list.length); } while (n === i);
+    this.update(k, { hex: list[n], hexText: list[n] });
+  }
+  checks(k) {
+    const hex = this.state.c[k].hex, n2 = this.state.c[k].pal.n2, NAVY = this.state.c[k].pal.navy, name = this.famOf(k).label.toLowerCase();
+    const rows = [
+      { label: `White writing on ${name}`, fg: n2, bg: hex, text: true, use: 'buttons, tags and banners' },
+      { label: `${this.famOf(k).label} writing on white`, fg: hex, bg: n2, text: true, use: 'headings and labels on paper and web pages' },
+      { label: `Navy writing on ${name}`, fg: NAVY, bg: hex, text: true, use: 'dark text on a coloured panel' },
+      { label: `${this.famOf(k).label} shapes on navy`, fg: hex, bg: NAVY, text: false, use: 'the logo and graphics on dark backgrounds' },
+      { label: 'Logo B colour on navy', fg: this.state.navyB, bg: NAVY, text: false, use: 'the B on business cards, favicons and covers', sample: 'B' }
+    ];
+    if (this.famOf(k).fixed) rows.splice(0, 4);
+    if (k !== 'group') rows.push({ label: 'Second accent on white', fg: this.state.c[k].accent, bg: n2, text: false, use: 'tags, rules and details on paper' }, { label: 'Second accent on navy', fg: this.state.c[k].accent, bg: NAVY, text: false, use: 'details on dark backgrounds' });
+    const ON = { 4: '#1D5B36', 3: '#2F7A4A', 2: '#A0641A', 1: '#8A2C1D' };
+    return rows.map(r => {
+      const ratio = contrast(r.fg, r.bg);
+      let score, verdict, meaning;
+      if (r.text) {
+        if (ratio >= 7) { score = 4; verdict = 'Excellent'; meaning = `Easy to read at any size. Great for ${r.use}.`; }
+        else if (ratio >= 4.5) { score = 3; verdict = 'Good'; meaning = `Comfortable to read, even small print. Fine for ${r.use}.`; }
+        else if (ratio >= 3) { score = 2; verdict = 'Big text only'; meaning = 'Works for large headlines, but small print will be hard to read.'; }
+        else { score = 1; verdict = 'Hard to read'; meaning = 'Too similar in tone. Avoid using this pairing for any writing.'; }
+      } else {
+        if (ratio >= 4.5) { score = 4; verdict = 'Stands out clearly'; meaning = `Very visible for ${r.use}.`; }
+        else if (ratio >= 3) { score = 3; verdict = 'Clearly visible'; meaning = `Visible enough for ${r.use}.`; }
+        else if (ratio >= 2) { score = 2; verdict = 'Quite faint'; meaning = 'Noticeable up close, but it fades from a distance.'; }
+        else { score = 1; verdict = 'Blends in'; meaning = 'Hard to see. The logo will disappear on dark backgrounds.'; }
+      }
+      const badge = (text, pass) => ({ text: (pass ? '✓ ' : '✕ ') + text, bg: pass ? '#DDEFE3' : '#F6E0DC', color: pass ? '#1D5B36' : '#8A2C1D' });
+      const badges = r.text ? [badge('AA SMALL TEXT', ratio >= 4.5), badge('AA LARGE TEXT', ratio >= 3), badge('AAA', ratio >= 7)] : [badge('AA GRAPHICS', ratio >= 3)];
+      return { sample: r.text ? 'Aa' : '■', ...r, score, verdict, meaning, verdictColor: ON[score], dots: [1, 2, 3, 4].map(i => ({ bg: i <= score ? ON[score] : '#DCD8D1' })), ratio: ratio.toFixed(2) + ':1', value: ratio, badges };
+    });
+  }
+
+  renderVals() {
+    const { tab, c, logoUrl, boardW } = this.state;
+    const tabs = [{ key: 'overview', label: 'ALL COMPANIES' }, ...KEYS.map(k => ({ key: k, label: (this.state.touched[k] ? '✓ ' : '') + CO[k].short }))].map(t => ({
+      ...t, onClick: () => this.setState({ tab: t.key }), bg: t.key === tab ? '#1B2E46' : 'transparent', color: t.key === tab ? '#FFFFFF' : '#2A3644'
+    }));
+    const trLabel = k => this.famOf(k).fixed ? 'All navy' : (c[k].treatment === 'top' ? 'Colour at top' : 'Colour at bottom');
+    const cards = KEYS.map(k => {
+      const ch = this.checks(k).filter(x => x.text), best = Math.max(...ch.map(x => x.value));
+      const ok = best >= 4.5;
+      return {
+        name: CO[k].name, short: CO[k].short, hex: c[k].hex, logoUrl: logoUrl[k] || CO[k].logo,
+        swatches: [c[k].pal.navy, ...(this.famOf(k).fixed ? [] : [c[k].hex]), this.state.navyB, ...(k === 'group' ? [] : [c[k].accent]), c[k].pal.n1, c[k].pal.n2].map(hex => ({ hex })),
+        familyLabel: this.famOf(k).label, treatmentLabel: trLabel(k),
+        contrastText: ok ? 'Easy to read' : 'Some writing will be hard to read',
+        contrastColor: ok ? '#1D5B36' : '#8A2C1D',
+        onOpen: () => this.setState({ tab: k })
+      };
+    });
+    const k = tab === 'overview' ? 'group' : tab;
+    const fam = this.famOf(k), hex = c[k].hex, dark = fam.fixed ? NAVY : NAVY;
+    const a = {
+      name: CO[k].name, hex, hexText: c[k].hexText, logoUrl: logoUrl[k] || CO[k].logo, editable: !fam.fixed,
+      families: CO[k].families.map(f => ({ label: f.label, hex: this.defHex(f), border: f.id === c[k].family ? '#1B2E46' : '#E2DDD5', onClick: () => { this.touch(k); this.setFamily(k, f.id); } })),
+      isFixed: !!fam.fixed, famUpper: fam.label.toUpperCase(),
+      voteCount: fam.fixed ? '1 choice' : '2 choices',
+            navyBg: c[k].pal.navy,
+      readSummary: (() => { const ch = this.checks(k), good = ch.filter(x => x.score >= 3).length; return good === ch.length ? 'All pairings read well' : `${good} of ${ch.length} pairings read well`; })(),
+      readColor: this.checks(k).every(x => x.score >= 3) ? '#1D5B36' : '#A0641A',
+      onPick: e => this.update(k, { hex: e.target.value.toUpperCase(), hexText: e.target.value.toUpperCase() }),
+      onHex: e => { const v = e.target.value.trim(); const m = /^#?([0-9a-f]{6})$/i.exec(v); this.update(k, m ? { hex: '#' + m[1].toUpperCase(), hexText: '#' + m[1].toUpperCase() } : { hexText: v }); },
+      onPrev: () => this.stepShade(k, -1), onNext: () => this.stepShade(k, 1),
+      shades: this.shadesOf(k).map(h => ({ hex: h, ring: h === hex.toUpperCase() ? '0 0 0 2px #FFFFFF, 0 0 0 4px #1B2E46' : 'inset 0 0 0 1px rgba(0,0,0,0.08)', onClick: () => this.update(k, { hex: h, hexText: h }) })),
+      shadePos: (() => { const l = this.shadesOf(k), i = l.indexOf(hex.toUpperCase()); return (i < 0 ? '–' : i + 1) + ' / ' + l.length; })(),
+      shadeNote: this.shadesOf(k).indexOf(hex.toUpperCase()) < 0 ? 'Custom shade' : (this.shadesOf(k).indexOf(hex.toUpperCase()) === 0 ? 'Starting shade' : ''),
+      onReset: () => this.setFamily(k, c[k].family),
+      accent: c[k].accent, accentText: c[k].accentText,
+      onAccentPick: e => this.update(k, { accent: e.target.value.toUpperCase(), accentText: e.target.value.toUpperCase() }),
+      onAccentHex: e => { const v = e.target.value.trim(); const m = /^#?([0-9a-f]{6})$/i.exec(v); this.update(k, m ? { accent: '#' + m[1].toUpperCase(), accentText: '#' + m[1].toUpperCase() } : { accentText: v }); },
+      onAccentShuffle: () => { const [hh, ss] = hslOf(c[k].hex); const off = [180, 150, 210, 30, -30, 0][Math.floor(Math.random() * 6)]; const h = hslHex(((hh + off) % 360 + 360) % 360, Math.min(0.6, Math.max(0.15, ss * rand([0.5, 1]))), rand(off === 0 ? [0.6, 0.78] : [0.34, 0.62])); this.update(k, { accent: h, accentText: h }); },
+      onAccentReset: () => this.update(k, { accent: CO[k].accent2, accentText: CO[k].accent2 }),
+      admin: this.state.admin,
+      palette: (() => {
+        const hexOk = v => { const m = /^#?([0-9a-f]{6})$/i.exec(v.trim()); return m ? '#' + m[1].toUpperCase() : null; };
+        const row = (label, hex, text, base, set, setText) => ({ label, hex, text, onPick: e => set(e.target.value.toUpperCase()), onHex: e => { const h = hexOk(e.target.value); if (h) set(h); else setText(e.target.value); }, onReset: () => set(base) });
+        const palRow = (id, label, base) => row(label, c[k].pal[id], c[k].palText[id], base, v => this.update(k, { pal: { ...c[k].pal, [id]: v }, palText: { ...c[k].palText, [id]: v } }), v => this.update(k, { palText: { ...c[k].palText, [id]: v } }));
+        const rows = [palRow('navy', 'Primary (navy) · also sets dark text', NAVY)];
+        if (!fam.fixed) rows.push(row('Secondary · ' + fam.label, c[k].hex, c[k].hexText, this.defHex(fam), v => this.update(k, { hex: v, hexText: v }), v => this.update(k, { hexText: v })));
+        rows.push(row(k === 'group' ? 'Accent · B on navy' : 'Accent 1 · B on navy (shared)', this.state.navyB, this.state.navyBText, NAVY_B, v => this.setNavy(v), v => this.setState({ navyBText: v })));
+        if (k !== 'group') rows.push(row('Accent 2', c[k].accent, c[k].accentText, CO[k].accent2, v => this.update(k, { accent: v, accentText: v }), v => this.update(k, { accentText: v })));
+        rows.push(palRow('n1', 'Neutral 1', CO[k].n1), palRow('n2', 'Neutral 2', CO[k].n2));
+        return rows;
+      })(),
+      exitAdmin: () => { try { localStorage.removeItem('burkeColourAdmin'); } catch (e) {} this.setState({ admin: false }); },
+      navyAccent: this.state.navyB, navyAccentText: this.state.navyBText, navyMarkImg: this.state.markUrl[k]?.navy || CO[k].mark.replace('.svg', '-rev.svg'),
+      navyTitle: k === 'group' ? 'ACCENT · LOGO ON NAVY' : 'LOGO ON NAVY',
+      navyHint: k === 'group' ? (fam.fixed ? 'The group accent. The B is shown in this colour wherever it sits on navy, and every company shares it.' : 'The group accent. The two plain bars of the B use it wherever the logo sits on navy, and every company shares it.') : 'Shared with Burke Group, so the family matches on navy. Change it on the Group tab.',
+      navyEditable: k === 'group', goGroup: () => this.setState({ tab: 'group' }),
+      onNavyPick: e => this.setNavy(e.target.value.toUpperCase()),
+      onNavyHex: e => { const v = e.target.value.trim(); const m = /^#?([0-9a-f]{6})$/i.exec(v); if (m) this.setNavy('#' + m[1].toUpperCase()); else this.setState({ navyBText: v }); },
+      onNavyShuffle: () => this.setNavy(hslHex(rand([205, 222]), rand([0.25, 0.45]), rand([0.24, 0.62]))),
+      onNavyReset: () => this.setNavy(NAVY_B),
+      showAccent: k !== 'group',
+      accentHint: k === 'group' ? '' : 'A second colour that complements ' + fam.label.toLowerCase() + '. Shuffle suggests matching shades.',
+      hasHistory: this.state.hist[k].length > 0,
+      clearHistory: () => this.setState(s => ({ hist: { ...s.hist, [k]: [] } })),
+      history: this.state.hist[k].map(h => ({ hex: h, ring: h === hex ? '0 0 0 2px #F2F0EC, 0 0 0 4px #1B2E46' : 'inset 0 0 0 1px rgba(0,0,0,0.08)', onClick: () => this.update(k, { hex: h, hexText: h }) })),
+      treatments: [
+        { id: 'bottom', label: 'Colour at bottom', img: this.state.markUrl[k]?.bottom || CO[k].mark },
+        { id: 'top', label: 'Colour at top', img: this.state.markUrl[k]?.top || CO[k].mark }
+      ].map(t => ({ ...t, border: t.id === c[k].treatment ? '#1B2E46' : '#E2DDD5', onClick: () => { this.touch(k); this.update(k, { treatment: t.id }); } })),
+      checks: this.checks(k)
+    };
+    const scale = boardW / 1920;
+    return {
+      tabs, cards, a,
+      defaultModes: [{ v: true, label: 'Contrast-tuned' }, { v: false, label: 'Approved' }].map(m => ({ label: m.label, bg: this.state.tuned === m.v ? '#1B2E46' : 'transparent', color: this.state.tuned === m.v ? '#FFFFFF' : '#2A3644',
+        onClick: () => this.setState({ tuned: m.v }, () => KEYS.forEach(x => this.setFamily(x, this.state.c[x].family))) })),
+      imageModes: [{ v: 'tint', label: 'Tinted' }, { v: 'grey', label: 'Grey' }, { v: 'brand', label: 'Brand colours' }].map(m => ({ label: m.label, bg: this.state.imgMode === m.v ? '#1B2E46' : 'transparent', color: this.state.imgMode === m.v ? '#FFFFFF' : '#2A3644', onClick: () => this.setState({ imgMode: m.v }, () => KEYS.forEach(x => this.applyBoard(x))) })),
+      admin: this.state.admin,
+      showChecks: this.state.showChecks, checksLabel: this.state.showChecks ? 'Hide details' : 'Show details',
+      toggleChecks: () => this.setState(s => ({ showChecks: !s.showChecks })),
+      showExplore: this.state.showExplore, exploreLabel: this.state.showExplore ? 'Close' : 'Open',
+      toggleExplore: () => this.setState(s => ({ showExplore: !s.showExplore })),
+      showPanel: !this.state.wide, wideLabel: this.state.wide ? 'SHOW CONTROLS' : 'ENLARGE BOARD',
+      toggleWide: () => this.setState(s => ({ wide: !s.wide })),
+      showTech: this.state.showTech, techLabel: this.state.showTech ? 'Hide technical details' : 'Show technical details (WCAG ratios)',
+      toggleTech: () => this.setState(s => ({ showTech: !s.showTech })),
+      isOverview: tab === 'overview', isCompany: tab !== 'overview',
+      shuffleAll: () => KEYS.forEach(x => this.shuffle(x)),
+      resetAll: () => { this.setNavy(NAVY_B); KEYS.forEach(x => { const f = CO[x].families[0], h = this.defHex(f); this.update(x, { family: f.id, hex: h, hexText: h, treatment: 'bottom', accent: CO[x].accent2, accentText: CO[x].accent2 }); }); },
+      wrapRef: this.wrapRef, boardScale: scale, boardH: Math.round(1140 * scale),
+      boards: KEYS.map(x => ({ src: CO[x].board, title: CO[x].name, ref: this.frameRef(x), onLoad: this.onFrameLoad(x), vis: x === tab ? 'visible' : 'hidden' }))
+    };
+  }
+}
+</script>
+</body>
+</html>
