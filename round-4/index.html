@@ -84,7 +84,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
                 <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#7A8592;padding-top:2px">LOGO</span><span>{{ c.treatmentLabel }}</span>
                 <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#4E5A68;padding-top:2px">PURPOSE</span><span>{{ c.purpose }}</span>
               </div>
-              <button onClick="{{ c.onOpen }}" style="align-self:flex-start;border:1px solid #CFCAC1;background:transparent;cursor:pointer;padding:9px 16px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;color:#0F1B2A">PRESENT {{ c.short }}</button>
+              <button onClick="{{ c.onOpen }}" style="align-self:flex-start;border:1px solid #CFCAC1;background:transparent;cursor:pointer;padding:9px 16px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;color:#0F1B2A">REVIEW {{ c.short }}</button>
             </div>
           </div>
         </sc-for>
@@ -197,7 +197,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
                 <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">FULL PALETTE · ADMIN ONLY</div>
                 <button onClick="{{ a.exitAdmin }}" style="border:0;background:transparent;cursor:pointer;padding:0;font-size:12px;color:#4E5A68;text-decoration:underline">Hide</button>
               </div>
-              <div style="font-size:12.5px;line-height:1.4;color:#6A7480">Only visible to you. Changes preview on the board but are not saved or shown to anyone else.</div>
+              <div style="font-size:12.5px;line-height:1.4;color:#6A7480">Presenter controls. Settings are remembered in this browser. The shared muted colour changes B shapes and some decorative backgrounds across the family.</div>
+              <div style="font-size:12.5px;line-height:1.5;color:#4E5A68">{{ a.paletteNote }}</div>
               <sc-for list="{{ a.palette }}" as="p" hint-placeholder-count="3">
                 <div style="display:flex;align-items:center;gap:10px">
                   <label style="position:relative;width:36px;height:36px;border-radius:8px;background:{{ p.hex }};cursor:pointer;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.12)">
@@ -570,14 +571,15 @@ class Component extends DCLogic {
       onAccentShuffle: () => { const [hh, ss] = hslOf(c[k].hex); const off = [180, 150, 210, 30, -30, 0][Math.floor(Math.random() * 6)]; const h = hslHex(((hh + off) % 360 + 360) % 360, Math.min(0.6, Math.max(0.15, ss * rand([0.5, 1]))), rand(off === 0 ? [0.6, 0.78] : [0.34, 0.62])); this.update(k, { accent: h, accentText: h }); },
       onAccentReset: () => this.update(k, { accent: CO[k].accent2, accentText: CO[k].accent2 }),
       admin: this.state.admin,
+      paletteNote: k === 'development' ? 'Development’s supporting colour currently appears mainly in small location labels and fine details. Its effect is subtle at board scale. We will review where it belongs when refining the boards.' : 'The supporting colour changes selected small details. Its role in the applications will be reviewed with the boards next round.',
       palette: (() => {
         const hexOk = v => { const m = /^#?([0-9a-f]{6})$/i.exec(v.trim()); return m ? '#' + m[1].toUpperCase() : null; };
         const row = (label, hex, text, base, set, setText) => ({ label, hex, text, onPick: e => set(e.target.value.toUpperCase()), onHex: e => { const h = hexOk(e.target.value); if (h) set(h); else setText(e.target.value); }, onReset: () => set(base) });
         const palRow = (id, label, base) => row(label, c[k].pal[id], c[k].palText[id], base, v => this.update(k, { pal: { ...c[k].pal, [id]: v }, palText: { ...c[k].palText, [id]: v } }), v => this.update(k, { palText: { ...c[k].palText, [id]: v } }));
         const rows = [palRow('navy', 'Primary (navy) · also sets dark text', NAVY)];
         if (!fam.fixed) rows.push(row('Secondary · ' + fam.label, c[k].hex, c[k].hexText, this.defHex(fam), v => this.update(k, { hex: v, hexText: v }), v => this.update(k, { hexText: v })));
-        rows.push(row(k === 'group' ? 'Accent · B on navy' : 'Accent 1 · B on navy (shared)', this.state.navyB, this.state.navyBText, NAVY_B, v => this.setNavy(v), v => this.setState({ navyBText: v })));
-        if (k !== 'group') rows.push(row('Accent 2', c[k].accent, c[k].accentText, CO[k].accent2, v => this.update(k, { accent: v, accentText: v }), v => this.update(k, { accentText: v })));
+        rows.push(row('Muted B & background detail · shared', this.state.navyB, this.state.navyBText, NAVY_B, v => this.setNavy(v), v => this.setState({ navyBText: v })));
+        if (k !== 'group') rows.push(row('Supporting details · limited use', c[k].accent, c[k].accentText, CO[k].accent2, v => this.update(k, { accent: v, accentText: v }), v => this.update(k, { accentText: v })));
         rows.push(palRow('n1', 'Neutral 1', CO[k].n1), palRow('n2', 'Neutral 2', CO[k].n2));
         return rows;
       })(),
