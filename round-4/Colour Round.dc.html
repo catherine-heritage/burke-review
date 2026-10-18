@@ -15,33 +15,36 @@
 <style>
 body{margin:0;background:#F2F0EC;-webkit-font-smoothing:antialiased}
 a{color:#1B2E46}a:hover{color:#A67C52}
-input,button{font-family:inherit}
+input,button,textarea{font-family:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #3E75B0;outline-offset:4px}
+.presentation-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+@media(max-width:600px){.presentation-shell{padding:24px 16px 0!important}.presentation-panel{flex-basis:100%!important;max-width:none!important;padding:18px!important}.presentation-tabs{border-radius:16px!important}}
 </style>
 </helmet>
 
 <div style="min-height:100vh;font-family:'Hanken Grotesk',sans-serif;color:#0F1B2A;padding-bottom:48px">
-  <div style="max-width:1440px;margin:0 auto;padding:40px 32px 0;box-sizing:border-box;display:flex;flex-direction:column;gap:28px">
+  <div class="presentation-shell" style="max-width:1440px;margin:0 auto;padding:40px 32px 0;box-sizing:border-box;display:flex;flex-direction:column;gap:28px">
 
     <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">
       <div style="display:flex;align-items:center;gap:20px">
         <img src="assets/mark.svg" alt="Burke" style="height:40px;display:block">
         <div style="display:flex;flex-direction:column;gap:4px">
           <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;color:#4E5A68">BURKE IDENTITY REVIEW · ROUND 4</div>
-          <div style="font-weight:300;font-size:34px;letter-spacing:-0.02em;line-height:1.1">Colour</div>
+          <h1 style="margin:0;font-weight:300;font-size:34px;letter-spacing:-0.02em;line-height:1.1">The Burke colour family</h1>
         </div>
       </div>
-      <p style="margin:0;max-width:520px;font-size:14px;line-height:1.55;color:#4E5A68;text-wrap:pretty">For each company, choose a colour family and where the colour sits in the logo. The boards update live. Everything else on the page is there to help you explore.</p>
+      <p style="margin:0;max-width:520px;font-size:14px;line-height:1.55;color:#4E5A68;text-wrap:pretty">A presentation of how the four Burke identities work together. Realty stays orange. Explore the remaining colour directions and logo treatments; the boards update as you present.</p>
     </div>
 
     <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
-    <div style="display:flex;flex-wrap:wrap;gap:6px;padding:5px;background:#E6E2DB;border-radius:999px;width:fit-content;max-width:100%">
+    <div class="presentation-tabs" role="group" aria-label="Company views" style="display:flex;flex-wrap:wrap;gap:6px;padding:5px;background:#E6E2DB;border-radius:999px;width:fit-content;max-width:100%">
       <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
-        <button onClick="{{ t.onClick }}" style="border:0;cursor:pointer;padding:10px 18px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;background:{{ t.bg }};color:{{ t.color }}">{{ t.label }}</button>
+        <button aria-pressed="{{ t.active }}" onClick="{{ t.onClick }}" style="border:0;cursor:pointer;padding:10px 18px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;background:{{ t.bg }};color:{{ t.color }}">{{ t.label }}</button>
       </sc-for>
     </div>
     <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}">
     <div style="display:flex;align-items:center;gap:10px">
-      <span style="font-size:13px;color:#4E5A68">Starting shades (admin)</span>
+      <span style="font-size:13px;color:#4E5A68">Presenter shades</span>
       <div style="display:flex;gap:4px;padding:4px;background:#E6E2DB;border-radius:999px">
         <sc-for list="{{ defaultModes }}" as="m" hint-placeholder-count="2">
           <button onClick="{{ m.onClick }}" style="border:0;cursor:pointer;padding:8px 14px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap;background:{{ m.bg }};color:{{ m.color }}">{{ m.label }}</button>
@@ -53,12 +56,12 @@ input,button{font-family:inherit}
 
     <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
       <div style="background:#FFFFFF;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
-        <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">HOW TO REVIEW</div>
+        <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">PRESENTING THE FAMILY</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
-          <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:50%;background:#1B2E46;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">1</span><div style="font-size:13.5px;line-height:1.45;color:#2A3644;text-wrap:pretty">Open each company tab and choose a <strong style="font-weight:600">colour family</strong>.</div></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:50%;background:#1B2E46;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">2</span><div style="font-size:13.5px;line-height:1.45;color:#2A3644;text-wrap:pretty">Choose whether the colour sits at the <strong style="font-weight:600">top or bottom</strong> of the logo. Not needed for Group if you pick Navy only.</div></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:50%;background:#1B2E46;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">1</span><div style="font-size:13.5px;line-height:1.45;color:#2A3644;text-wrap:pretty">Start with the family overview, then open each company to explain its <strong style="font-weight:600">colour and purpose</strong>.</div></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:50%;background:#1B2E46;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">2</span><div style="font-size:13.5px;line-height:1.45;color:#2A3644;text-wrap:pretty">Compare a <strong style="font-weight:600">subtle or stronger colour accent</strong> in the logo. Navy-only Group uses a single-colour mark.</div></div>
         </div>
-        <div style="font-size:12.5px;line-height:1.5;color:#7A8592">Each child company has two colour options to choose between. Burke navy and the neutrals stay fixed.</div>
+        <div style="font-size:12.5px;line-height:1.5;color:#7A8592">Starting direction: navy Group, orange Realty, purple Development and teal Property Management. Shared navy and warm neutrals unite the family; each company colour gives it a distinct identity. Present one company at a time, then return here to see the family together.</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
         <sc-for list="{{ cards }}" as="c" hint-placeholder-count="4">
@@ -74,28 +77,32 @@ input,button{font-family:inherit}
             <div style="padding:16px 16px 18px;display:flex;flex-direction:column;gap:12px">
               <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
                 <div style="font-size:15px;font-weight:500">{{ c.name }}</div>
-                <div style="font-size:12px;font-weight:500;color:#4E5A68">{{ c.hex }}</div>
+                
               </div>
               <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px">
                 <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#7A8592;padding-top:2px">FAMILY</span><span>{{ c.familyLabel }}</span>
                 <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#7A8592;padding-top:2px">LOGO</span><span>{{ c.treatmentLabel }}</span>
-                <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#7A8592;padding-top:2px">CONTRAST</span><span style="color:{{ c.contrastColor }};font-weight:500">{{ c.contrastText }}</span>
+                <span style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;color:#4E5A68;padding-top:2px">PURPOSE</span><span>{{ c.purpose }}</span>
               </div>
-              <button onClick="{{ c.onOpen }}" style="align-self:flex-start;border:1px solid #CFCAC1;background:transparent;cursor:pointer;padding:9px 16px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;color:#0F1B2A">EDIT {{ c.short }}</button>
+              <button onClick="{{ c.onOpen }}" style="align-self:flex-start;border:1px solid #CFCAC1;background:transparent;cursor:pointer;padding:9px 16px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;color:#0F1B2A">PRESENT {{ c.short }}</button>
             </div>
           </div>
         </sc-for>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:12px">
-        <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}"><button onClick="{{ shuffleAll }}" style="border:0;cursor:pointer;padding:12px 20px;border-radius:999px;background:#1B2E46;color:#FFFFFF;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em">SHUFFLE ALL SHADES</button></sc-if>
-        <button onClick="{{ resetAll }}" style="border:1px solid #CFCAC1;cursor:pointer;padding:12px 20px;border-radius:999px;background:transparent;color:#0F1B2A;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em">RESET ALL</button>
+        <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}"><button onClick="{{ shuffleAll }}" style="border:0;cursor:pointer;padding:12px 20px;border-radius:999px;background:#1B2E46;color:#FFFFFF;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em">EXPLORE SHADES</button></sc-if>
+        <button onClick="{{ resetAll }}" style="border:1px solid #CFCAC1;cursor:pointer;padding:12px 20px;border-radius:999px;background:transparent;color:#0F1B2A;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em">RESTORE STARTING PALETTE</button>
       </div>
+      <div style="font-size:13px;line-height:1.5;color:#4E5A68">Your presentation settings are remembered in this browser. Copy the notes below to keep a separate record.</div>
+      <button onClick="{{ copyNotes }}" style="align-self:flex-start;border:1px solid #CFCAC1;background:white;border-radius:999px;padding:12px 20px;cursor:pointer">Copy presentation notes</button>
+      <div role="status" aria-live="polite" style="font-size:13px;color:#4E5A68">{{ copyStatus }}</div>
+      <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}"><label style="display:flex;flex-direction:column;gap:8px;font-size:13px">Select and copy these presentation notes<textarea readOnly="{{ true }}" value="{{ notes }}" rows="12" style="width:100%;box-sizing:border-box;padding:12px"></textarea></label></sc-if>
     </sc-if>
 
     <sc-if value="{{ isCompany }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">
         <sc-if value="{{ showPanel }}" hint-placeholder-val="{{ true }}">
-        <div style="background:#FFFFFF;padding:24px;display:flex;flex-direction:column;gap:24px;flex:1 1 340px;max-width:400px;box-sizing:border-box">
+        <div class="presentation-panel" style="background:#FFFFFF;padding:24px;display:flex;flex-direction:column;gap:24px;flex:1 1 340px;max-width:400px;box-sizing:border-box">
           <div style="display:flex;align-items:center;gap:16px">
             <img src="{{ a.logoUrl }}" alt="{{ a.name }}" style="width:72px;height:72px;object-fit:contain;display:block">
             <div style="font-size:20px;font-weight:500;letter-spacing:-0.01em">{{ a.name }}</div>
@@ -103,25 +110,28 @@ input,button{font-family:inherit}
 
           <div style="display:flex;flex-direction:column;gap:20px;padding:18px;border-radius:12px;box-shadow:inset 0 0 0 1.5px #1B2E46">
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
-              <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">CHOICES</div>
-              <div style="font-size:12px;color:#6A7480">{{ a.voteCount }}</div>
+              <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">COLOUR DIRECTION</div>
+              <div style="font-size:12px;color:#4E5A68">{{ a.optionCount }}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">1 · COLOUR FAMILY</div>
-              <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">1 · COMPANY COLOUR</div>
+              <div class="presentation-options">
                 <sc-for list="{{ a.families }}" as="f" hint-placeholder-count="2">
-                  <button onClick="{{ f.onClick }}" style="cursor:pointer;display:flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;border-radius:999px;background:#FFFFFF;border:1.5px solid {{ f.border }};font-size:13px;font-weight:500;color:#0F1B2A">
-                    <span style="width:22px;height:22px;border-radius:50%;background:{{ f.hex }}"></span>{{ f.label }}
+                  <button aria-pressed="{{ f.selected }}" onClick="{{ f.onClick }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px;border-radius:10px;background:#FFFFFF;border:2px solid {{ f.border }};text-align:left;color:#0F1B2A">
+                    <img src="{{ f.logo }}" alt="{{ f.label }} logo preview" style="width:100%;height:86px;object-fit:contain">
+                    <span style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600"><span style="width:18px;height:18px;border-radius:50%;background:{{ f.hex }}"></span>{{ f.label }}</span>
+                    <span style="font-size:12px;line-height:1.5;color:#4E5A68">{{ f.reason }}</span>
                   </button>
                 </sc-for>
               </div>
+              <div style="font-size:12.5px;line-height:1.5;color:#4E5A68">{{ a.directionNote }}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">2 · LOGO COLOUR POSITION</div>
+              <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">2 · AMOUNT OF COLOUR IN THE LOGO</div>
               <sc-if value="{{ a.editable }}" hint-placeholder-val="{{ true }}">
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
                   <sc-for list="{{ a.treatments }}" as="tr" hint-placeholder-count="2">
-                    <button onClick="{{ tr.onClick }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:14px;border-radius:10px;background:#FFFFFF;border:1.5px solid {{ tr.border }};text-align:left">
+                    <button aria-pressed="{{ tr.selected }}" onClick="{{ tr.onClick }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:14px;border-radius:10px;background:#FFFFFF;border:1.5px solid {{ tr.border }};text-align:left">
                       <img src="{{ tr.img }}" alt="" style="height:40px;display:block">
                       <span style="font-size:13px;font-weight:500;color:#0F1B2A">{{ tr.label }}</span>
                     </button>
@@ -129,17 +139,23 @@ input,button{font-family:inherit}
                 </div>
               </sc-if>
               <sc-if value="{{ a.isFixed }}" hint-placeholder-val="{{ false }}">
-                <div style="font-size:13px;line-height:1.45;color:#6A7480">Not needed. With Navy only, the B is a single colour.</div>
+                <div style="font-size:13px;line-height:1.45;color:#6A7480">With Navy only, the B is a single colour; there is no accent position to compare.</div>
               </sc-if>
             </div>
           </div>
 
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4E5A68">WHERE EACH COLOUR BELONGS</div>
+            <sc-for list="{{ a.roles }}" as="r" hint-placeholder-count="5"><div style="display:flex;gap:10px;align-items:flex-start"><span style="width:22px;height:22px;border-radius:5px;background:{{ r.hex }};border:1px solid rgba(0,0,0,.12);flex:none"></span><div style="font-size:13px;line-height:1.5"><strong>{{ r.label }}</strong><div style="color:#4E5A68">{{ r.use }}</div></div></div></sc-for>
+            <div style="font-size:12px;line-height:1.5;color:#4E5A68">These are proposed colour roles for discussion. The application boards are unchanged; their use of supporting colours will be refined next round.</div>
+          </div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">IS IT EASY TO READ?</div>
+            <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4E5A68">KEEPING THINGS CLEAR</div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-              <div style="font-size:14px;font-weight:500;color:{{ a.readColor }}">{{ a.readSummary }}</div>
+              <div style="font-size:14px;font-weight:500;color:#0F1B2A">{{ a.practicalSummary }}</div>
               <button onClick="{{ toggleChecks }}" style="border:0;background:transparent;cursor:pointer;padding:4px 0;font-size:12.5px;color:#4E5A68;text-decoration:underline;white-space:nowrap">{{ checksLabel }}</button>
             </div>
+            <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:#4E5A68"><sc-for list="{{ a.advice }}" as="tip" hint-placeholder-count="3"><li>{{ tip }}</li></sc-for></ul>
             <sc-if value="{{ showChecks }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex;flex-direction:column;gap:8px">
               <sc-for list="{{ a.checks }}" as="k" hint-placeholder-count="5">
@@ -169,7 +185,7 @@ input,button{font-family:inherit}
               </sc-for>
               <button onClick="{{ toggleTech }}" style="align-self:flex-start;border:0;background:transparent;cursor:pointer;padding:4px 0;font-size:12.5px;color:#4E5A68;text-decoration:underline">{{ techLabel }}</button>
               <sc-if value="{{ showTech }}" hint-placeholder-val="{{ false }}">
-                <div style="font-size:11.5px;line-height:1.5;color:#7A8592">Contrast ratio (WCAG 2.1 AA): small text needs 4.5:1, large text and graphics need 3:1. AAA needs 7:1.</div>
+                <div style="font-size:11.5px;line-height:1.5;color:#7A8592">Text guidance: normal-sized text needs 4.5:1 for WCAG AA; large text needs 3:1. AAA for normal-sized text needs 7:1. Necessary interface graphics usually need 3:1. Logo lettering and purely decorative graphics are exempt from these requirements; visibility still matters. Ratios do not assess size, weight, print finish or viewing distance.</div>
               </sc-if>
             </div>
             </sc-if>
@@ -223,7 +239,6 @@ const CO = {
   realty: { name: 'Burke Realty', short: 'REALTY', board: 'Burke Realty Identity Board.dc.html', logo: 'assets/realty-primary.svg', mark: 'assets/realty-mark.svg', illusKey: 'realty-', orig: '#CC6E2F', n1: '#E6E4E0', n2: '#FAFAF8', accent2: '#78A0B6', accRange: { h: [205, 222], s: [0.4, 0.6], l: [0.28, 0.42] },
     families: [
       { id: 'orange', label: 'Orange', hex: '#BB6130', tuned: '#BB6130', h: [20, 30], s: [0.58, 0.72], l: [0.42, 0.52] },
-      { id: 'red', label: 'Orange-red', hex: '#BF4E30', tuned: '#C24F31', h: [8, 15], s: [0.55, 0.65], l: [0.4, 0.48] }
     ] },
   development: { name: 'Burke Development', short: 'DEVELOPMENT', board: 'Burke Development Identity Board.dc.html', logo: 'assets/dev-primary.svg', mark: 'assets/dev-mark.svg', illusKey: 'dev-', orig: '#755A77', n1: '#E6E4E0', n2: '#FAFAF8', accent2: '#B9A9B6', accRange: { h: [285, 325], s: [0.12, 0.25], l: [0.5, 0.64] },
     families: [
@@ -237,6 +252,14 @@ const CO = {
     ] }
 };
 const KEYS = ['group', 'realty', 'development', 'pm'];
+const PURPOSE = { group: 'The steady parent identity', realty: 'Warmth and visibility', development: 'Distinctive architectural character', pm: 'Practical, calm communication' };
+const REASONS = {
+  group: { navy: 'Starting direction: a simple, confident parent identity that anchors the coloured subsidiaries.', slate: 'A quieter two-tone alternative when the parent needs depth without adopting a bright company colour.' },
+  realty: { orange: 'The established Realty colour: warm, visible and distinct from the other Burke companies.' },
+  development: { purple: 'Starting direction: a muted architectural character, clearly distinct from the parent navy and Realty orange.', blue: 'Alternative: a cooler, more conventional corporate direction, closer to the parent navy. Use if that closer relationship is preferred.' },
+  pm: { teal: 'Starting direction: calm and practical, with a clear identity alongside Realty and Development.', green: 'Alternative: places more emphasis on care, maintenance and the places being managed.' }
+};
+const SETTINGS_KEY = 'burkeColourPresentation:v1';
 const hexRgb = h => { const n = parseInt(h.replace('#', ''), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
 const rgbStr = h => { const [r, g, b] = hexRgb(h); return `rgb(${r}, ${g}, ${b})`; };
 const lum = h => { const c = hexRgb(h).map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
@@ -261,13 +284,68 @@ class Component extends DCLogic {
     KEYS.forEach(k => { const f = CO[k].families[0]; const h0 = f.tuned || f.hex; c[k] = { family: f.id, hex: h0, hexText: h0, treatment: 'bottom', accent: CO[k].accent2, accentText: CO[k].accent2, navyAccent: NAVY_B, navyAccentText: NAVY_B, pal: { navy: NAVY, n1: CO[k].n1, n2: CO[k].n2 }, palText: { navy: NAVY, n1: CO[k].n1, n2: CO[k].n2 } }; });
     const hist = {}; KEYS.forEach(k => { hist[k] = []; });
     let admin = false; try { const q = new URLSearchParams(location.search); if (q.has('admin') || /admin/.test(location.hash)) localStorage.setItem('burkeColourAdmin', '1'); if (q.has('noadmin')) localStorage.removeItem('burkeColourAdmin'); admin = localStorage.getItem('burkeColourAdmin') === '1'; } catch (e) {}
-    return { admin, showChecks: false, showExplore: false, wide: false, touched: {}, navyB: NAVY_B, navyBText: NAVY_B, tuned: true, tab: 'overview', c, hist, imgMode: 'grey', showTech: false, markUrl: {}, logoUrl: {}, boardW: 1000 };
+    return { admin, showChecks: false, showExplore: false, wide: false, familyLogos: {}, copyStatus: '', showNotes: false, navyB: NAVY_B, navyBText: NAVY_B, tuned: true, tab: 'overview', c, hist, imgMode: 'grey', showTech: false, markUrl: {}, logoUrl: {}, boardW: 1000 };
   })();
 
   frames = {}; snaps = {}; svgCache = {}; urlCache = {}; frameRefs = {}; loadHandlers = {};
 
   componentDidMount() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || 'null');
+      if (saved && typeof saved.tuned === 'boolean' && /^#[0-9a-f]{6}$/i.test(saved.navyB || '')) {
+        const c = { ...this.state.c };
+        KEYS.forEach(k => {
+          const v = saved.c?.[k];
+          if (!v || !CO[k].families.some(f => f.id === v.family) || !['top', 'bottom'].includes(v.treatment)) return;
+          if (![v.hex, v.accent, ...Object.values(v.pal || {})].every(h => /^#[0-9a-f]{6}$/i.test(h)) || !['navy','n1','n2'].every(x => v.pal?.[x])) return;
+          c[k] = { ...c[k], family: v.family, treatment: v.treatment, hex: v.hex, hexText: v.hex, accent: v.accent, accentText: v.accent, pal: { ...v.pal }, palText: { ...v.pal } };
+        });
+        this.setState({ c, tuned: saved.tuned, navyB: saved.navyB, navyBText: saved.navyB }, () => KEYS.forEach(k => this.refreshLogo(k)));
+        return;
+      }
+    } catch (e) {}
     KEYS.forEach(k => this.refreshLogo(k));
+  }
+  componentDidUpdate() {
+    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify({ c: this.state.c, tuned: this.state.tuned, navyB: this.state.navyB })); } catch (e) {}
+  }
+  roles(k) {
+    const c = this.state.c[k], fixed = this.famOf(k).fixed;
+    return [
+      { label: 'Navy · everyday information', hex: c.pal.navy, use: 'Main text, headings and dark backgrounds. On light backgrounds, this is the dependable reading colour.' },
+      ...(!fixed ? [{ label: this.famOf(k).label + ' · company recognition', hex: c.hex, use: 'The coloured part of the logo, larger highlights and selected panels. It identifies the company; it does not need to colour every heading.' }] : []),
+      { label: 'Muted slate · subtle brand detail', hex: this.state.navyB, use: 'A quiet B shape or decorative detail on navy. It is intentionally subtle; avoid it for small text or information that must stand out.' },
+      ...(k === 'group' ? [] : [{ label: 'Supporting colour · backgrounds and detail', hex: c.accent, use: 'A proposed role for secondary panels and decorative details. It works more clearly against navy; on light backgrounds, keep it away from small text and essential symbols.' }]),
+      { label: 'Warm neutrals · breathing space', hex: c.pal.n1, use: 'Page backgrounds, paper-like surfaces and space around the logo. Pair them with navy text.' }
+    ];
+  }
+  advice(k) {
+    const c = this.state.c[k], fixed = this.famOf(k).fixed;
+    const tips = ['Use navy writing on light backgrounds and light writing on navy for everyday information.'];
+    if (!fixed) {
+      const r = contrast(c.hex, c.pal.n2);
+      tips.push(r >= 4.5 ? 'Light writing works on this company colour. Keep labels comfortably sized and avoid thin lettering.' : r >= 3 ? 'Keep light writing on the company colour large and clear. For small labels, use a navy background with light writing.' : 'Avoid light writing on the company colour. Use navy and light backgrounds for essential text.');
+      tips.push(contrast(c.hex, c.pal.navy) >= 4.5 ? 'Navy writing works on this company colour. Keep the text comfortably sized.' : 'Avoid small navy writing on the company colour. Use the company colour mainly for recognition and decoration.');
+    }
+    tips.push('The muted B and supporting colours are decorative details. For signs and small logos, use a clearer light-on-navy treatment.');
+    return tips;
+  }
+  resetPresentation() {
+    this.setState({ tuned: true, copyStatus: '', showNotes: false });
+    this.setNavy(NAVY_B);
+    KEYS.forEach(k => { const f = CO[k].families[0], h = f.tuned || f.hex, pal = { navy: NAVY, n1: CO[k].n1, n2: CO[k].n2 };
+      this.update(k, { family: f.id, hex: h, hexText: h, treatment: 'bottom', accent: CO[k].accent2, accentText: CO[k].accent2, pal, palText: { ...pal } });
+    });
+  }
+  notes() {
+    return ['BURKE · ROUND 4 PRESENTATION', 'Current presentation settings.', ...KEYS.map(k => {
+      const c = this.state.c[k], f = this.famOf(k);
+      return CO[k].name + ': ' + f.label + ' ' + c.hex + '; ' + (f.fixed ? 'single-colour mark' : c.treatment === 'top' ? 'stronger accent, top two bars' : 'subtle accent, bottom bar') + '; navy ' + c.pal.navy + (k === 'group' ? '' : '; supporting colour ' + c.accent) + '; neutrals ' + c.pal.n1 + ' / ' + c.pal.n2;
+    }), 'Shared muted B detail: ' + this.state.navyB].join('\n');
+  }
+  async copyNotes() {
+    try { await navigator.clipboard.writeText(this.notes()); this.setState({ copyStatus: 'Presentation notes copied.', showNotes: false }); }
+    catch (e) { this.setState({ copyStatus: 'Automatic copying is unavailable. Select and copy the notes below.', showNotes: true }); }
   }
   componentWillUnmount() { this.ro?.disconnect(); }
 
@@ -328,9 +406,16 @@ class Component extends DCLogic {
   }
 
   async refreshLogo(k) {
+    this.logoEpoch = this.logoEpoch || {}; const epoch = (this.logoEpoch[k] || 0) + 1; this.logoEpoch[k] = epoch;
     const url = await this.svgUrl(CO[k].logo, this.pairs(k), this.state.c[k].treatment);
     const [mb, mt, mn] = await Promise.all([this.svgUrl(CO[k].mark, this.pairs(k), 'bottom'), this.svgUrl(CO[k].mark, this.pairs(k), 'top'), this.svgUrl(CO[k].mark.replace('.svg', '-rev.svg'), this.pairs(k), this.state.c[k].treatment, this.state.navyB)]);
-    this.setState(s => ({ logoUrl: { ...s.logoUrl, [k]: url }, markUrl: { ...s.markUrl, [k]: { bottom: mb, top: mt, navy: mn } } }));
+    const familyEntries = await Promise.all(CO[k].families.map(async f => {
+      const ps = this.pairs(k).map(p => [...p]); ps[0][1] = f.fixed ? 'MONO' : this.defHex(f);
+      if (k === 'development') ps[1][1] = lighten(this.defHex(f), 0.08);
+      return [f.id, await this.svgUrl(CO[k].logo, ps, this.state.c[k].treatment)];
+    }));
+    if (this.logoEpoch[k] !== epoch) return;
+    this.setState(s => ({ familyLogos: { ...s.familyLogos, [k]: Object.fromEntries(familyEntries) }, logoUrl: { ...s.logoUrl, [k]: url }, markUrl: { ...s.markUrl, [k]: { bottom: mb, top: mt, navy: mn } } }));
   }
 
   frameRef(k) {
@@ -386,7 +471,6 @@ class Component extends DCLogic {
   pushHist(k, hex) {
     this.setState(s => { const h = s.hist[k].filter(x => x !== hex); return { hist: { ...s.hist, [k]: [hex, ...h].slice(0, 16) } }; });
   }
-  touch(k) { if (!this.state.touched[k]) this.setState(s => ({ touched: { ...s.touched, [k]: true } })); }
   setFamily(k, id) { const f = CO[k].families.find(x => x.id === id); const h = this.defHex(f); this.update(k, { family: id, hex: h, hexText: h }); }
   shadesOf(k) {
     const f = this.famOf(k);
@@ -422,24 +506,24 @@ class Component extends DCLogic {
       { label: `${this.famOf(k).label} writing on white`, fg: hex, bg: n2, text: true, use: 'headings and labels on paper and web pages' },
       { label: `Navy writing on ${name}`, fg: NAVY, bg: hex, text: true, use: 'dark text on a coloured panel' },
       { label: `${this.famOf(k).label} shapes on navy`, fg: hex, bg: NAVY, text: false, use: 'the logo and graphics on dark backgrounds' },
-      { label: 'Logo B colour on navy', fg: this.state.navyB, bg: NAVY, text: false, use: 'the B on business cards, favicons and covers', sample: 'B' }
+      { label: 'Muted B detail on navy', fg: this.state.navyB, bg: NAVY, text: false, use: 'the B on business cards, favicons and covers', sample: 'B' }
     ];
     if (this.famOf(k).fixed) rows.splice(0, 4);
-    if (k !== 'group') rows.push({ label: 'Second accent on white', fg: this.state.c[k].accent, bg: n2, text: false, use: 'tags, rules and details on paper' }, { label: 'Second accent on navy', fg: this.state.c[k].accent, bg: NAVY, text: false, use: 'details on dark backgrounds' });
+    if (k !== 'group') rows.push({ label: 'Supporting colour on a light background', fg: this.state.c[k].accent, bg: n2, text: false, use: 'tags, rules and details on paper' }, { label: 'Supporting colour on navy', fg: this.state.c[k].accent, bg: NAVY, text: false, use: 'details on dark backgrounds' });
     const ON = { 4: '#1D5B36', 3: '#2F7A4A', 2: '#A0641A', 1: '#8A2C1D' };
     return rows.map(r => {
       const ratio = contrast(r.fg, r.bg);
       let score, verdict, meaning;
       if (r.text) {
-        if (ratio >= 7) { score = 4; verdict = 'Excellent'; meaning = `Easy to read at any size. Great for ${r.use}.`; }
-        else if (ratio >= 4.5) { score = 3; verdict = 'Good'; meaning = `Comfortable to read, even small print. Fine for ${r.use}.`; }
+        if (ratio >= 7) { score = 4; verdict = 'Excellent'; meaning = `Strong contrast for ${r.use}. Keep the text comfortably sized.`; }
+        else if (ratio >= 4.5) { score = 3; verdict = 'Good'; meaning = `Meets the contrast threshold for normal-sized text in ${r.use}. Size and weight still matter.`; }
         else if (ratio >= 3) { score = 2; verdict = 'Big text only'; meaning = 'Works for large headlines, but small print will be hard to read.'; }
         else { score = 1; verdict = 'Hard to read'; meaning = 'Too similar in tone. Avoid using this pairing for any writing.'; }
       } else {
         if (ratio >= 4.5) { score = 4; verdict = 'Stands out clearly'; meaning = `Very visible for ${r.use}.`; }
         else if (ratio >= 3) { score = 3; verdict = 'Clearly visible'; meaning = `Visible enough for ${r.use}.`; }
-        else if (ratio >= 2) { score = 2; verdict = 'Quite faint'; meaning = 'Noticeable up close, but it fades from a distance.'; }
-        else { score = 1; verdict = 'Blends in'; meaning = 'Hard to see. The logo will disappear on dark backgrounds.'; }
+        else if (ratio >= 2) { score = 2; verdict = 'Quite faint'; meaning = 'Keep this for decorative backgrounds or details. Use a stronger contrast for information people need to recognise.'; }
+        else { score = 1; verdict = 'Blends in'; meaning = 'Use this pairing only for decoration. Choose a clearer colour for essential information or a prominent logo.'; }
       }
       const badge = (text, pass) => ({ text: (pass ? '✓ ' : '✕ ') + text, bg: pass ? '#DDEFE3' : '#F6E0DC', color: pass ? '#1D5B36' : '#8A2C1D' });
       const badges = r.text ? [badge('AA SMALL TEXT', ratio >= 4.5), badge('AA LARGE TEXT', ratio >= 3), badge('AAA', ratio >= 7)] : [badge('AA GRAPHICS', ratio >= 3)];
@@ -449,19 +533,17 @@ class Component extends DCLogic {
 
   renderVals() {
     const { tab, c, logoUrl, boardW } = this.state;
-    const tabs = [{ key: 'overview', label: 'ALL COMPANIES' }, ...KEYS.map(k => ({ key: k, label: (this.state.touched[k] ? '✓ ' : '') + CO[k].short }))].map(t => ({
-      ...t, onClick: () => this.setState({ tab: t.key }), bg: t.key === tab ? '#1B2E46' : 'transparent', color: t.key === tab ? '#FFFFFF' : '#2A3644'
+    const tabs = [{ key: 'overview', label: 'ALL COMPANIES' }, ...KEYS.map(k => ({ key: k, label: CO[k].short }))].map(t => ({
+      ...t, active: t.key === tab, onClick: () => this.setState({ tab: t.key }), bg: t.key === tab ? '#1B2E46' : 'transparent', color: t.key === tab ? '#FFFFFF' : '#2A3644'
     }));
-    const trLabel = k => this.famOf(k).fixed ? 'All navy' : (c[k].treatment === 'top' ? 'Colour at top' : 'Colour at bottom');
+    const trLabel = k => this.famOf(k).fixed ? 'All navy' : (c[k].treatment === 'top' ? 'Stronger accent · top two bars' : 'Subtle accent · bottom bar');
     const cards = KEYS.map(k => {
-      const ch = this.checks(k).filter(x => x.text), best = Math.max(...ch.map(x => x.value));
-      const ok = best >= 4.5;
+      const purpose = PURPOSE[k];
       return {
         name: CO[k].name, short: CO[k].short, hex: c[k].hex, logoUrl: logoUrl[k] || CO[k].logo,
         swatches: [c[k].pal.navy, ...(this.famOf(k).fixed ? [] : [c[k].hex]), this.state.navyB, ...(k === 'group' ? [] : [c[k].accent]), c[k].pal.n1, c[k].pal.n2].map(hex => ({ hex })),
         familyLabel: this.famOf(k).label, treatmentLabel: trLabel(k),
-        contrastText: ok ? 'Easy to read' : 'Some writing will be hard to read',
-        contrastColor: ok ? '#1D5B36' : '#8A2C1D',
+        purpose,
         onOpen: () => this.setState({ tab: k })
       };
     });
@@ -469,12 +551,12 @@ class Component extends DCLogic {
     const fam = this.famOf(k), hex = c[k].hex, dark = fam.fixed ? NAVY : NAVY;
     const a = {
       name: CO[k].name, hex, hexText: c[k].hexText, logoUrl: logoUrl[k] || CO[k].logo, editable: !fam.fixed,
-      families: CO[k].families.map(f => ({ label: f.label, hex: this.defHex(f), border: f.id === c[k].family ? '#1B2E46' : '#E2DDD5', onClick: () => { this.touch(k); this.setFamily(k, f.id); } })),
+      families: CO[k].families.map(f => ({ label: f.label, hex: this.defHex(f), selected: f.id === c[k].family, logo: this.state.familyLogos[k]?.[f.id] || CO[k].logo, reason: REASONS[k][f.id], border: f.id === c[k].family ? '#1B2E46' : '#E2DDD5', onClick: () => this.setFamily(k, f.id) })),
+      directionNote: k === 'realty' ? 'Orange is fixed for Realty. Compare only the logo treatment below.' : 'Both directions are shown at the same size. The first is the starting direction; the alternative has a different purpose.',
+      roles: this.roles(k), advice: this.advice(k), practicalSummary: 'Use each colour for the job it does best.',
       isFixed: !!fam.fixed, famUpper: fam.label.toUpperCase(),
-      voteCount: fam.fixed ? '1 choice' : '2 choices',
+      optionCount: k === 'realty' ? 'Orange fixed' : 'Two directions',
             navyBg: c[k].pal.navy,
-      readSummary: (() => { const ch = this.checks(k), good = ch.filter(x => x.score >= 3).length; return good === ch.length ? 'All pairings read well' : `${good} of ${ch.length} pairings read well`; })(),
-      readColor: this.checks(k).every(x => x.score >= 3) ? '#1D5B36' : '#A0641A',
       onPick: e => this.update(k, { hex: e.target.value.toUpperCase(), hexText: e.target.value.toUpperCase() }),
       onHex: e => { const v = e.target.value.trim(); const m = /^#?([0-9a-f]{6})$/i.exec(v); this.update(k, m ? { hex: '#' + m[1].toUpperCase(), hexText: '#' + m[1].toUpperCase() } : { hexText: v }); },
       onPrev: () => this.stepShade(k, -1), onNext: () => this.stepShade(k, 1),
@@ -514,29 +596,30 @@ class Component extends DCLogic {
       clearHistory: () => this.setState(s => ({ hist: { ...s.hist, [k]: [] } })),
       history: this.state.hist[k].map(h => ({ hex: h, ring: h === hex ? '0 0 0 2px #F2F0EC, 0 0 0 4px #1B2E46' : 'inset 0 0 0 1px rgba(0,0,0,0.08)', onClick: () => this.update(k, { hex: h, hexText: h }) })),
       treatments: [
-        { id: 'bottom', label: 'Colour at bottom', img: this.state.markUrl[k]?.bottom || CO[k].mark },
-        { id: 'top', label: 'Colour at top', img: this.state.markUrl[k]?.top || CO[k].mark }
-      ].map(t => ({ ...t, border: t.id === c[k].treatment ? '#1B2E46' : '#E2DDD5', onClick: () => { this.touch(k); this.update(k, { treatment: t.id }); } })),
+        { id: 'bottom', label: 'Subtle accent · bottom bar', img: this.state.markUrl[k]?.bottom || CO[k].mark },
+        { id: 'top', label: 'Stronger accent · top two bars', img: this.state.markUrl[k]?.top || CO[k].mark }
+      ].map(t => ({ ...t, selected: t.id === c[k].treatment, border: t.id === c[k].treatment ? '#1B2E46' : '#E2DDD5', onClick: () => this.update(k, { treatment: t.id }) })),
       checks: this.checks(k)
     };
     const scale = boardW / 1920;
     return {
       tabs, cards, a,
-      defaultModes: [{ v: true, label: 'Contrast-tuned' }, { v: false, label: 'Approved' }].map(m => ({ label: m.label, bg: this.state.tuned === m.v ? '#1B2E46' : 'transparent', color: this.state.tuned === m.v ? '#FFFFFF' : '#2A3644',
+      defaultModes: [{ v: true, label: 'Presentation shades' }, { v: false, label: 'Original shades' }].map(m => ({ label: m.label, bg: this.state.tuned === m.v ? '#1B2E46' : 'transparent', color: this.state.tuned === m.v ? '#FFFFFF' : '#2A3644',
         onClick: () => this.setState({ tuned: m.v }, () => KEYS.forEach(x => this.setFamily(x, this.state.c[x].family))) })),
       imageModes: [{ v: 'tint', label: 'Tinted' }, { v: 'grey', label: 'Grey' }, { v: 'brand', label: 'Brand colours' }].map(m => ({ label: m.label, bg: this.state.imgMode === m.v ? '#1B2E46' : 'transparent', color: this.state.imgMode === m.v ? '#FFFFFF' : '#2A3644', onClick: () => this.setState({ imgMode: m.v }, () => KEYS.forEach(x => this.applyBoard(x))) })),
       admin: this.state.admin,
-      showChecks: this.state.showChecks, checksLabel: this.state.showChecks ? 'Hide details' : 'Show details',
+      showChecks: this.state.showChecks, checksLabel: this.state.showChecks ? 'Hide examples' : 'Show colour examples',
       toggleChecks: () => this.setState(s => ({ showChecks: !s.showChecks })),
       showExplore: this.state.showExplore, exploreLabel: this.state.showExplore ? 'Close' : 'Open',
       toggleExplore: () => this.setState(s => ({ showExplore: !s.showExplore })),
       showPanel: !this.state.wide, wideLabel: this.state.wide ? 'SHOW CONTROLS' : 'ENLARGE BOARD',
       toggleWide: () => this.setState(s => ({ wide: !s.wide })),
-      showTech: this.state.showTech, techLabel: this.state.showTech ? 'Hide technical details' : 'Show technical details (WCAG ratios)',
+      showTech: this.state.showTech, techLabel: this.state.showTech ? 'Hide technical checks' : 'Technical checks (optional)',
       toggleTech: () => this.setState(s => ({ showTech: !s.showTech })),
       isOverview: tab === 'overview', isCompany: tab !== 'overview',
       shuffleAll: () => KEYS.forEach(x => this.shuffle(x)),
-      resetAll: () => { this.setNavy(NAVY_B); KEYS.forEach(x => { const f = CO[x].families[0], h = this.defHex(f); this.update(x, { family: f.id, hex: h, hexText: h, treatment: 'bottom', accent: CO[x].accent2, accentText: CO[x].accent2 }); }); },
+      resetAll: () => this.resetPresentation(),
+      copyNotes: () => this.copyNotes(), copyStatus: this.state.copyStatus, showNotes: this.state.showNotes, notes: this.notes(),
       wrapRef: this.wrapRef, boardScale: scale, boardH: Math.round(1140 * scale),
       boards: KEYS.map(x => ({ src: CO[x].board, title: CO[x].name, ref: this.frameRef(x), onLoad: this.onFrameLoad(x), vis: x === tab ? 'visible' : 'hidden' }))
     };
