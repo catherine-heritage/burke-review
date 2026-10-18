@@ -33,7 +33,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
           <h1 style="margin:0;font-weight:300;font-size:34px;letter-spacing:-0.02em;line-height:1.1">The Burke colour family</h1>
         </div>
       </div>
-      <p style="margin:0;max-width:520px;font-size:14px;line-height:1.55;color:#4E5A68;text-wrap:pretty">A presentation of how the four Burke identities work together. Realty stays orange. Explore the remaining colour directions and logo treatments; the boards update as you present.</p>
+      <p style="margin:0;max-width:520px;font-size:14px;line-height:1.55;color:#4E5A68;text-wrap:pretty">Explore the company palettes and logo treatments.</p>
     </div>
 
     <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
@@ -55,14 +55,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
     </div>
 
     <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#FFFFFF;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
-        <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">PRESENTING THE FAMILY</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
-          <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:50%;background:#1B2E46;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">1</span><div style="font-size:13.5px;line-height:1.45;color:#2A3644;text-wrap:pretty">Start with the family overview, then open each company to explain its <strong style="font-weight:600">colour and purpose</strong>.</div></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:50%;background:#1B2E46;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">2</span><div style="font-size:13.5px;line-height:1.45;color:#2A3644;text-wrap:pretty">Compare a <strong style="font-weight:600">subtle or stronger colour accent</strong> in the logo. Navy-only Group uses a single-colour mark.</div></div>
-        </div>
-        <div style="font-size:12.5px;line-height:1.5;color:#7A8592">Starting direction: navy Group, orange Realty, purple Development and teal Property Management. Shared navy and warm neutrals unite the family; each company colour gives it a distinct identity. Present one company at a time, then return here to see the family together.</div>
-      </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
         <sc-for list="{{ cards }}" as="c" hint-placeholder-count="4">
           <div style="background:#FFFFFF;display:flex;flex-direction:column">
@@ -93,7 +85,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
         <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}"><button onClick="{{ shuffleAll }}" style="border:0;cursor:pointer;padding:12px 20px;border-radius:999px;background:#1B2E46;color:#FFFFFF;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em">EXPLORE SHADES</button></sc-if>
         <button onClick="{{ resetAll }}" style="border:1px solid #CFCAC1;cursor:pointer;padding:12px 20px;border-radius:999px;background:transparent;color:#0F1B2A;font-family:'Urbanist',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em">RESTORE STARTING PALETTE</button>
       </div>
-      <div style="font-size:13px;line-height:1.5;color:#4E5A68">Your presentation settings are remembered in this browser. Copy the notes below to keep a separate record.</div>
+      <div style="font-size:13px;line-height:1.5;color:#4E5A68">Settings are remembered in this browser.</div>
       <button onClick="{{ copyNotes }}" style="align-self:flex-start;border:1px solid #CFCAC1;background:white;border-radius:999px;padding:12px 20px;cursor:pointer">Copy presentation notes</button>
       <div role="status" aria-live="polite" style="font-size:13px;color:#4E5A68">{{ copyStatus }}</div>
       <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}"><label style="display:flex;flex-direction:column;gap:8px;font-size:13px">Select and copy these presentation notes<textarea readOnly="{{ true }}" value="{{ notes }}" rows="12" style="width:100%;box-sizing:border-box;padding:12px"></textarea></label></sc-if>
@@ -102,7 +94,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
     <sc-if value="{{ isCompany }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">
         <sc-if value="{{ showPanel }}" hint-placeholder-val="{{ true }}">
-        <div class="presentation-panel" style="background:#FFFFFF;padding:24px;display:flex;flex-direction:column;gap:24px;flex:1 1 340px;max-width:400px;box-sizing:border-box">
+        <div class="presentation-panel" style="background:#FFFFFF;padding:24px;display:flex;flex-direction:column;gap:20px;flex:1 1 280px;max-width:320px;box-sizing:border-box">
           <div style="display:flex;align-items:center;gap:16px">
             <img src="{{ a.logoUrl }}" alt="{{ a.name }}" style="width:72px;height:72px;object-fit:contain;display:block">
             <div style="font-size:20px;font-weight:500;letter-spacing:-0.01em">{{ a.name }}</div>
@@ -118,13 +110,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
               <div class="presentation-options">
                 <sc-for list="{{ a.families }}" as="f" hint-placeholder-count="2">
                   <button aria-pressed="{{ f.selected }}" onClick="{{ f.onClick }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px;border-radius:10px;background:#FFFFFF;border:2px solid {{ f.border }};text-align:left;color:#0F1B2A">
-                    <img src="{{ f.logo }}" alt="{{ f.label }} logo preview" style="width:100%;height:86px;object-fit:contain">
+                    <img src="{{ f.logo }}" alt="{{ f.label }} logo preview" style="width:100%;height:54px;object-fit:contain">
                     <span style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600"><span style="width:18px;height:18px;border-radius:50%;background:{{ f.hex }}"></span>{{ f.label }}</span>
-                    <span style="font-size:12px;line-height:1.5;color:#4E5A68">{{ f.reason }}</span>
                   </button>
                 </sc-for>
               </div>
-              <div style="font-size:12.5px;line-height:1.5;color:#4E5A68">{{ a.directionNote }}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px">
               <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#7A8592">2 · AMOUNT OF COLOUR IN THE LOGO</div>
@@ -144,18 +134,27 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
             </div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4E5A68">WHERE EACH COLOUR BELONGS</div>
-            <sc-for list="{{ a.roles }}" as="r" hint-placeholder-count="5"><div style="display:flex;gap:10px;align-items:flex-start"><span style="width:22px;height:22px;border-radius:5px;background:{{ r.hex }};border:1px solid rgba(0,0,0,.12);flex:none"></span><div style="font-size:13px;line-height:1.5"><strong>{{ r.label }}</strong><div style="color:#4E5A68">{{ r.use }}</div></div></div></sc-for>
-            <div style="font-size:12px;line-height:1.5;color:#4E5A68">These are proposed colour roles for discussion. The application boards are unchanged; their use of supporting colours will be refined next round.</div>
+        </div>
+        </sc-if>
+
+        <div style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:flex-end">
+            <button onClick="{{ toggleWide }}" style="border:1px solid #CFCAC1;background:#FFFFFF;cursor:pointer;padding:8px 16px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;color:#0F1B2A">{{ wideLabel }}</button>
           </div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'Urbanist',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4E5A68">KEEPING THINGS CLEAR</div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-              <div style="font-size:14px;font-weight:500;color:#0F1B2A">{{ a.practicalSummary }}</div>
-              <button onClick="{{ toggleChecks }}" style="border:0;background:transparent;cursor:pointer;padding:4px 0;font-size:12.5px;color:#4E5A68;text-decoration:underline;white-space:nowrap">{{ checksLabel }}</button>
+          <div ref="{{ wrapRef }}" style="width:100%;background:#E6E2DB;overflow:hidden;position:relative;height:{{ boardH }}px">
+            <sc-for list="{{ boards }}" as="bd" hint-placeholder-count="4">
+              <iframe src="{{ bd.src }}" ref="{{ bd.ref }}" onLoad="{{ bd.onLoad }}" title="{{ bd.title }}" style="position:absolute;left:0;top:0;width:1920px;height:1140px;border:0;transform-origin:0 0;transform:scale({{ boardScale }});visibility:{{ bd.vis }};pointer-events:none"></iframe>
+            </sc-for>
+          </div>
+          <section aria-label="Colour usage" style="padding:20px;background:#FFFFFF;border-radius:10px">
+            <h2 style="margin:0 0 16px;font-size:17px;font-weight:500">How the palette is used</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px">
+              <sc-for list="{{ a.roles }}" as="r" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;gap:8px"><div style="height:32px;border-radius:5px;background:{{ r.hex }};border:1px solid rgba(0,0,0,.12)"></div><strong style="font-size:13px">{{ r.label }}</strong><div style="font-size:13px;line-height:1.5;color:#4E5A68">{{ r.use }}</div></div></sc-for>
             </div>
-            <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:#4E5A68"><sc-for list="{{ a.advice }}" as="tip" hint-placeholder-count="3"><li>{{ tip }}</li></sc-for></ul>
+            <p style="margin:14px 0 0;font-size:12px;color:#4E5A68">Proposed usage. The board applications will be refined next.</p>
+          </section>
+          <section aria-label="Optional colour checks" style="background:#FFFFFF;border-radius:10px;padding:16px 20px">
+            <button onClick="{{ toggleChecks }}" aria-expanded="{{ showChecks }}" style="border:0;background:transparent;cursor:pointer;padding:0;font-size:13px;color:#4E5A68;text-decoration:underline">{{ checksLabel }}</button>
             <sc-if value="{{ showChecks }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex;flex-direction:column;gap:8px">
               <sc-for list="{{ a.checks }}" as="k" hint-placeholder-count="5">
@@ -189,16 +188,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
               </sc-if>
             </div>
             </sc-if>
-          </div>
-
+          </section>
           <sc-if value="{{ a.admin }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:10px;border:1.5px dashed #C9C2B6;background:#FAF8F5">
+            <details style="padding:16px;background:#FAF8F5;border:1px solid #D6D1C8;border-radius:10px"><summary style="cursor:pointer;font-size:13px;font-weight:600;margin-bottom:12px">Presenter palette controls</summary>
               <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-                <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">FULL PALETTE · ADMIN ONLY</div>
+                <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;color:#0F1B2A">PALETTE CONTROLS</div>
                 <button onClick="{{ a.exitAdmin }}" style="border:0;background:transparent;cursor:pointer;padding:0;font-size:12px;color:#4E5A68;text-decoration:underline">Hide</button>
               </div>
-              <div style="font-size:12.5px;line-height:1.4;color:#6A7480">Presenter controls. Settings are remembered in this browser. The shared muted colour changes B shapes and some decorative backgrounds across the family.</div>
-              <div style="font-size:12.5px;line-height:1.5;color:#4E5A68">{{ a.paletteNote }}</div>
+              <div style="font-size:12.5px;line-height:1.4;color:#6A7480">Changes stay in this browser.</div>
               <sc-for list="{{ a.palette }}" as="p" hint-placeholder-count="3">
                 <div style="display:flex;align-items:center;gap:10px">
                   <label style="position:relative;width:36px;height:36px;border-radius:8px;background:{{ p.hex }};cursor:pointer;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.12)">
@@ -209,20 +206,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
                   <button onClick="{{ p.onReset }}" style="height:36px;border:0;cursor:pointer;padding:0 4px;background:transparent;color:#4E5A68;font-size:12.5px">Reset</button>
                 </div>
               </sc-for>
-            </div>
+            </details>
           </sc-if>
-        </div>
-        </sc-if>
-
-        <div style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;justify-content:flex-end">
-            <button onClick="{{ toggleWide }}" style="border:1px solid #CFCAC1;background:#FFFFFF;cursor:pointer;padding:8px 16px;border-radius:999px;font-family:'Urbanist',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;color:#0F1B2A">{{ wideLabel }}</button>
-          </div>
-          <div ref="{{ wrapRef }}" style="width:100%;background:#E6E2DB;overflow:hidden;position:relative;height:{{ boardH }}px">
-            <sc-for list="{{ boards }}" as="bd" hint-placeholder-count="4">
-              <iframe src="{{ bd.src }}" ref="{{ bd.ref }}" onLoad="{{ bd.onLoad }}" title="{{ bd.title }}" style="position:absolute;left:0;top:0;width:1920px;height:1140px;border:0;transform-origin:0 0;transform:scale({{ boardScale }});visibility:{{ bd.vis }};pointer-events:none"></iframe>
-            </sc-for>
-          </div>
         </div>
       </div>
     </sc-if>
@@ -313,11 +298,11 @@ class Component extends DCLogic {
   roles(k) {
     const c = this.state.c[k], fixed = this.famOf(k).fixed;
     return [
-      { label: 'Navy · everyday information', hex: c.pal.navy, use: 'Main text, headings and dark backgrounds. On light backgrounds, this is the dependable reading colour.' },
-      ...(!fixed ? [{ label: this.famOf(k).label + ' · company recognition', hex: c.hex, use: 'The coloured part of the logo, larger highlights and selected panels. It identifies the company; it does not need to colour every heading.' }] : []),
-      { label: 'Muted slate · subtle brand detail', hex: this.state.navyB, use: 'A quiet B shape or decorative detail on navy. It is intentionally subtle; avoid it for small text or information that must stand out.' },
-      ...(k === 'group' ? [] : [{ label: 'Supporting colour · backgrounds and detail', hex: c.accent, use: 'A proposed role for secondary panels and decorative details. It works more clearly against navy; on light backgrounds, keep it away from small text and essential symbols.' }]),
-      { label: 'Warm neutrals · breathing space', hex: c.pal.n1, use: 'Page backgrounds, paper-like surfaces and space around the logo. Pair them with navy text.' }
+      { label: 'Navy', hex: c.pal.navy, use: 'Main text, headings and dark panels.' },
+      ...(!fixed ? [{ label: this.famOf(k).label + ' · company colour', hex: c.hex, use: 'Logo accent, prominent highlights and selected colour panels.' }] : []),
+      { label: 'Muted slate', hex: this.state.navyB, use: 'Subtle B shapes and decorative backgrounds; not small text.' },
+      ...(k === 'group' ? [] : [{ label: 'Supporting colour', hex: c.accent, use: 'Secondary panels, rules and small decorative details. Avoid essential text on light backgrounds.' }]),
+      { label: 'Warm neutrals', hex: c.pal.n1, use: 'Page backgrounds and clear space, paired with navy text.' }
     ];
   }
   advice(k) {
@@ -610,7 +595,7 @@ class Component extends DCLogic {
         onClick: () => this.setState({ tuned: m.v }, () => KEYS.forEach(x => this.setFamily(x, this.state.c[x].family))) })),
       imageModes: [{ v: 'tint', label: 'Tinted' }, { v: 'grey', label: 'Grey' }, { v: 'brand', label: 'Brand colours' }].map(m => ({ label: m.label, bg: this.state.imgMode === m.v ? '#1B2E46' : 'transparent', color: this.state.imgMode === m.v ? '#FFFFFF' : '#2A3644', onClick: () => this.setState({ imgMode: m.v }, () => KEYS.forEach(x => this.applyBoard(x))) })),
       admin: this.state.admin,
-      showChecks: this.state.showChecks, checksLabel: this.state.showChecks ? 'Hide examples' : 'Show colour examples',
+      showChecks: this.state.showChecks, checksLabel: this.state.showChecks ? 'Hide readability details' : 'Readability details (optional)',
       toggleChecks: () => this.setState(s => ({ showChecks: !s.showChecks })),
       showExplore: this.state.showExplore, exploreLabel: this.state.showExplore ? 'Close' : 'Open',
       toggleExplore: () => this.setState(s => ({ showExplore: !s.showExplore })),
