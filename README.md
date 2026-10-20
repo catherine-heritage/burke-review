@@ -6,8 +6,8 @@ A buildless static website for GitHub Pages at `/burke-review/`. All website ass
 
 The latest review is **Round 6 — Approved identity** at `round-6/`. It uses the
 supplied approved primary logos, secondary logos and favicons for all four Burke
-companies. Main and secondary logos are shown together on the overview, company
-pages and identity boards. The two upper bars carry the approved company colour;
+companies. Only the main logo is shown on the overview, company pages and identity boards;
+the redundant secondary-logo previews have been removed. The two upper bars carry the approved company colour;
 Development intentionally retains #9E9E9E in the icon and #939393 in its text.
 
 The shared primary, B accent and neutrals remain #1B2E46, #5A6B81, #E6E4E0 and
