@@ -4,17 +4,19 @@ A buildless static website for GitHub Pages at `/burke-review/`. All website ass
 
 ## Current round and navigation
 
-The latest addition is **Round 6 — Colour palettes** at `round-6/`. It imports the
-Burke private colour explorer, including prepared palettes, hide/restore, optional
-colour edits and locks, generation, favourites, brochure previews, and competitor
-colours. Round 4 remains the approved board baseline; earlier rounds are retained.
-The root homepage still opens Round 3 and now links to Round 6.
+The latest review is **Round 6 — Approved identity** at `round-6/`. It uses the
+supplied approved primary logos, secondary logos and favicons for all four Burke
+companies. Main and secondary logos are shown together on the overview, company
+pages and identity boards. The two upper bars carry the approved company colour;
+Development intentionally retains #9E9E9E in the icon and #939393 in its text.
 
-Round 6 is a self-contained static copy of the private Sites version, adapted for
-the public GitHub Pages path. It has no sign-in requirement. Its browser-local
-palette/favourites storage is separate from the Sites origin; use Export/Import
-in Favourites to transfer saved palettes. No Sites credentials or hosting identity
-are included. The standalone private Site remains unchanged.
+The shared primary, B accent and neutrals remain #1B2E46, #5A6B81, #E6E4E0 and
+#FAFAF8 by default. Child-company Accent 2 is editable; Group has none. The
+prepared palettes, generation and favourites controls have been removed.
+Competitor tools are off on page load; the top-right toggle enables both the
+company checks and the Competitor colours page. Identity boards, brochures and
+readability checks remain in their existing positions. Earlier rounds and the
+root Round 3 homepage are retained.
 
 Round 3 is the default homepage and remains available at `round-3/`. It shows
 one large Group logo above three subsidiary previews, with a compact shared
