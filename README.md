@@ -4,6 +4,18 @@ A buildless static website for GitHub Pages at `/burke-review/`. All website ass
 
 ## Current round and navigation
 
+The latest addition is **Round 6 — Colour palettes** at `round-6/`. It imports the
+Burke private colour explorer, including prepared palettes, hide/restore, optional
+colour edits and locks, generation, favourites, brochure previews, and competitor
+colours. Round 4 remains the approved board baseline; earlier rounds are retained.
+The root homepage still opens Round 3 and now links to Round 6.
+
+Round 6 is a self-contained static copy of the private Sites version, adapted for
+the public GitHub Pages path. It has no sign-in requirement. Its browser-local
+palette/favourites storage is separate from the Sites origin; use Export/Import
+in Favourites to transfer saved palettes. No Sites credentials or hosting identity
+are included. The standalone private Site remains unchanged.
+
 Round 3 is the default homepage and remains available at `round-3/`. It shows
 one large Group logo above three subsidiary previews, with a compact shared
 options row. The layout follows the owner's reference screenshot while retaining
