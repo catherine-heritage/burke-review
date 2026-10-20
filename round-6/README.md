@@ -15,9 +15,9 @@ controls recolour the previews, not the supplied originals.
 | Realty | #EF8E4B | #EF8E4B |
 
 The owner confirmed that the intentional icon/text difference is Development.
-The approved arrangement uses company colour in the two upper bars. Primary and
-secondary logos appear on the overview, each company page, and the identity-board
-hero. Browser favicons use the supplied company favicon artwork.
+The approved arrangement uses company colour in the two upper bars. Only the primary logo appears on the overview, each company page, and the
+identity-board hero. Secondary artwork is retained for existing mockup applications
+and source preservation, without a duplicate preview under the main logo. Browser favicons use the supplied company favicon artwork.
 
 Shared defaults are primary #1B2E46, B accent #5A6B81, Neutral 1 #E6E4E0 and
 Neutral 2 #FAFAF8. Shared changes propagate to all companies. Company icon/text
@@ -41,7 +41,7 @@ on GitHub Pages. The previous private Sites publication is retained separately.
 
 Run `python tests/check-approved-identity.py` from the repository root with
 Playwright and Chromium available. It serves only this repository locally and
-checks the approved colours and bar arrangement, secondary logos, Accent 2,
+checks the approved colours and bar arrangement, absence of redundant secondary previews, Accent 2,
 shared updates, brochure recolouring, readability, competitor enable/disable,
 old-storage isolation and mobile width. Review screenshots are written outside
 the repository at `/tmp/burke-approved-checks/`.

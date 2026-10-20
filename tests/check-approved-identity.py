@@ -38,11 +38,12 @@ with sync_playwright() as p:
  assert page.get_by_role('button',name='COMPETITOR COLOURS',exact=True).count()==0
  assert page.get_by_role('button',name=re.compile('Generate|Favourite|Load .* palette')).count()==0
  assert page.locator('.company-card .primary-logo').count()==4
- assert page.locator('.company-card .secondary-logo').count()==4
+ assert page.locator('.secondary-logo').count()==0
  expect(page.get_by_role('heading',name='Approved identity')).to_be_visible()
  page.screenshot(path=str(OUTPUT/'01-overview.png'),full_page=True)
  page.get_by_role('button',name='DEVELOPMENT',exact=True).click()
- expect(page.locator('.company-page-logos .secondary-logo')).to_be_visible()
+ expect(page.locator('.company-page-logos .primary-logo')).to_be_visible()
+ assert page.locator('.secondary-logo').count()==0
  page.get_by_text('Tweak colours',exact=True).click()
  expect(page.get_by_role('textbox',name='Approved icon colour hex',exact=True)).to_have_value('#9E9E9E')
  expect(page.get_by_role('textbox',name='Approved company text hex',exact=True)).to_have_value('#939393')
@@ -54,7 +55,8 @@ with sync_playwright() as p:
  assert [el.get('fill').lower() for el in paths[:3]]==['#9e9e9e','#9e9e9e','#1b2e46']
  assert '#939393' in logo
  frame=page.frame_locator('iframe[title="Burke Development"]')
- expect(frame.locator('[data-secondary-logo]')).to_be_visible()
+ assert frame.locator('[data-secondary-logo]').count()==0
+ expect(frame.locator('[data-screen-label="Primary logo"] img')).to_have_count(1)
  expect(frame.locator('body')).to_contain_text('#9E9E9E')
  page.get_by_role('textbox',name='Accent 2 hex',exact=True).fill('#B6A272')
  page.get_by_role('textbox',name='Accent 2 hex',exact=True).press('Tab')
@@ -97,7 +99,8 @@ with sync_playwright() as p:
  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
  page.screenshot(path=str(OUTPUT/'05-mobile.png'),full_page=True)
  page.get_by_role('button',name='PROPERTY MGMT',exact=True).click()
- expect(page.locator('.company-page-logos .secondary-logo')).to_be_visible()
+ expect(page.locator('.company-page-logos .primary-logo')).to_be_visible()
+ assert page.locator('.secondary-logo').count()==0
  expect(page.frame_locator('iframe[title="Burke Property Management"]').locator('body')).to_contain_text('#1E4497')
  page.wait_for_timeout(250)
  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
@@ -106,4 +109,4 @@ with sync_playwright() as p:
  assert not failed,failed
  browser.close()
 server.shutdown()
-print('PASS: supplied Development icon/text colours, approved top-two-bar treatment, secondary logos, shared primary propagation, child Accent 2, Group without Accent 2, brochure recolouring, readability position, competitor toggle and route guard, no default competitor fetch, stale-palette isolation, mobile widths. No page errors or missing assets.')
+print('PASS: supplied Development icon/text colours, approved top-two-bar treatment, no redundant secondary logos, shared primary propagation, child Accent 2, Group without Accent 2, brochure recolouring, readability position, competitor toggle and route guard, no default competitor fetch, stale-palette isolation, mobile widths. No page errors or missing assets.')
