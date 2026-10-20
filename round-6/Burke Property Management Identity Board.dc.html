@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="explorer.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="runtime-resources.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+
+
+<style>
+body{margin:0;background:#CFCCC6;-webkit-font-smoothing:antialiased}
+a{color:#1B2E46;text-decoration:none}a:hover{color:#157279}
+</style>
+</helmet>
+
+<div data-screen-label="Board 03 — Burke Property Management" style="width:1920px;height:1140px;background:#DCDAD5;position:relative;font-family:'Hanken Grotesk',sans-serif;color:#0F1B2A;overflow:hidden">
+  <div style="position:absolute;left:40px;right:40px;top:40px;bottom:40px;display:grid;grid-template-columns:520px 460px minmax(0,1fr);gap:16px">
+
+    <!-- Column A -->
+    <div style="display:grid;grid-template-rows:560px 180px minmax(0,1fr);gap:16px">
+
+      <div data-screen-label="Primary logo" style="background:#FAFAF8;display:flex;align-items:center;justify-content:center">
+        <img src="assets/pm-primary.svg" alt="Burke Property Management" style="width:300px;height:266px;display:block">
+      </div>
+
+      <div data-screen-label="Colour" style="background:#FAFAF8;display:flex;align-items:flex-start;justify-content:center;gap:12px;padding-top:28px;box-sizing:border-box">
+        <div style="display:flex;flex-direction:column;gap:8px;width:64px">
+          <div style="width:64px;height:64px;background:#1B2E46"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">PRIMARY</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#1B2E46</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:64px">
+          <div style="width:64px;height:64px;background:#157279"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">SECONDARY</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#157279</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:64px">
+          <div style="width:64px;height:64px;background:#5A6B81"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">ACCENT 1</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#5A6B81</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:64px">
+          <div style="width:64px;height:64px;background:#6FA8A6"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">ACCENT 2</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#6FA8A6</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:64px">
+          <div style="width:64px;height:64px;background:#E6E4E0"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">NEUTRAL 1</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#E6E4E0</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:64px">
+          <div style="width:64px;height:64px;background:#FAFAF8;box-shadow:inset 0 0 0 1px #DCDAD5"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">NEUTRAL 2</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#FAFAF8</div>
+        </div>
+      </div>
+
+      <div data-screen-label="Business cards" style="background:#E6E4E0;position:relative;overflow:hidden">
+        <div style="position:absolute;left:28px;top:73px;width:220px;height:142px;background:#1B2E46;overflow:hidden;box-shadow:0 1px 1px rgba(15,27,42,0.2),0 16px 30px -12px rgba(15,27,42,0.5)">
+          <img src="assets/pm-mark-rev.svg" alt="" style="position:absolute;left:0;top:20px;height:50px;display:block">
+          <img src="assets/pm-wordmark-rev.svg" alt="Burke Property Management" style="position:absolute;right:16px;bottom:14px;width:72px;display:block">
+        </div>
+        <div style="position:absolute;left:272px;top:73px;width:220px;height:142px;background:#FAFAF8;overflow:hidden;box-shadow:0 1px 1px rgba(15,27,42,0.12),0 16px 30px -12px rgba(15,27,42,0.35)">
+          <div style="position:absolute;left:18px;top:18px;font-size:12px;font-weight:500;letter-spacing:-0.01em">Name Surname</div>
+          <div style="position:absolute;left:18px;top:34px;font-size:7.5px;color:#4E5A68">Job Title</div>
+          <div style="position:absolute;left:18px;bottom:16px;display:flex;flex-direction:column;gap:3px;font-size:6.5px;color:#4E5A68">
+            <span>Telephone</span><span>Email</span><span>Office address</span>
+          </div>
+          <img src="assets/pm-wordmark.svg" alt="Burke Property Management" style="position:absolute;right:16px;bottom:14px;width:60px;display:block">
+        </div>
+      </div>
+    </div>
+
+    <!-- Column B -->
+    <div style="display:grid;grid-template-rows:minmax(0,1fr) 340px;gap:16px">
+
+      <div data-screen-label="Letterhead" style="background:#157279;position:relative;overflow:hidden">
+        <div style="position:absolute;left:60px;top:111px;width:340px;height:481px;background:#FAFAF8;overflow:hidden;box-shadow:0 1px 1px rgba(0,0,0,0.2),0 26px 50px -18px rgba(8,30,34,0.6)">
+          <img src="assets/pm-wordmark.svg" alt="Burke Property Management" style="position:absolute;left:32px;top:30px;width:72px;display:block">
+          <div style="font-family:'Urbanist',sans-serif;position:absolute;right:26px;top:32px;text-align:right;font-size:5px;font-weight:600;line-height:1.7;letter-spacing:0.12em;color:#7A8592">OFFICE ADDRESS<br>TELEPHONE<br>EMAIL<br>WEBSITE</div>
+          <div style="position:absolute;left:32px;right:46px;top:112px;font-size:7.2px;line-height:1.6;color:#2A3644">
+            <div style="font-family:'Urbanist',sans-serif;font-size:5px;font-weight:600;letter-spacing:0.12em;color:#7A8592;margin-bottom:14px">DATE</div>
+            <div style="margin-bottom:14px">Recipient Name<br>Address</div>
+            <div style="font-weight:500;margin-bottom:10px">Re: Property reference</div>
+            <div style="margin-bottom:9px">Dear Name,</div>
+            <div style="margin-bottom:9px;text-wrap:pretty">Letter text is set in Hanken Grotesk Regular, 10 pt on 15 pt leading, ranged left. The text column aligns with the left edge of the wordmark; nothing else enters the margin.</div>
+            <div style="margin-bottom:9px;text-wrap:pretty">A reference line sits above the salutation so tenants and owners can match every letter to the right property.</div>
+            <div style="margin-top:16px">Yours sincerely,</div>
+            <div style="margin-top:20px;font-weight:500">Name Surname</div>
+            <div style="color:#4E5A68">Job Title</div>
+          </div>
+          <div style="font-family:'Urbanist',sans-serif;position:absolute;left:32px;right:26px;bottom:22px;font-size:5px;font-weight:600;letter-spacing:0.12em;color:#7A8592">COMPANY REGISTRATION DETAILS</div>
+        </div>
+      </div>
+
+      <div data-screen-label="No parking sign" style="background:#0F1B2A;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,0) 40%,rgba(255,255,255,0.05) 55%,rgba(255,255,255,0) 70%)"></div>
+        <div style="position:absolute;left:80px;top:70px;width:300px;height:200px;border-radius:12px;background:#FAFAF8;overflow:hidden;box-shadow:0 12px 28px -10px rgba(0,0,0,0.6)">
+          <img src="assets/pm-mark.svg" alt="" style="position:absolute;left:0;top:22px;height:30px;display:block">
+          <div style="font-family:'Urbanist',sans-serif;position:absolute;left:24px;right:24px;top:66px;font-size:22px;font-weight:700;line-height:1.05;letter-spacing:0.01em;color:#1B2E46">PLEASE DO NOT<br>PARK HERE</div>
+          <div style="position:absolute;left:24px;right:24px;top:122px;font-size:8px;color:#4E5A68">This space is reserved for permit holders.</div>
+          <div style="position:absolute;left:0;right:0;bottom:0;height:42px;background:#157279;display:flex;align-items:center;justify-content:space-between;padding:0 24px">
+            <img src="assets/pm-wordmark-white.svg" alt="Burke Property Management" style="width:58px;display:block">
+            <span style="font-size:8px;font-weight:500;color:#FAFAF8">Telephone</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column C -->
+    <div style="display:grid;grid-template-rows:520px 300px minmax(0,1fr);gap:16px">
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+
+        <div data-screen-label="Email — listing" style="background:#E6E4E0;position:relative;overflow:hidden">
+          <div style="position:absolute;left:43px;top:32px;width:320px;height:520px;background:#FFFFFF;box-shadow:0 20px 40px -18px rgba(15,27,42,0.4)">
+            <div style="height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 20px">
+              <img src="assets/pm-wordmark.svg" alt="Burke Property Management" style="width:56px;display:block">
+              <span style="font-family:'Urbanist',sans-serif;font-size:5.5px;font-weight:600;letter-spacing:0.18em;color:#157279">AVAILABLE NOW</span>
+            </div>
+            <div style="position:relative;height:150px">
+              <img src="assets/pm-warehouse.svg" alt="" style="width:320px;height:150px;object-fit:cover;display:block">
+              <div style="font-family:'Urbanist',sans-serif;font-family:'Urbanist',sans-serif;position:absolute;left:0;bottom:-11px;height:22px;padding:0 14px 0 20px;background:#157279;border-radius:0 11px 11px 0;display:flex;align-items:center;font-size:6.5px;font-weight:700;letter-spacing:0.18em;color:#FAFAF8">FOR LEASE</div>
+            </div>
+            <div style="padding:24px 20px 0;display:flex;flex-direction:column;gap:6px">
+              <div style="font-weight:300;font-size:18px;letter-spacing:-0.02em">Property Name</div>
+              <div style="font-size:7px;color:#4E5A68">Location</div>
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px;padding:10px 0;background:#FAFAF8">
+                <div style="display:flex;flex-direction:column;gap:3px;padding-left:10px"><span style="font-family:'Urbanist',sans-serif;font-size:5px;font-weight:600;letter-spacing:0.16em;color:#7A8592">TYPE</span><span style="font-size:8.5px;font-weight:500">Warehouse</span></div>
+                <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:'Urbanist',sans-serif;font-size:5px;font-weight:600;letter-spacing:0.16em;color:#7A8592">SIZE</span><span style="font-size:8.5px;font-weight:500">0,000 sq ft</span></div>
+                <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:'Urbanist',sans-serif;font-size:5px;font-weight:600;letter-spacing:0.16em;color:#7A8592">RATE</span><span style="font-size:8.5px;font-weight:500">CI$ 00 / sq ft</span></div>
+                <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:'Urbanist',sans-serif;font-size:5px;font-weight:600;letter-spacing:0.16em;color:#7A8592">FROM</span><span style="font-size:8.5px;font-weight:500">Month</span></div>
+              </div>
+              <div style="font-family:'Urbanist',sans-serif;align-self:flex-start;margin-top:6px;height:22px;padding:0 14px;background:#1B2E46;border-radius:11px;display:flex;align-items:center;font-size:6px;font-weight:600;letter-spacing:0.16em;color:#FAFAF8">ARRANGE A VIEWING</div>
+            </div>
+            <div style="font-family:'Urbanist',sans-serif;margin:18px 20px 0;font-size:5.5px;font-weight:600;letter-spacing:0.18em;color:#157279">ALSO AVAILABLE</div>
+            <div style="margin:8px 20px 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px">
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <img src="assets/pm-office.svg" alt="" style="width:100%;height:60px;object-fit:cover;display:block">
+                <span style="font-size:8px;font-weight:500">Office Suite</span>
+                <span style="font-size:6px;color:#4E5A68">0,000 sq ft · CI$ 00 / sq ft</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <img src="assets/pm-warehouse.svg" alt="" style="width:100%;height:60px;object-fit:cover;display:block">
+                <span style="font-size:8px;font-weight:500">Warehouse Unit</span>
+                <span style="font-size:6px;color:#4E5A68">0,000 sq ft · CI$ 00 / sq ft</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-screen-label="Email — tenant notice" style="background:#1B2E46;position:relative;overflow:hidden">
+          <div style="position:absolute;left:43px;top:32px;width:320px;height:520px;background:#FFFFFF;box-shadow:0 22px 44px -18px rgba(0,0,0,0.6)">
+            <div style="position:relative;height:130px;background:#1B2E46;overflow:hidden">
+              <img src="assets/pm-mark-tonal.svg" alt="" style="position:absolute;left:0;top:14px;height:102px;display:block">
+              <img src="assets/pm-wordmark-rev.svg" alt="Burke Property Management" style="position:absolute;right:20px;top:18px;width:52px;display:block">
+              <div style="font-family:'Urbanist',sans-serif;position:absolute;left:20px;bottom:42px;font-size:5.5px;font-weight:600;letter-spacing:0.18em;color:#6FA8A6">TENANT NOTICE</div>
+              <div style="position:absolute;left:20px;bottom:16px;font-weight:300;font-size:20px;letter-spacing:-0.02em;color:#FAFAF8">Notice Title</div>
+            </div>
+            <div style="padding:20px 20px 0;display:flex;flex-direction:column;gap:9px;font-size:7px;line-height:1.6;color:#2A3644">
+              <div>Dear Tenant,</div>
+              <div style="text-wrap:pretty">Open with the one thing the tenant needs to know, in a single short paragraph. Keep notices to what, when and where — details follow in the panel below.</div>
+            </div>
+            <div style="margin:14px 20px 0;background:#FAFAF8;display:flex;flex-direction:column">
+              <div style="display:flex;justify-content:space-between;padding:9px 12px;font-size:7px"><span style="font-family:'Urbanist',sans-serif;font-size:5px;font-weight:600;letter-spacing:0.16em;color:#7A8592">DATE</span><span style="font-weight:500">Day, 00 Month</span></div>
+              <div style="display:flex;justify-content:space-between;padding:9px 12px;font-size:7px;background:#E6E4E0"><span style="font-family:'Urbanist',sans-serif;font-size:5px;font-weight:600;letter-spacing:0.16em;color:#7A8592">TIME</span><span style="font-weight:500">0am – 0pm</span></div>
+              <div style="display:flex;justify-content:space-between;padding:9px 12px;font-size:7px"><span style="font-family:'Urbanist',sans-serif;font-size:5px;font-weight:600;letter-spacing:0.16em;color:#7A8592">BUILDING</span><span style="font-weight:500">Property name</span></div>
+            </div>
+            <div style="font-family:'Urbanist',sans-serif;margin:16px 20px 0;align-self:flex-start;width:fit-content;height:22px;padding:0 14px;background:#157279;border-radius:11px;display:flex;align-items:center;font-size:6px;font-weight:600;letter-spacing:0.16em;color:#FAFAF8">CONTACT THE OFFICE</div>
+            <div style="position:absolute;left:0;right:0;bottom:56px;height:74px;background:#FAFAF8;display:flex;align-items:center;justify-content:space-between;padding:0 20px">
+              <img src="assets/pm-wordmark.svg" alt="Burke Property Management" style="width:56px;display:block">
+              <div style="display:flex;flex-direction:column;gap:3px;text-align:right;font-size:6px;color:#4E5A68"><span>Telephone</span><span>Email</span><span>Website</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Signage" style="background:#FAFAF8;position:relative;overflow:hidden">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:46px;background:#E6E4E0"></div>
+        <div style="position:absolute;left:104px;top:226px;width:12px;height:40px;background:#6FA8A6"></div>
+        <div style="position:absolute;left:380px;top:226px;width:12px;height:40px;background:#6FA8A6"></div>
+        <div style="position:absolute;left:44px;top:30px;width:408px;height:196px;background:#FAFAF8;overflow:hidden;box-shadow:0 0 0 1px #DCDAD5,0 18px 30px -18px rgba(15,27,42,0.5)">
+          <div style="font-family:'Urbanist',sans-serif;position:absolute;left:22px;top:12px;font-size:40px;font-weight:700;letter-spacing:0.01em;white-space:nowrap;color:#1B2E46">FOR LEASE</div>
+          <div style="position:absolute;left:0;right:0;top:70px;bottom:0;background:#1B2E46">
+            <div style="font-family:'Urbanist',sans-serif;position:absolute;left:0;top:16px;height:26px;padding:0 16px 0 22px;background:#157279;border-radius:0 13px 13px 0;white-space:nowrap;display:flex;align-items:center;font-size:8px;font-weight:600;letter-spacing:0.18em;color:#FAFAF8">WAREHOUSE · OFFICE</div>
+            <div style="position:absolute;left:22px;top:54px;font-weight:300;font-size:20px;letter-spacing:-0.02em;white-space:nowrap;color:#FAFAF8">0,000 sq ft</div>
+            <div style="position:absolute;left:22px;bottom:14px;display:flex;gap:16px;font-size:8px;color:#B9C2CC"><span>Telephone</span><span>Website</span></div>
+            <img src="assets/pm-wordmark-rev.svg" alt="Burke Property Management" style="position:absolute;right:20px;bottom:14px;width:84px;display:block">
+          </div>
+        </div>
+
+        <div style="position:absolute;right:0;top:0;bottom:0;width:330px;background:#E6E4E0"></div>
+        <div style="position:absolute;right:0;top:0;bottom:46px;width:330px;background:#DCDAD5"></div>
+        <div style="position:absolute;right:65px;top:60px;width:200px;height:150px;background:#1B2E46;box-shadow:0 2px 0 rgba(15,27,42,0.25),0 22px 30px -16px rgba(15,27,42,0.55)">
+          <div style="font-family:'Urbanist',sans-serif;position:absolute;left:0;right:0;top:30px;text-align:center;font-size:7px;font-weight:600;letter-spacing:0.24em;color:#9FB6B9">MANAGED BY</div>
+          <img src="assets/pm-wordmark-rev.svg" alt="Burke Property Management" style="position:absolute;left:40px;top:52px;width:120px;display:block">
+          <div style="position:absolute;left:10px;top:10px;width:6px;height:6px;border-radius:50%;background:#8E99A6"></div>
+          <div style="position:absolute;right:10px;top:10px;width:6px;height:6px;border-radius:50%;background:#8E99A6"></div>
+          <div style="position:absolute;left:10px;bottom:10px;width:6px;height:6px;border-radius:50%;background:#8E99A6"></div>
+          <div style="position:absolute;right:10px;bottom:10px;width:6px;height:6px;border-radius:50%;background:#8E99A6"></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+
+        <div data-screen-label="Rental ad — warehouse" style="background:#E6E4E0;position:relative;overflow:hidden">
+          <div style="position:absolute;left:23px;top:44px;width:360px;height:120px;background:#1B2E46;overflow:hidden;box-shadow:0 12px 24px -14px rgba(15,27,42,0.5)">
+            <img src="assets/pm-warehouse.svg" alt="" style="position:absolute;left:0;top:0;width:140px;height:120px;object-fit:cover;display:block">
+            <div style="font-family:'Urbanist',sans-serif;position:absolute;left:140px;top:18px;height:18px;padding:0 10px 0 14px;background:#157279;border-radius:0 9px 9px 0;white-space:nowrap;display:flex;align-items:center;font-size:5.5px;font-weight:600;letter-spacing:0.18em;color:#FAFAF8">WAREHOUSE FOR LEASE</div>
+            <div style="position:absolute;left:154px;top:46px;font-weight:300;font-size:20px;letter-spacing:-0.02em;white-space:nowrap;color:#FAFAF8">0,000 sq ft</div>
+            <div style="position:absolute;left:154px;top:74px;font-size:6.5px;color:#B9C2CC">Location · CI$ 00 / sq ft</div>
+            <img src="assets/pm-wordmark-rev.svg" alt="Burke Property Management" style="position:absolute;right:16px;bottom:14px;width:52px;display:block">
+          </div>
+        </div>
+
+        <div data-screen-label="Rental ad — office" style="background:#157279;position:relative;overflow:hidden">
+          <div style="position:absolute;left:23px;top:44px;width:360px;height:120px;background:#FAFAF8;overflow:hidden;box-shadow:0 12px 24px -14px rgba(8,30,34,0.6)">
+            <img src="assets/pm-office.svg" alt="" style="position:absolute;right:0;top:0;width:140px;height:120px;object-fit:cover;display:block">
+            <div style="font-family:'Urbanist',sans-serif;position:absolute;left:18px;top:20px;font-size:5.5px;font-weight:600;letter-spacing:0.18em;color:#157279">OFFICE SPACE TO LET</div>
+            <div style="position:absolute;left:18px;top:32px;font-weight:300;font-size:20px;letter-spacing:-0.02em;white-space:nowrap;color:#0F1B2A">From 000 sq ft</div>
+            <div style="position:absolute;left:18px;top:60px;font-size:6.5px;color:#4E5A68">Location · Available now</div>
+            <div style="font-family:'Urbanist',sans-serif;position:absolute;left:18px;bottom:14px;height:18px;padding:0 10px;background:#1B2E46;border-radius:9px;display:flex;align-items:center;font-size:5.5px;font-weight:600;letter-spacing:0.16em;color:#FAFAF8">ENQUIRE</div>
+            <img src="assets/pm-wordmark.svg" alt="Burke Property Management" style="position:absolute;left:150px;bottom:12px;width:50px;display:block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1920,&quot;height&quot;:1140}}"></script>
+</body>
+</html>

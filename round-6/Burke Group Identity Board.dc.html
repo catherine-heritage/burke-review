@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="explorer.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="runtime-resources.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+
+
+<style>
+body{margin:0;background:#DCDAD5;-webkit-font-smoothing:antialiased}
+a{color:#1B2E46;text-decoration:none}a:hover{color:#A67C52}
+</style>
+</helmet>
+
+<div data-screen-label="Board 01 — The Edge" style="width:1920px;height:1140px;background:#DCDAD5;position:relative;font-family:'Hanken Grotesk',sans-serif;color:#0F1B2A;overflow:hidden">
+  <div style="position:absolute;left:40px;right:40px;top:40px;bottom:40px;display:grid;grid-template-columns:520px 460px minmax(0,1fr);gap:16px">
+
+    <!-- Column A -->
+    <div style="display:grid;grid-template-rows:560px 180px minmax(0,1fr);gap:16px">
+
+      <div data-screen-label="Primary logo" style="background:#FAFAF8;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
+        <div style="position:relative;width:300px;height:266px">
+          <sc-if value="{{ showGuides }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:-43px;border:1px dashed #B9B1A4"></div>
+            <div style="position:absolute;inset:0;outline:1px solid rgba(166,124,82,0.35)"></div>
+          </sc-if>
+          <img src="assets/logo-primary.svg" alt="Burke Group" style="width:300px;height:266px;display:block;position:relative">
+        </div>
+      </div>
+
+      <div data-screen-label="Colour" style="background:#FAFAF8;display:flex;align-items:flex-start;justify-content:center;gap:16px;padding-top:28px;box-sizing:border-box">
+        <div style="display:flex;flex-direction:column;gap:8px;width:80px">
+          <div style="width:80px;height:80px;background:#1B2E46"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">PRIMARY</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#1B2E46</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:80px">
+          <div style="width:80px;height:80px;background:#A67C52"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">SECONDARY</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#A67C52</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:80px">
+          <div style="width:80px;height:80px;background:#4E5A68"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">ACCENT</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#4E5A68</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:80px">
+          <div style="width:80px;height:80px;background:#E6E4E0"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">NEUTRAL 1</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#E6E4E0</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:80px">
+          <div style="width:80px;height:80px;background:#FAFAF8;box-shadow:inset 0 0 0 1px #D3CCC0"></div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.2em;color:#0F1B2A">NEUTRAL 2</div>
+          <div style="font-size:10px;font-weight:500;color:#4E5A68;margin-top:-4px">#FAFAF8</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+        <div data-screen-label="Favicons" style="background:#E6E4E0;display:flex;align-items:center;justify-content:center;gap:20px">
+          <div style="width:84px;height:84px;background:#1B2E46;border-radius:19px;display:flex;align-items:center;justify-content:center"><img src="assets/mark-rev.svg" alt="" style="width:48px;display:block"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+            <div style="width:32px;height:32px;background:#1B2E46;border-radius:6px;display:flex;align-items:center;justify-content:center"><img src="assets/mark-rev.svg" alt="" style="width:20px;display:block"></div>
+            <div style="width:16px;height:16px;background:#1B2E46;border-radius:3px;display:flex;align-items:center;justify-content:center"><img src="assets/mark-rev.svg" alt="" style="width:11px;display:block"></div>
+          </div>
+          <div style="width:64px;height:64px;background:#FAFAF8;border-radius:50%;display:flex;align-items:center;justify-content:center"><img src="assets/mark.svg" alt="" style="width:34px;display:block"></div>
+        </div>
+        <div data-screen-label="Reception sign" style="background:#DCDAD5;position:relative;overflow:hidden">
+          <div style="position:absolute;left:0;right:0;bottom:0;height:52px;background:#CFCCC6"></div>
+          <div style="position:absolute;left:38px;top:58px;width:176px;height:150px;background:#1B2E46;box-shadow:0 2px 0 rgba(15,27,42,0.25),0 22px 30px -16px rgba(15,27,42,0.55);display:flex;align-items:center;justify-content:center">
+            <img src="assets/logo-primary-rev.svg" alt="Burke Group" style="width:96px;display:block">
+            <div style="position:absolute;left:10px;top:10px;width:6px;height:6px;border-radius:50%;background:#8E99A6"></div>
+            <div style="position:absolute;right:10px;top:10px;width:6px;height:6px;border-radius:50%;background:#8E99A6"></div>
+            <div style="position:absolute;left:10px;bottom:10px;width:6px;height:6px;border-radius:50%;background:#8E99A6"></div>
+            <div style="position:absolute;right:10px;bottom:10px;width:6px;height:6px;border-radius:50%;background:#8E99A6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column B -->
+    <div style="display:grid;grid-template-rows:minmax(0,1fr) 340px;gap:16px">
+
+      <div data-screen-label="Annual report" style="background:#E6E4E0;position:relative;overflow:hidden">
+        <div style="position:absolute;left:60px;top:111px;width:340px;height:481px;background:#1B2E46;overflow:hidden;box-shadow:0 1px 1px rgba(15,27,42,0.2),0 18px 40px -12px rgba(15,27,42,0.45),0 40px 80px -30px rgba(15,27,42,0.35)">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:10px;background:linear-gradient(90deg,rgba(0,0,0,0.28),rgba(255,255,255,0.06) 60%,rgba(0,0,0,0))"></div>
+          <img src="assets/mark-tonal.svg" alt="" style="position:absolute;left:0;top:72px;height:236px;display:block">
+          <div style="position:absolute;left:28px;right:24px;top:338px;font-weight:300;font-size:34px;line-height:1.05;color:#FAFAF8;letter-spacing:-0.02em">Annual Report<br>2026</div>
+          <img src="assets/wordmark-rev.svg" alt="Burke Group" style="position:absolute;left:28px;bottom:24px;width:88px;display:block">
+        </div>
+      </div>
+
+      <div data-screen-label="Website" style="background:#A67C52;position:relative;overflow:hidden">
+        <div style="position:absolute;left:40px;top:40px;width:380px;height:260px;background:#FAFAF8;overflow:hidden;border-radius:4px 4px 0 0;box-shadow:0 1px 1px rgba(15,27,42,0.2),0 22px 40px -16px rgba(15,27,42,0.55)">
+          <div style="height:16px;background:#E6E4E0;display:flex;align-items:center;justify-content:center">
+            <div style="width:140px;height:8px;border-radius:4px;background:#FAFAF8"></div>
+          </div>
+          <div style="height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 20px">
+            <img src="assets/wordmark.svg" alt="Burke Group" style="width:40px;display:block">
+            <div style="display:flex;gap:14px;font-size:6px;font-weight:500;color:#0F1B2A">
+              <span>About</span><span>Services</span><span>Contact</span>
+            </div>
+          </div>
+          <div style="height:140px;background:#1B2E46;position:relative;overflow:hidden">
+            <img src="assets/mark-tonal.svg" alt="" style="position:absolute;left:0;top:18px;height:96px;display:block">
+            <div style="position:absolute;left:150px;right:20px;top:40px;font-weight:300;font-size:20px;line-height:1.1;letter-spacing:-0.02em;color:#FAFAF8">Page headline</div>
+            <div style="position:absolute;left:150px;top:72px;font-size:7px;color:#B9C2CC">Supporting text</div>
+            <div style="font-family:'Urbanist',sans-serif;position:absolute;left:150px;top:92px;height:16px;padding:0 10px;border-radius:0 8px 8px 0;background:#A67C52;display:flex;align-items:center;font-size:6px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#0F1B2A">Contact us</div>
+          </div>
+          <div style="position:relative;padding:18px 20px 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+            <div style="font-weight:300;font-size:11px;letter-spacing:-0.01em;color:#0F1B2A">Section title</div>
+            <div style="height:60px;background:#E6E4E0"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column C -->
+    <div style="display:grid;grid-template-rows:252px minmax(0,1fr) 252px;gap:16px">
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+
+        <div data-screen-label="Greeting card" style="background:#1B2E46;position:relative;overflow:hidden">
+          <div style="position:absolute;left:214px;top:48px;width:130px;height:182px;background:#E6E4E0;box-shadow:0 1px 1px rgba(0,0,0,0.25),0 16px 30px -14px rgba(0,0,0,0.55)">
+            <img src="assets/wordmark.svg" alt="Burke Group" style="position:absolute;left:43px;bottom:18px;width:44px;display:block">
+          </div>
+          <div style="position:absolute;left:62px;top:30px;width:130px;height:182px;background:#FAFAF8;overflow:hidden;box-shadow:0 1px 1px rgba(0,0,0,0.25),0 18px 34px -14px rgba(0,0,0,0.6)">
+            <img src="assets/mark.svg" alt="" style="position:absolute;left:0;top:104px;height:48px;display:block">
+          </div>
+        </div>
+
+        <div data-screen-label="Presentation template" style="background:#E6E4E0;position:relative;overflow:hidden">
+          <div style="position:absolute;left:24px;top:20px;transform:scale(0.72);transform-origin:0 0;width:300px;height:169px;background:#1B2E46;overflow:hidden;box-shadow:0 1px 1px rgba(15,27,42,0.2),0 18px 34px -14px rgba(15,27,42,0.5)">
+            <img src="assets/mark-tonal.svg" alt="" style="position:absolute;left:0;top:20px;height:80px;display:block">
+            <div style="position:absolute;left:22px;top:112px;font-weight:300;font-size:18px;letter-spacing:-0.02em;color:#FAFAF8">Presentation title</div>
+            <div style="position:absolute;left:22px;top:137px;font-size:7px;color:#B9C2CC">Subtitle</div>
+            <img src="assets/wordmark-rev.svg" alt="Burke Group" style="position:absolute;right:22px;bottom:16px;width:42px;display:block">
+          </div>
+          <div style="position:absolute;left:166px;top:110px;transform:scale(0.72);transform-origin:0 0;width:300px;height:169px;background:#FAFAF8;overflow:hidden;box-shadow:0 1px 1px rgba(15,27,42,0.12),0 16px 30px -14px rgba(15,27,42,0.4)">
+            <div style="position:absolute;left:22px;top:18px;font-weight:300;font-size:12px;letter-spacing:-0.01em;color:#0F1B2A">Section title</div>
+            <div style="position:absolute;left:22px;top:44px;width:120px;font-size:6px;line-height:1.6;color:#4E5A68">Body text</div>
+            <div style="position:absolute;left:156px;top:22px;right:22px;bottom:30px;background:#E6E4E0"></div>
+            <img src="assets/wordmark.svg" alt="Burke Group" style="position:absolute;right:22px;bottom:12px;width:30px;display:block">
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+
+        <div data-screen-label="Business cards" style="background:#E6E4E0;position:relative;overflow:hidden">
+          <div style="position:absolute;left:36px;top:75px;width:270px;height:175px;background:#FAFAF8;overflow:hidden;box-shadow:0 1px 1px rgba(15,27,42,0.12),0 14px 28px -12px rgba(15,27,42,0.35)">
+            <div style="position:absolute;left:22px;top:22px;font-weight:500;font-size:15px;line-height:1.1;letter-spacing:-0.01em">Name Surname</div>
+            <div style="position:absolute;left:22px;top:42px;font-size:9px;color:#4E5A68">Job Title</div>
+            <div style="position:absolute;left:22px;bottom:20px;display:flex;flex-direction:column;gap:4px;font-size:7.5px;color:#4E5A68">
+              <span>Telephone</span><span>Email address</span><span>Office address</span>
+            </div>
+          </div>
+          <div style="position:absolute;left:100px;top:273px;width:270px;height:175px;background:#1B2E46;overflow:hidden;box-shadow:0 1px 1px rgba(15,27,42,0.2),0 18px 34px -12px rgba(15,27,42,0.5)">
+            <img src="assets/mark-rev.svg" alt="" style="position:absolute;left:0;top:24px;height:62px;display:block">
+            <img src="assets/wordmark-rev.svg" alt="Burke Group" style="position:absolute;right:20px;bottom:20px;width:76px;display:block">
+          </div>
+        </div>
+
+        <div data-screen-label="Letterhead" style="background:#1B2E46;position:relative;overflow:hidden">
+          <div style="position:absolute;left:53px;top:50px;width:300px;height:424px;background:#FAFAF8;overflow:hidden;box-shadow:0 1px 1px rgba(0,0,0,0.25),0 22px 44px -16px rgba(0,0,0,0.55)">
+            <img src="assets/wordmark.svg" alt="Burke Group" style="position:absolute;left:29px;top:26px;width:58px;display:block">
+            <div style="font-family:'Urbanist',sans-serif;position:absolute;right:22px;top:27px;text-align:right;font-size:4.6px;font-weight:600;line-height:1.7;letter-spacing:0.12em;color:#7A8592;text-transform:uppercase">Office address<br>Telephone<br>Email<br>Website</div>
+            <div style="position:absolute;left:29px;right:40px;top:92px;font-size:6.4px;line-height:1.6;color:#2A3644">
+              <div style="font-family:'Urbanist',sans-serif;font-size:4.6px;font-weight:600;letter-spacing:0.12em;color:#7A8592;margin-bottom:12px">DATE</div>
+              <div style="margin-bottom:12px">Recipient Name<br>Address</div>
+              <div style="margin-bottom:8px">Dear Name,</div>
+              <div style="margin-bottom:8px;text-wrap:pretty">Letter text is set in Hanken Grotesk Regular, 10 pt on 15 pt leading, ranged left. The text column aligns with the left edge of the wordmark; nothing else enters the margin.</div>
+              <div style="margin-top:14px">Yours sincerely,</div>
+              <div style="margin-top:18px;font-weight:500">Name Surname</div>
+              <div style="color:#4E5A68">Job Title</div>
+            </div>
+            <div style="font-family:'Urbanist',sans-serif;position:absolute;left:29px;right:22px;bottom:18px;font-size:4.4px;font-weight:600;letter-spacing:0.12em;color:#7A8592;text-transform:uppercase">Company registration details</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+
+        <div data-screen-label="Meeting pad" style="background:#1B2E46;position:relative;overflow:hidden">
+          <div style="position:absolute;left:97px;top:52px;width:220px;height:312px;background:#E6E4E0;box-shadow:0 18px 34px -14px rgba(0,0,0,0.55)"></div>
+          <div style="position:absolute;left:93px;top:48px;width:220px;height:312px;background:#FAFAF8;box-shadow:0 1px 1px rgba(0,0,0,0.2)">
+            <img src="assets/mark.svg" alt="" style="position:absolute;left:0;top:18px;height:26px;display:block">
+            <div style="font-family:'Urbanist',sans-serif;position:absolute;left:100px;right:18px;top:20px;display:flex;flex-direction:column;gap:9px;font-size:4.6px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#7A8592">
+              <div style="border-bottom:0.5px solid #CFC9BF;padding-bottom:2px">Date</div>
+              <div style="border-bottom:0.5px solid #CFC9BF;padding-bottom:2px">Subject</div>
+            </div>
+            <div style="position:absolute;left:18px;right:18px;top:66px;bottom:0;background:repeating-linear-gradient(180deg,transparent 0,transparent 13px,#E6E4E0 13px,#E6E4E0 14px)"></div>
+          </div>
+        </div>
+
+        <div data-screen-label="Email signature" style="background:#FAFAF8;position:relative;overflow:hidden">
+          <div style="position:absolute;left:28px;right:28px;top:28px;bottom:28px;background:#FFFFFF;box-shadow:0 0 0 1px #E6E4E0,0 12px 28px -18px rgba(15,27,42,0.35);overflow:hidden">
+            <div style="position:absolute;left:28px;top:30px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:15px;font-weight:500;letter-spacing:-0.01em;color:#0F1B2A">Name Surname</div>
+              <div style="font-size:11px;color:#4E5A68">Job Title</div>
+            </div>
+            <div style="position:absolute;left:28px;top:92px;display:flex;align-items:center;gap:20px">
+              <img src="assets/wordmark.svg" alt="Burke Group" style="width:70px;display:block">
+              <div style="width:1px;height:38px;background:#E6E4E0"></div>
+              <div style="display:flex;flex-direction:column;gap:3px;font-size:10px;line-height:1.3;color:#4E5A68">
+                <span>Telephone</span><span>Email</span><span>Website</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1920,&quot;height&quot;:1140},&quot;showGuides&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showGuides: this.props.showGuides ?? false
+    };
+  }
+}
+</script>
+</body>
+</html>
